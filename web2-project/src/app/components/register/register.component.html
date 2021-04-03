@@ -1,0 +1,144 @@
+<form [formGroup]="registerForm" (ngSubmit)="submitRegistration()" class="container">
+    <div class="row">
+        <div class="col-md-8 col-sm-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header mb-4 mt-3">
+                        <h2>Create account</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input formControlName="username" type="text" name="username" id="username" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="username!.invalid && username!.touched">
+                            <div *ngIf="username!.errors!.required">Username is required.</div>
+                            <div *ngIf="username!.errors!.minlength">Username shouled be minimum {{ username!.errors!.minlength.requiredLength }} characters.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input formControlName="email" type="text" name="email" id="email" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="email!.invalid && email!.touched">
+                            <div *ngIf="email!.errors!.required">Email is required.</div>
+                            <div *ngIf="email!.errors!.email">Email does not look good.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input formControlName="password" type="password" name="password" id="password" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="password!.invalid && password!.touched">
+                            <div *ngIf="password!.errors!.required">Password is required.</div>
+                            <div *ngIf="password!.errors!.pattern">Password does not mach patern.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="password2">Repeat Password</label>
+                        <input formControlName="password2" type="password" name="password2" id="password2" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="password2!.invalid && password2!.touched">
+                            <div *ngIf="password2!.errors!.required">Repeat password is required.</div>
+                            <div *ngIf="password2!.errors!.pattern">Repeat password does not mach patern.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input formControlName="name" type="text" name="name" id="name" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="name!.invalid && name!.touched">
+                            <div *ngIf="name!.errors!.required">Name is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="lastname">Lastname</label>
+                        <input formControlName="lastname" type="text" name="lastname" id="lastname" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="lastname!.invalid && lastname!.touched">
+                            <div *ngIf="lastname!.errors!.required">Lastname is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of birth</label>
+                        <input formControlName="dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth" value="0000-00-00" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="dateOfBirth!.invalid && dateOfBirth!.touched">
+                            <div *ngIf="dateOfBirth!.errors!.required">Date of birth is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input formControlName="address" type="text" name="address" id="address" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
+                            <div *ngIf="address!.errors!.required">Address is required.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for="role">Role</label>
+                        <select formControlName="role" name="role" id="role" class="form-control">
+                            <option>Clan ekipe</option>
+                            <option>Dispecer</option>
+                            <option>Radnik</option>
+                        </select>
+                        <div class="alert alert-danger" *ngIf="role!.invalid && role!.touched">
+                            <div *ngIf="role!.errors!.required">Role is required.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <input type="submit" class="btn btn-primary btn-block mt-3" value="Sign up"/>
+                </div>
+                <div class="col-6">
+                    <input type="button" routerLink="/" class="btn btn-secondary btn-block mt-3" value="Cancel"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-header mb-5 mt-3">
+                        <h2>Profile picture</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <img [src]="imageSrc" class="img-fluid img-thumbnail w-75"/>
+                <input type="file" formControlName="picture" name="picture" id="picture" (change)="onChange($event)" class="form-control-file btn-info mt-3"/>   
+                <div class="alert alert-danger" *ngIf="picture!.invalid && picture!.touched">
+                    <div *ngIf="picture!.errors!.required">Picture is required.</div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+    
+</form>
+
