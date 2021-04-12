@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  poruka : string;
+
+  constructor(private commonService : CommonService, public router : Router) { }
 
   ngOnInit(): void {
+    this.commonService.data$.subscribe(message => this.poruka = message);
   }
 
-  
+  logIn(){
+    this.commonService.changeData("true");
+    this.router.navigate(["/Dashboard"]);
+  }
 
 }

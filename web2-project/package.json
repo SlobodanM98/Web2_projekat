@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "~11.2.3",
     "@angular/router": "~11.2.3",
     "bootstrap": "^4.6.0",
+    "component": "^1.1.0",
+    "jQuery": "^1.7.4",
     "jquery": "^3.6.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

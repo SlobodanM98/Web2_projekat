@@ -1,0 +1,108 @@
+<form [formGroup]="editForm" (ngSubmit)="submitEdit()" class="container">
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <div class="page-header mb-4 mt-3">
+                        <h2>Account details</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="form-group text-center">
+                        <img src="../../../assets/profil.png" class="img-fluid img-thumbnail" >
+                    <input type="file" formControlName="picture" name="picture" id="picture" (change)="onChange($event)" class="form-control-file btn-info mt-3">
+                    </div> 
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input formControlName="username" type="text" name="username" id="username" class="form-control" placeholder="Pera"/>
+                                <div class="alert alert-danger" *ngIf="username!.invalid && username!.dirty">
+                                    <div *ngIf="username!.errors!.minlength">Username shouled be minimum {{ username!.errors!.minlength.requiredLength }} characters.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input formControlName="email" type="text" name="email" id="email" class="form-control" placeholder="peraperic@gmail.com"/>
+                                <div class="alert alert-danger" *ngIf="email!.invalid && email!.dirty">
+                                    <div *ngIf="email!.errors!.email">Email does not look good.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input formControlName="password" type="password" name="password" id="password" class="form-control"/>
+                                <div class="alert alert-danger" *ngIf="password!.invalid && password!.dirty">
+                                    <div>Password does not mach patern.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password2">Repeat Password</label>
+                                <input formControlName="password2" type="password" name="password2" id="password2" class="form-control"/>
+                                <div class="alert alert-danger" *ngIf="password2!.invalid && password2!.dirty">
+                                    <div>Repeat password does not mach patern.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input formControlName="name" type="text" name="name" id="name" class="form-control" placeholder="Pera"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="lastname">Lastname</label>
+                                <input formControlName="lastname" type="text" name="lastname" id="lastname" class="form-control" placeholder="Perić"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of birth</label>
+                                <input formControlName="dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth" value="1995-05-05" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input formControlName="address" type="text" name="address" id="address" class="form-control" placeholder="Kralja Petra 5"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <select formControlName="role" name="role" id="role" class="form-control">
+                                    <option>Clan ekipe</option>
+                                    <option>Dispecer</option>
+                                    <option>Radnik</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary btn-block mt-3" value="Change"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
