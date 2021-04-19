@@ -12,13 +12,17 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardModule } from './components/dashboard/dashboard.module';
+import { ViewAllProfilesComponent } from './components/view-all-profiles/view-all-profiles.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     OutageComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    ViewAllProfilesComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

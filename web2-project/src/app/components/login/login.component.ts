@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   logIn(){
     this.commonService.changeData("true");
-    this.router.navigate(["/Dashboard"]);
+    this.router.navigate(["/Navbar"]);
   }
 
 }

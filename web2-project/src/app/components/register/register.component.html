@@ -1,3 +1,9 @@
+<div class="navbar navbar-dark bg-dark justify-content-center">    
+    <div class="navbar-brand">
+        <img src="../../assets/lightning.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        tESLA Distribution
+    </div>
+</div>
 <form [formGroup]="registerForm" (ngSubmit)="submitRegistration()" class="container">
     <div class="row">
         <div class="col-md-8 col-sm-6">
@@ -110,14 +116,6 @@
                     
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <input type="submit" class="btn btn-primary btn-block mt-3" value="Sign up"/>
-                </div>
-                <div class="col-6">
-                    <input type="button" routerLink="/" class="btn btn-secondary btn-block mt-3" value="Cancel"/>
-                </div>
-            </div>
         </div>
         <div class="col-md-4 col-sm-6">
             <div class="row">
@@ -136,8 +134,18 @@
             </div>
         </div>
         
-        
-        
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-6">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <input type="submit" class="btn btn-primary btn-block mt-3" value="Sign up"/>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <input type="button" routerLink="/" class="btn btn-secondary btn-block mt-3" value="Cancel"/>
+                </div>
+            </div>
+        </div>
     </div>
     
 </form>

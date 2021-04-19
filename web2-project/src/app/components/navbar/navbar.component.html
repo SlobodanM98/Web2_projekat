@@ -1,0 +1,32 @@
+<div>
+    <nav class="navbar navbar-expand navbar-dark bg-dark" >
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <div class="navbar-brand">{{pageDescription}}</div>
+                </li>
+            </ul>
+            <div class="navbar-brand">Pera Perić</div>
+            <a routerLink="Profile">
+                <img src="../../assets/profil.png" class="rounded-circle" width="50px" height="50px">
+            </a>
+        </div>
+    </nav>
+    
+    <div class="d-flex vl-100" id="wrapper" style="position: absolute;">
+        <!-- Sidebar -->
+            <div class="bg-dark navbar-light vh-100 border-right" id="sidebar-wrapper">
+    
+                <div class="list-group list-group-flush ">
+                    <a routerLink="ViewAllProfiles" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                </div>
+            </div>  
+    </div>
+
+    <router-outlet></router-outlet>
+</div>

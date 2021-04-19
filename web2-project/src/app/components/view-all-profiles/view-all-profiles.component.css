@@ -1,0 +1,4 @@
+img:hover {
+    border: 1px lightblue solid;
+    cursor: pointer;
+}

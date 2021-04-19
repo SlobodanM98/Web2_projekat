@@ -1,0 +1,94 @@
+<div class="container mt-5">
+    <div class="justify-content-center">
+        <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Profile</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <label>Username</label>
+                        <input type="text" class="form-control" value="{{ username }}" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label>Email</label>
+                        <input type="text" class="form-control" readonly>   
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label>Name</label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label>Lastname</label>
+                        <input type="text" class="form-control" readonly>   
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label>Date of birth</label>
+                        <input type="text" class="form-control" readonly>
+                    </div>
+                    <div class="col-6">
+                        <label>Address</label>
+                        <input type="text" class="form-control" readonly>   
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <label>Role</label>
+                        <input type="text" class="form-control" value="{{ tip }}" readonly>
+                    </div>
+                    <div class="col-6">
+                          
+                    </div>
+                </div>
+                <div class="row mt-5" *ngIf="aktivan=='procesira'">
+                    <div class="col-6">
+                        <button class="btn btn-success btn-block">Prihvati</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-danger btn-block">Odbi</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+            </div>
+        </ng-template>
+        
+        <div class="row row-cols-md-5 row-cols-sm-3">
+            <div class="col mb-4" *ngFor="let item of listaProfila; index as i;">
+              <div class="card h-100">
+                <a (click)="open(content, i)">
+                    <img src="../../../assets/profil.png" class="card-img-top" alt="...">
+                </a>
+                <div class="card-body">
+                  <h5 class="card-title">{{item.username}}</h5>
+                  <p class="card-text">{{item.tip}}</p>
+                </div>
+                <div class="card-footer">
+                    <div *ngIf="item.aktivan=='prihvacen'" class="text-center text-success">
+                        {{item.aktivan}}
+                    </div>
+                    <div *ngIf="item.aktivan=='odbijen'" class="text-center text-danger">
+                        {{item.aktivan}}
+                    </div>
+                    <div *ngIf="item.aktivan=='procesira'" class="text-center text-warning">
+                        {{item.aktivan}}
+                    </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+        </div>
+    </div>
+    
+</div>
