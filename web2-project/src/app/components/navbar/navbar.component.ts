@@ -15,9 +15,9 @@ export class NavbarComponent implements OnInit {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) { 
         let route = ev.url.split("/");
-        this.pageDescription = '';
-        for(let part of route) {
-          this.pageDescription += part + '/';
+        this.pageDescription = route[route.length - 1];
+        if(this.pageDescription == "Navbar"){
+          this.pageDescription = "Dashboard";
         }
       }
     });

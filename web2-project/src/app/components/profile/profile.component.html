@@ -11,8 +11,8 @@
             <div class="row">
                 <div class="col-md-4 col-sm-12">
                     <div class="form-group text-center">
-                        <img src="../../../assets/profil.png" class="img-fluid img-thumbnail" >
-                    <input type="file" formControlName="picture" name="picture" id="picture" (change)="onChange($event)" class="form-control-file btn-info mt-3">
+                        <img [src]="imageSrc" class="img-fluid img-thumbnail w-75">
+                        <input type="file" formControlName="picture" name="picture" id="picture" (change)="onChange($event)" class="form-control-file btn-info mt-3">
                     </div> 
                 </div>
                 <div class="col-md-8">

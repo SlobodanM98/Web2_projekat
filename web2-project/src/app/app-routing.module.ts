@@ -6,6 +6,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ViewAllProfilesComponent } from './components/view-all-profiles/view-all-profiles.component'
 import { NavbarComponent } from './components/navbar/navbar.component'
+import { NotificationsComponent} from "./components/notifications/notifications.component"
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'Profile', component: ProfileComponent },
       { path: 'ViewAllProfiles', component: ViewAllProfilesComponent },
+      { path: 'Notifications', component: NotificationsComponent},
     ]},
   { path: '', component: LoginComponent, pathMatch: 'full' }
 ];

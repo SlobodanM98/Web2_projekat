@@ -28,9 +28,9 @@ export class ViewAllProfilesComponent implements OnInit {
     this.username=this.listaProfila[index].username;
     this.tip=this.listaProfila[index].tip;
     this.aktivan=this.listaProfila[index].aktivan;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result : any) => {
       this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
+    }, (reason : any) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }

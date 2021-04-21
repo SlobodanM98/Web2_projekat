@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <div class="col-md-4 col-sm-6 col-xs-6">
+        <div class="col-10">
+            <div class="containter" style="border: 1px solid black; border-radius: 5%;">
+                <a (click)="showAllNotifications()">
+                    <div class="col-12 field" style="border-top-left-radius: 10%;border-top-right-radius: 10%">
+                        All notifications
+                    </div>
+                </a>
+                <a (click)="showUnreadNotifications()">
+                    <div class="col-12 field">
+                        Unread notifications
+                    </div>
+                </a>
+                <a (click)="showErrors()">
+                    <div class="col-12 field">
+                        Errors
+                    </div>
+                </a>
+                <a (click)="showInfos()">
+                    <div class="col-12 field">
+                        Info
+                    </div>
+                </a>
+                <a (click)="showSuccesses()">
+                    <div class="col-12 field">
+                        Success
+                    </div>
+                </a>
+                <a (click)="showWarnings()">
+                    <div class="col-12 field" style="border-bottom-left-radius: 10%;border-bottom-right-radius: 10%">
+                        Warning
+                    </div>
+                </a>
+            </div>
+            <div class="row">
+                <div class="col-7">
+                    <button (click)="markAllAsRead()">Mark all as read</button>
+                </div>
+                <div class="col-5">
+                    <button (click)="clearToast()">Clear all</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
