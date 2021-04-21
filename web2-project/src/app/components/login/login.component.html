@@ -46,8 +46,76 @@
 <div class="container-fluid p-4">
     <div class="row fixed-bottom">
         <div class="col text-center p-3">
-            <app-outage></app-outage>
+            <button class="btn btn-danger" (click)="openReportOutageModal(content)">Report outage</button>
         </div>
     </div>
 </div>
-<router-outlet></router-outlet>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Report outage</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="reportOutageForm" (ngSubmit)="submitReport()">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="reason"><span style="color: red;">*</span>Reason</label>
+                    <select formControlName="reason" type="text" id="reason" name="reason" class="form-control">
+                        <option value="Nema struje">Nema struje</option>
+                        <option value="Postoji kvar">Postoji kvar</option>
+                        <option value="Treperenje svetla">Treperenje svetla</option>
+                        <option value="Povratak struje">Povratak struje</option>
+                        <option value="Delemicna struja">Delimicna struja</option>
+                        <option value="Problemi s naponom">Problemi s naponom</option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="reason!.invalid && reason!.touched">
+                        <div *ngIf="reason!.errors!.required">Reason is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="address"><span style="color: red;">*</span>Address</label>
+                    <input formControlName="address" type="text" name="address" id="address" class="form-control">
+                    <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
+                        <div *ngIf="address!.errors!.required">Address is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="comment">Comment</label>
+                    <input formControlName="comment" type="text" name="comment" id="comment" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input formControlName="name" type="text" name="name" id="name" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="lastName">Last name</label>
+                    <input formControlName="lastName" type="text" name="lastName" id="lastName" class="form-control">
+                </div>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="submitReport()" [disabled]="!reportOutageForm.valid">Submit report</button>
+    </div>
+  </ng-template>
