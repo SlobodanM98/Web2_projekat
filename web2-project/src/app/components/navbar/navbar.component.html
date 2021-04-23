@@ -13,20 +13,27 @@
         </div>
     </nav>
     
-    <div class="d-flex vl-100" id="wrapper" style="position: absolute;">
-        <!-- Sidebar -->
-            <div class="bg-dark navbar-light vh-100 border-right" id="sidebar-wrapper">
-    
-                <div class="list-group list-group-flush ">
-                    <a routerLink="ViewAllProfiles" class="list-group-item list-group-item-action bg-dark">All profiles</a>
-                    <a routerLink="Notifications" class="list-group-item list-group-item-action bg-dark">Notifications</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
-                    <a routerLink="../Login" class="list-group-item list-group-item-action bg-dark">Log out</a>
-                </div>
-            </div>  
+    <div class="row">
+        <div class="col-1">
+            <div class="d-flex vl-100" id="wrapper" style="position: absolute;">
+                <!-- Sidebar -->
+                    <div class="bg-dark navbar-light vh-100 border-right" id="sidebar-wrapper">
+            
+                        <div class="list-group list-group-flush ">
+                            <a routerLink="ViewAllProfiles" class="list-group-item list-group-item-action bg-dark">All profiles</a>
+                            <a routerLink="Notifications" class="list-group-item list-group-item-action bg-dark">Notifications</a>
+                            <a routerLink="WorkPlan" class="list-group-item list-group-item-action bg-dark">Work plans</a>
+                            <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                            <a href="#" class="list-group-item list-group-item-action bg-dark">LINK</a>
+                            <a routerLink="../Login" class="list-group-item list-group-item-action bg-dark">Log out</a>
+                        </div>
+                    </div>  
+            </div>
+        </div>
+        <div class="col-11">
+            <router-outlet></router-outlet>
+        </div>
     </div>
 
-    <router-outlet></router-outlet>
+    
 </div>

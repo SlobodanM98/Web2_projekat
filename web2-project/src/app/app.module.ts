@@ -16,6 +16,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { ToastrModule } from 'ngx-toastr';
+import { WorkPlanComponent } from './components/work-plan/work-plan.component';
+import { WorkPlanFilteredComponent } from './components/work-plan/work-plan-filtered/work-plan-filtered.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { WorkPlanNewComponent } from './components/work-plan/work-plan-new/work-plan-new.component';
+import { WorkPlanBasicInfoComponent } from './components/work-plan/work-plan-new/work-plan-basic-info/work-plan-basic-info.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +33,10 @@ import { ToastrModule } from 'ngx-toastr';
     ViewAllProfilesComponent,
     NavbarComponent,
     NotificationsComponent,
+    WorkPlanComponent,
+    WorkPlanFilteredComponent,
+    WorkPlanNewComponent,
+    WorkPlanBasicInfoComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,7 +50,10 @@ import { ToastrModule } from 'ngx-toastr';
       disableTimeOut: true,
       preventDuplicates: true,
       positionClass: 'toast-bottom-right'
-    })
+    }),
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

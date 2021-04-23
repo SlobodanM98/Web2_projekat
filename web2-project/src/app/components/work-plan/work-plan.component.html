@@ -1,0 +1,57 @@
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-9 text-left">
+            <button class="btn btn-success" routerLink="../WorkPlanNew">New</button>
+        </div>
+        <div class="col-md-3">
+            <div class="text-right">
+                <button type="button" class="btn btn-primary" style="margin-left: 30px;" (click)="filterWorkPlans()">Filter</button>
+                <button type="button" class="btn btn-secondary" style="margin-left: 15px;" (click)="resetFilter()">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <div class="input-group form-group">
+                <select type="text" id="workPlanStatusFilter" name="status" class="form-control">
+                    <option hidden selected>Select one...</option>
+                    <option value="Draft">Draft</option>
+                    <option value="Submitted">Submitted</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Before</span>
+                </div>
+                <input type="date" class="form-control" id="workPlanBeforeDateFilter">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">After</span>
+                </div>
+                <input type="date" class="form-control" id="workPlanAfterDateFilter">
+            </div>
+        </div>
+        <div class="col-md-3 text-right">
+            <select type="text" id="workPlanViewFilter" name="status" class="form-control">
+                <option value="All">All</option>
+                <option value="Mine">Mine</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div [hidden]="filteredWorkPlans.length !== 0">
+                <hr/>
+                <h5 style="text-align: center;">There are no work planes with the defined parameters.</h5>
+            </div>
+            <div [hidden]="filteredWorkPlans.length === 0">
+                <app-work-plan-filtered [filteredData]="filteredWorkPlans"></app-work-plan-filtered>
+            </div>
+        </div>
+    </div>
+</div>
