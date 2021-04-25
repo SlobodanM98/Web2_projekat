@@ -11,6 +11,8 @@ import { WorkPlanComponent } from "./components/work-plan/work-plan.component";
 import { WorkPlanFilteredComponent} from "./components/work-plan/work-plan-filtered/work-plan-filtered.component";
 import { WorkPlanNewComponent} from "./components/work-plan/work-plan-new/work-plan-new.component";
 import { WorkPlanBasicInfoComponent} from "./components/work-plan/work-plan-new/work-plan-basic-info/work-plan-basic-info.component";
+import { ConsumersComponent} from "./components/consumers/consumers.component";
+import { ConsumersFilteredComponent} from "./components/consumers/consumers-filtered/consumers-filtered.component"
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -29,7 +31,12 @@ const routes: Routes = [
       { path: 'WorkPlanNew', component: WorkPlanNewComponent,
        children: [
          { path: 'WorkPlanBasicInfo', component: WorkPlanBasicInfoComponent}
-       ]}
+       ]},
+      { path: 'Consumers', component: ConsumersComponent,
+       children: [
+         { path: 'ConsumersFiltered', component: ConsumersFilteredComponent}
+       ]
+      }
     ]},
   { path: '', component: LoginComponent, pathMatch: 'full' }
 ];

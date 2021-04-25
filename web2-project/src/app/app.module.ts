@@ -23,6 +23,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { WorkPlanNewComponent } from './components/work-plan/work-plan-new/work-plan-new.component';
 import { WorkPlanBasicInfoComponent } from './components/work-plan/work-plan-new/work-plan-basic-info/work-plan-basic-info.component';
+import { ConsumersComponent } from './components/consumers/consumers.component';
+import { ConsumersFilteredComponent } from './components/consumers/consumers-filtered/consumers-filtered.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,8 @@ import { WorkPlanBasicInfoComponent } from './components/work-plan/work-plan-new
     WorkPlanFilteredComponent,
     WorkPlanNewComponent,
     WorkPlanBasicInfoComponent,
+    ConsumersComponent,
+    ConsumersFilteredComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +58,8 @@ import { WorkPlanBasicInfoComponent } from './components/work-plan/work-plan-new
     }),
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

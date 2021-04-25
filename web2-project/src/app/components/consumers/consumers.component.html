@@ -1,0 +1,120 @@
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-9 text-left">
+            <button class="btn btn-success" (click)="openAddConsumerModal(content)">New</button>
+        </div>
+        <div class="col-md-3">
+            <div class="text-right">
+                <button type="button" class="btn btn-primary" style="margin-left: 30px;" (click)="filterConsumers()">Filter</button>
+                <button type="button" class="btn btn-secondary" style="margin-left: 15px;" (click)="resetFilter()">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="input-group form-group">
+                <select type="text" id="consumerTypeFilter" name="type" class="form-control">
+                    <option hidden selected>Select one...</option>
+                    <option value="Residential">Residential</option>
+                    <option value="Commercial">Commercial</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div [hidden]="filteredConsumers.length !== 0">
+                <hr/>
+                <h5 style="text-align: center;">There are no work planes with the defined parameters.</h5>
+            </div>
+            <div [hidden]="filteredConsumers.length === 0">
+                <app-consumers-filtered [filteredData]="filteredConsumers"></app-consumers-filtered>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add consumer</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="addConsumerForm" (ngSubmit)="submitConsumer()">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="id"><span style="color: red;">*</span>ID</label>
+                    <input formControlName="id" type="number" id="id" name="id" class="form-control"/>
+                    <div class="alert alert-danger" *ngIf="id!.invalid && id!.touched">
+                        <div *ngIf="id!.errors!.required">ID is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="name"><span style="color: red;">*</span>Name</label>
+                    <input formControlName="name" type="text" name="name" id="name" class="form-control">
+                    <div class="alert alert-danger" *ngIf="name!.invalid && name!.touched">
+                        <div *ngIf="name!.errors!.required">Name is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="lastName"><span style="color: red;">*</span>Last name</label>
+                    <input formControlName="lastName" type="text" name="lastName" id="lastName" class="form-control">
+                    <div class="alert alert-danger" *ngIf="lastName!.invalid && lastName!.touched">
+                        <div *ngIf="lastName!.errors!.required">Last name is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="location"><span style="color: red;">*</span>Location</label>
+                    <input formControlName="location" type="text" name="location" id="location" class="form-control">
+                    <div class="alert alert-danger" *ngIf="location!.invalid && location!.touched">
+                        <div *ngIf="location!.errors!.required">Location is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="phoneNumber"><span style="color: red;">*</span>Phone number</label>
+                    <input formControlName="phoneNumber" type="number" name="phoneNumber" id="phoneNumber" class="form-control">
+                    <div class="alert alert-danger" *ngIf="phoneNumber!.invalid && phoneNumber!.touched">
+                        <div *ngIf="phoneNumber!.errors!.required">Phone number is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="type"><span style="color: red;">*</span>Type</label>
+                    <select formControlName="type" type="text" id="type" name="type" class="form-control">
+                        <option value="Residential">Residential</option>
+                        <option value="Commercial">Commercial</option>
+                    </select>
+                    <div class="alert alert-danger" *ngIf="type!.invalid && type!.touched">
+                        <div *ngIf="type!.errors!.required">Type is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-success" (click)="submitConsumer()" [disabled]="!addConsumerForm.valid">Add</button>
+    </div>
+</ng-template>
