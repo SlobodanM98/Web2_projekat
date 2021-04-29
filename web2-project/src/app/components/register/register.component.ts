@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {User} from 'src/app/model/user';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +10,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-
+  newUser:User;
   imageSrc:string = '../assets/profil.png';
 
   constructor(private fb: FormBuilder) { }
@@ -57,6 +58,9 @@ export class RegisterComponent implements OnInit {
 
   submitRegistration() {
     console.log(this.registerForm.controls);
+    this.newUser = new User(this.registerForm.controls['username'].value, this.registerForm.controls['name'].value, this.registerForm.controls['lastname'].value);
+    localStorage.setItem('session', JSON.stringify(this.newUser));
+    
   }
 
   onChange(e:any) {

@@ -1,0 +1,111 @@
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-3 text-left">
+            <button class="btn btn-success" (click)="openAddDocumentModal(content)">New</button>
+        </div>
+        
+        <div class="col-md-9">
+            <div class="text-right">
+                <button type="button" class="btn btn-primary" style="margin-left: 30px;" (click)="filterDocuments()">Filter</button>
+                <button type="button" class="btn btn-secondary" style="margin-left: 15px;" (click)="resetFilter()" >Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-4 text-left">
+            <div class="input-group form-group">
+                <select type="text" id="DocumentAuthorFilter" name="autor" class="form-control">
+                    <option value="showAll" selected>Sve</option>
+                    <option value="showMine">Samo moje</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div [hidden]="filteredDocuments.length !== 0">
+                <hr/>
+                <h5 style="text-align: center;">There are no safety documents with the defined parameters.</h5>
+            </div>
+            <div [hidden]="filteredDocuments.length === 0">
+                <app-documents-filtered [filteredData]="filteredDocuments"></app-documents-filtered>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add a safety document</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addDocumentForm" (ngSubmit)="submitDocument()">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="TipDokumenta"><span style="color: red;"></span>Document Type</label>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group input-group">
+                        <select type="text" id="TipDokumenta" name="TipDokumenta" class="form-control">
+                            <option value="Choose" hidden selected>Choose one...</option>
+                            <option value="Planiran">Planiran</option>
+                            <option value="Neplaniran">Neplaniran</option>
+                        </select>                        
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="PlanRada"><span style="color: red;">*</span>Plan</label>
+                        <input formControlName="PlanRada" type="text" name="PlanRada" id="PlanRada" class="form-control">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Author"><span style="color: red;"></span>Author</label>
+                        <input formControlName="Author" type="text" name="Author" id="Author" class="form-control">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Details"><span style="color: red;"></span>Details</label>
+                        <input formControlName="Details" type="text" name="Details" id="Details" class="form-control">
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Notes"><span style="color: red;"></span>Notes</label>
+                        <input formControlName="Notes" type="text" name="Notes" id="Notes" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="PhoneNum"><span style="color: red;"></span>Phone number</label>
+                        <input formControlName="PhoneNum" type="text" name="PhoneNum" id="PhoneNum" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+ 
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="submitDocument()">Add</button>
+    </div>
+</ng-template>

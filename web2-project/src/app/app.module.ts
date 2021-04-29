@@ -26,6 +26,12 @@ import { WorkPlanBasicInfoComponent } from './components/work-plan/work-plan-new
 import { ConsumersComponent } from './components/consumers/consumers.component';
 import { ConsumersFilteredComponent } from './components/consumers/consumers-filtered/consumers-filtered.component';
 import {MatIconModule} from '@angular/material/icon';
+import { DocumentsComponent } from './components/documents/documents.component';
+import { DocumentsFilteredComponent } from './components/documents/documents-filtered/documents-filtered.component';
+import { IncidentsComponent } from './components/incidents/incidents.component';
+import { IncidentsFilteredComponent } from './components/incidents/incidents-filtered/incidents-filtered.component';
+import { IncidentsNewComponent } from './components/incidents/incidents-new/incidents-new.component';
+import { IncidentsBasicInfoComponent } from './components/incidents/incidents-new/incidents-basic-info/incidents-basic-info.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +48,13 @@ import {MatIconModule} from '@angular/material/icon';
     WorkPlanBasicInfoComponent,
     ConsumersComponent,
     ConsumersFilteredComponent,
+    DocumentsComponent,
+    DocumentsFilteredComponent,
+    IncidentsComponent,
+    IncidentsFilteredComponent,
+    IncidentsNewComponent,
+    IncidentsBasicInfoComponent,
+   
   ],
   imports: [
     BrowserModule,

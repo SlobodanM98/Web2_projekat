@@ -13,13 +13,29 @@ import { WorkPlanNewComponent} from "./components/work-plan/work-plan-new/work-p
 import { WorkPlanBasicInfoComponent} from "./components/work-plan/work-plan-new/work-plan-basic-info/work-plan-basic-info.component";
 import { ConsumersComponent} from "./components/consumers/consumers.component";
 import { ConsumersFilteredComponent} from "./components/consumers/consumers-filtered/consumers-filtered.component"
+import { DocumentsComponent } from './components/documents/documents.component';
+import {DocumentsFilteredComponent} from './components/documents/documents-filtered/documents-filtered.component';
+import { IncidentsComponent } from './components/incidents/incidents.component';
+import { IncidentsNewComponent } from './components/incidents/incidents-new/incidents-new.component';
+import { IncidentsFilteredComponent } from './components/incidents/incidents-filtered/incidents-filtered.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
   { path: 'Register', component: RegisterComponent },
+  
   { path: 'Navbar', component: NavbarComponent, 
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full' },
+      { path: 'Incidents', component:IncidentsComponent,
+      children:
+      [
+        
+        {path:'IncidentsFilteded', component:IncidentsFilteredComponent}
+      ]},
+      { path :'Documents', component:DocumentsComponent,
+      children:[
+        { path:'DocumentsFiltered', component:DocumentsFilteredComponent}
+      ]},
       { path: 'Dashboard', component: DashboardComponent },
       { path: 'Profile', component: ProfileComponent },
       { path: 'ViewAllProfiles', component: ViewAllProfilesComponent },
@@ -28,6 +44,7 @@ const routes: Routes = [
        children: [
          { path: 'WorkPlanFiltered', component: WorkPlanFilteredComponent}
        ]},
+       {path:'newIncident', component:IncidentsNewComponent},
       { path: 'WorkPlanNew', component: WorkPlanNewComponent,
        children: [
          { path: 'WorkPlanBasicInfo', component: WorkPlanBasicInfoComponent}
@@ -38,7 +55,10 @@ const routes: Routes = [
        ]
       }
     ]},
-  { path: '', component: LoginComponent, pathMatch: 'full' }
+  { path: '', component: LoginComponent, pathMatch: 'full' },
+  
+  
+
 ];
 
 @NgModule({
