@@ -18,6 +18,7 @@ import {DocumentsFilteredComponent} from './components/documents/documents-filte
 import { IncidentsComponent } from './components/incidents/incidents.component';
 import { IncidentsNewComponent } from './components/incidents/incidents-new/incidents-new.component';
 import { IncidentsFilteredComponent } from './components/incidents/incidents-filtered/incidents-filtered.component';
+import { IncidentsBasicInfoComponent } from './components/incidents/incidents-new/incidents-basic-info/incidents-basic-info.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -44,7 +45,10 @@ const routes: Routes = [
        children: [
          { path: 'WorkPlanFiltered', component: WorkPlanFilteredComponent}
        ]},
-       {path:'newIncident', component:IncidentsNewComponent},
+      { path:'NewIncident', component:IncidentsNewComponent,
+       children: [
+         { path:'IncidentBasicInfo', component:IncidentsBasicInfoComponent}
+       ]},
       { path: 'WorkPlanNew', component: WorkPlanNewComponent,
        children: [
          { path: 'WorkPlanBasicInfo', component: WorkPlanBasicInfoComponent}

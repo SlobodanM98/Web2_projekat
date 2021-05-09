@@ -1,1 +1,107 @@
-<p>incidents-basic-info works!</p>
+<form [formGroup]="incidentBasicForm" class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="indicdentID">Incident ID:</label>
+                <input formControlName="indicdentID" type="text" name="indicdentID" id="incidentID" class="form-contol">
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="affectedCustomers">Affected Customers:</label>
+                <input formControlName="affectedCustomers" type="number" name="affectedCustomers" id="affectedCustomers" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="type">Type:</label>
+                <select formControllName="type" type="text" id="type" class="form-control">
+                    <option value="Planned">Planned Workd</option>
+                    <option value="Unplanned">Unplanned</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="outagetime">Outage time:</label>
+                <input formControlName="outagetime" type="date" name="outagetime" class="form-control" id="outagetime">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="priority">Priority:</label>
+                <input type="number"  formControlName="priority" name="priority" class="form-control" id="priority">
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="etr">ETR:</label>
+                <input type="date" formControlName="etr" name="etr" class="form-control" id="etr">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="confirmed">Confirmed:</label>
+                <input type="checkbox" formControlName="confirmed" name="confirmed" class="form-control" id="confirmed">
+
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="calls">Calls:</label>
+                <input type="number" formControlName="calls" name="calls" id="calls" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="status">Status</label>
+                <input type="text" name="status" formControlName="status" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="voltage">Voltage[kV]:</label>
+                <input type="text" name="voltage" formControlName="voltage" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input type="text" name="description" formControlName="description" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="scheduled">Scheduled Time:</label>
+                <input type="date" class="form-control" formControlName="scheduled" name="scheduled">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="eta">ETA:</label>
+                <input type="date" class="form-control" formControlName="eta" name="eta">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="ata">ATA:</label>
+                <input type="date" class="form-control" formControlName="ata" name="ata">
+            </div>
+        </div>
+    </div>
+</form>
