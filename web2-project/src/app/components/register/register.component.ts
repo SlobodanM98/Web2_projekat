@@ -58,7 +58,8 @@ export class RegisterComponent implements OnInit {
 
   submitRegistration() {
     console.log(this.registerForm.controls);
-    this.newUser = new User(this.registerForm.controls['username'].value, this.registerForm.controls['name'].value, this.registerForm.controls['lastname'].value, this.registerForm.controls['email'].value);
+    this.newUser = new User(this.registerForm.controls['username'].value, this.registerForm.controls['name'].value, this.registerForm.controls['lastname'].value, this.registerForm.controls['password'].value, 
+    this.registerForm.controls['dateOfBirth'].value, this.registerForm.controls['address'].value, this.registerForm.controls['email'].value, this.registerForm.controls['role'].value, this.registerForm.controls['picture'].value);
     localStorage.setItem('session', JSON.stringify(this.newUser));
     
   }

@@ -16,11 +16,11 @@ export class User {
     public address:string;
     public email: string
     public Role:Role;
-    selecetdFile : File;
+    public selecetdFile?: File;
 
    
 
-    constructor(username:string, first:string, last:string, password:string, bd:Date,addr:string, email:string, rola:Role, file:File)
+    constructor(username:string, first:string, last:string, password:string, bd:Date,addr:string, email:string, rola:Role, file?:File)
     {
        
         this.username = username;

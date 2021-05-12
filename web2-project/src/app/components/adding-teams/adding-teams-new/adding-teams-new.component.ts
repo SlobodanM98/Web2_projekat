@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { Router } from '@angular/router';
-import { User } from '../../../model/user'
+import { User, Role } from '../../../model/user'
 
 
 @Component({
@@ -14,22 +14,23 @@ export class AddingTeamsNewComponent implements OnInit {
 
   creatingTeamForm: FormGroup;
 
+
   teamMembers = [
-    new User('pepe', "pera", "peric", "pera@gmail.com"),
-    new User('m2', 'marko', 'matic', "marko@gmail.com"),
-    new User('jj', 'jole', 'jokic', 'jole@gmail.com'),
-    new User('pepe', "pera", "peric", "pera@gmail.com"),
-    new User('m2', 'marko', 'matic', "marko@gmail.com"),
-    new User('jj', 'jole', 'jokic', 'jole@gmail.com'),
+    new User('pepe', "pera", "peric", "", new Date(), "", "pera@gmail.com", Role.TeamMember, undefined),
+    new User('m2', 'marko', 'matic', "", new Date(), "", "marko@gmail.com", Role.TeamMember, undefined),
+    new User('jj', 'jole', 'jokic', "", new Date(), "", 'jole@gmail.com', Role.TeamMember, undefined),
+    new User('pepe', "pera", "peric", "", new Date(), "", "pera@gmail.com", Role.TeamMember, undefined),
+    new User('m2', 'marko', 'matic', "", new Date(), "", "marko@gmail.com", Role.TeamMember, undefined),
+    new User('jj', 'jole', 'jokic', "", new Date(), "", 'jole@gmail.com', Role.TeamMember, undefined),
   ];
 
   allMembers = [
-    new User('caca', "caca", "caric", "caca@gmail.com"),
-    new User('luk', 'luka', 'lukic', "luka@gmail.com"),
-    new User('tara', 'tamara', 'tatic', 'tara@gmail.com'),
-    new User('caca', "caca", "caric", "caca@gmail.com"),
-    new User('luk', 'luka', 'lukic', "luka@gmail.com"),
-    new User('tara', 'tamara', 'tatic', 'tara@gmail.com'),
+    new User('caca', "caca", "caric", "", new Date(), "", "caca@gmail.com", Role.TeamMember, undefined),
+    new User('luk', 'luka', 'lukic', "", new Date(), "", "luka@gmail.com", Role.TeamMember, undefined),
+    new User('tara', 'tamara', 'tatic', "", new Date(), "", 'tara@gmail.com', Role.TeamMember, undefined),
+    new User('caca', "caca", "caric", "", new Date(), "", "caca@gmail.com", Role.TeamMember, undefined),
+    new User('luk', 'luka', 'lukic', "", new Date(), "", "luka@gmail.com", Role.TeamMember, undefined),
+    new User('tara', 'tamara', 'tatic', "", new Date(), "", 'tara@gmail.com', Role.TeamMember, undefined),
   ];
 
   constructor(private fb: FormBuilder, public router : Router) { }

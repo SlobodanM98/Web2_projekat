@@ -4,6 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Team } from '../../model/team/team.model'
+import { User } from '../../model/user'
 
 @Component({
   selector: 'app-adding-teams',
@@ -26,10 +27,10 @@ export class AddingTeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.teams = new Array<Team>();
-    this.teams.push(new Team("T1", "Dream Team"));
-    this.teams.push(new Team("T2", "Konsultacije"));
-    this.teams.push(new Team("T3", "Web2"));
-    this.teams.push(new Team("T4", "SBES"));
+    this.teams.push(new Team("T1", "Dream Team", new Array<User>()));
+    this.teams.push(new Team("T2", "Konsultacije", new Array<User>()));
+    this.teams.push(new Team("T3", "Web2", new Array<User>()));
+    this.teams.push(new Team("T4", "SBES", new Array<User>()));
     
     this.dataSource = new MatTableDataSource(this.teams);
     this.dataSource.sort = this.sort;
