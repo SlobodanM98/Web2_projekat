@@ -19,6 +19,13 @@ import { IncidentsComponent } from './components/incidents/incidents.component';
 import { IncidentsNewComponent } from './components/incidents/incidents-new/incidents-new.component';
 import { IncidentsFilteredComponent } from './components/incidents/incidents-filtered/incidents-filtered.component';
 import { IncidentsBasicInfoComponent } from './components/incidents/incidents-new/incidents-basic-info/incidents-basic-info.component';
+import { AddingTeamsComponent } from './components/adding-teams/adding-teams.component';
+import { AddingTeamsNewComponent } from './components/adding-teams/adding-teams-new/adding-teams-new.component';
+import { WorkAccountComponent } from "./components/work-account/work-account.component";
+import { WorkAccountFilteredComponent } from "./components/work-account/work-account-filtered/work-account-filtered.component";
+import { WorkAccountNewComponent } from "./components/work-account/work-account-new/work-account-new.component";
+import { WorkAccountBasicInfoComponent } from "./components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component"
+import { MapComponent } from "./components/map/map.component"
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -57,7 +64,19 @@ const routes: Routes = [
        children: [
          { path: 'ConsumersFiltered', component: ConsumersFilteredComponent}
        ]
-      }
+      },
+      { path: 'WorkAccount', component: WorkAccountComponent,
+       children: [
+         { path: 'WorkAccountFiltered', component: WorkAccountFilteredComponent}
+       ]
+      },
+      { path: 'WorkAccountNew', component: WorkAccountNewComponent,
+      children: [
+        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent}
+      ]},
+      { path: 'AddingTeamsNew', component: AddingTeamsNewComponent },
+      { path: 'AddingTeams', component: AddingTeamsComponent },
+      { path: 'Map', component: MapComponent},
     ]},
   { path: '', component: LoginComponent, pathMatch: 'full' },
   

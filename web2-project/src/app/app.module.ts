@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +33,13 @@ import { IncidentsComponent } from './components/incidents/incidents.component';
 import { IncidentsFilteredComponent } from './components/incidents/incidents-filtered/incidents-filtered.component';
 import { IncidentsNewComponent } from './components/incidents/incidents-new/incidents-new.component';
 import { IncidentsBasicInfoComponent } from './components/incidents/incidents-new/incidents-basic-info/incidents-basic-info.component';
+import { AddingTeamsComponent } from './components/adding-teams/adding-teams.component';
+import { AddingTeamsNewComponent } from './components/adding-teams/adding-teams-new/adding-teams-new.component';
+import { WorkAccountComponent } from './components/work-account/work-account.component';
+import { WorkAccountFilteredComponent } from './components/work-account/work-account-filtered/work-account-filtered.component';
+import { WorkAccountNewComponent } from './components/work-account/work-account-new/work-account-new.component';
+import { WorkAccountBasicInfoComponent } from './components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +62,13 @@ import { IncidentsBasicInfoComponent } from './components/incidents/incidents-ne
     IncidentsFilteredComponent,
     IncidentsNewComponent,
     IncidentsBasicInfoComponent,
+    AddingTeamsComponent,
+    AddingTeamsNewComponent,
+    WorkAccountComponent,
+    WorkAccountFilteredComponent,
+    WorkAccountNewComponent,
+    WorkAccountBasicInfoComponent,
+    MapComponent,
    
   ],
   imports: [
@@ -64,6 +79,7 @@ import { IncidentsBasicInfoComponent } from './components/incidents/incidents-ne
     BrowserAnimationsModule,
     DashboardModule,
     NgbModule,
+    DragDropModule,
     ToastrModule.forRoot({
       disableTimeOut: true,
       preventDuplicates: true,

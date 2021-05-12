@@ -1,0 +1,78 @@
+<div class="container mt-3">
+    <form [formGroup]="creatingTeamForm" (ngSubmit)="submitTeamForm()">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="id">Id</label>
+                            <input formControlName="id" type="text" name="id" id="id" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input formControlName="name"t type="text" name="name" id="name" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <h5>Team members</h5>
+                        
+                        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="teamMembers" [cdkDropListConnectedTo]="[doneList]" class="example-list overflow-auto" style="max-height: 400px;" (cdkDropListDropped)="drop($event)">
+                            <div class="container-fluid" *ngFor="let item of teamMembers" cdkDrag>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card" style="height: 110px;">
+                                            <div class="card-horizontal">
+                                                <div class="img-square-wrapper">
+                                                    <img class="" src="../../../../assets/profil.png" width="110px" height="110px" alt="Card image cap">
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-text">{{item.username}}</h5>
+                                                    <p class="card-text">{{item.lastName}} {{item.lastName}}<br>{{item.email}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <h5>All members</h5>
+    
+                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="allMembers" [cdkDropListConnectedTo]="[todoList]" class="example-list overflow-auto" style="max-height: 485px;" (cdkDropListDropped)="drop($event)">
+                    <div class="container-fluid" *ngFor="let item of allMembers" cdkDrag>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card" style="height: 110px;">
+                                    <div class="card-horizontal">
+                                        <div class="img-square-wrapper">
+                                            <img class="" src="../../../../assets/profil.png" width="110px" height="110px" alt="Card image cap">
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-text">{{item.username}}</h5>
+                                            <p class="card-text">{{item.lastName}} {{item.lastName}}<br>{{item.email}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <input type="submit" class="btn btn-primary btn-block mt-3" value="Create"/>
+            </div>
+            <div class="col-md-3 col-sm-12">
+                <input type="button" routerLink="../AddingTeams" class="btn btn-secondary btn-block mt-3" value="Cancel"/>
+            </div>
+        </div>
+    </form>
+</div>

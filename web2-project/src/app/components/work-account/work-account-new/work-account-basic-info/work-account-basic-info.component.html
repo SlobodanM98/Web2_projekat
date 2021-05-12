@@ -1,0 +1,129 @@
+<form [formGroup]="workAccountForm" (ngSubmit)="submitWorkAccount()" class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select formControlName="type" type="text" name="type" id="type" class="form-control">
+                    <option value="Planned">Planned work</option>
+                    <option value="Unpplaned">Unpplaned work</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="type!.invalid && type!.touched">
+                    <div *ngIf="type!.errors!.required">Type is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label>Status</label>
+                <p class="form-control" style="font-weight: 600;">Draft</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label>Status</label>
+                <p class="form-control" style="font-weight: 600;">Draft</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-check mt-4">
+                <input class="form-check-input big-checkbox" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label" style="font-size: 17px;" for="flexCheckDefault">
+                  Default checkbox
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input formControlName="address" type="text" name="address" id="address" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
+                    <div *ngIf="address!.errors!.required">Address is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="startDate">Start date</label>
+                <input formControlName="startDate" type="date" name="startDate" id="startDate" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="startDate!.invalid && startDate!.touched">
+                    <div *ngIf="startDate!.errors!.required">Start date is required.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="endDate">End date</label>
+                <input formControlName="endDate" type="date" name="endDate" id="endDate" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="endDate!.invalid && endDate!.touched">
+                    <div *ngIf="endDate!.errors!.required">End date is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label>Creator</label>
+                <p class="form-control" style="font-weight: 600;">Pera Perić</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input formControlName="company" type="text" name="company" id="company" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="company!.invalid && company!.touched">
+                    <div *ngIf="company!.errors!.required">Company is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="phoneNomber">Phone number</label>
+                <input formControlName="phoneNomber" type="number" name="phoneNomber" id="phoneNomber" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="phoneNomber!.invalid && phoneNomber!.touched">
+                    <div *ngIf="phoneNomber!.errors!.required">Phone number is required.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="purpose">Purpose</label>
+                <input formControlName="purpose" type="text" name="purpose" id="purpose" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="purpose!.invalid && purpose!.touched">
+                    <div *ngIf="purpose!.errors!.required">Purpose is required.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="notes">Notes</label>
+                <input formControlName="notes" type="text" name="notes" id="notes" class="form-control"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Creation date</label>
+                <div style="font-weight: 600;">
+                    {{currentDate.toLocaleString().toLocaleString().split(',')[0]}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button type="button" class="btn btn-success" (click)="submitWorkAccount()" [disabled]="!workAccountForm.valid">Submit report</button>
+        </div>
+    </div>
+</form>
