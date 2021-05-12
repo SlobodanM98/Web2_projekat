@@ -1,3 +1,4 @@
+
 export enum IncidentType
 {
     Planiran,
@@ -18,7 +19,20 @@ export class Incident {
     private ETR:string;
     private NivoNapona:number;
     private PVR:string; //planirano vreme rada
-    
 
-
+    constructor(id:string,tip:IncidentType,prioritet:number,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string)
+    {
+        this.ID = id;
+        this.Tip = tip;
+        this.Prioritet = prioritet;
+        this.Status = status;
+        this.ETA = eta;
+        this.ATA = ata;
+        this.VremeIncidenta = vremeincidenta;
+        this.ETR = etr;
+        this.NivoNapona = nivonapona;
+        this.PVR = pvr;
+    }
 }
+
+
