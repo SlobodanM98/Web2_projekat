@@ -8,7 +8,7 @@ export enum IncidentType
 
 //nezavrsena klasa
 export class Incident {
-    private ID:string;
+    public ID:string;
     private Tip:IncidentType;
     private Prioritet:number;
     private Potvrdjen:boolean;

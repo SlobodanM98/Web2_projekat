@@ -40,6 +40,11 @@ import { WorkAccountFilteredComponent } from './components/work-account/work-acc
 import { WorkAccountNewComponent } from './components/work-account/work-account-new/work-account-new.component';
 import { WorkAccountBasicInfoComponent } from './components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component';
 import { MapComponent } from './components/map/map.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -69,6 +74,7 @@ import { MapComponent } from './components/map/map.component';
     WorkAccountNewComponent,
     WorkAccountBasicInfoComponent,
     MapComponent,
+    SettingsComponent,
    
   ],
   imports: [
@@ -88,7 +94,11 @@ import { MapComponent } from './components/map/map.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

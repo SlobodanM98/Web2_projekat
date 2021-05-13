@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { element } from 'protractor';
+import { Incident, IncidentType } from 'src/app/model/incident';
+import { Team } from 'src/app/model/team/team.model';
+import { Role, User } from 'src/app/model/user';
 import { Status, WorkPlan } from 'src/app/model/work-plan';
 
 @Component({
@@ -25,10 +27,10 @@ export class WorkPlanComponent implements OnInit {
 
   ngOnInit(): void {
     this.allWorkPlans = new Array<WorkPlan>();
-    this.allWorkPlans.push(new WorkPlan("WT1",Status.Draft, new Date(2021,3,21,12,16)));
-    this.allWorkPlans.push(new WorkPlan("WT2",Status.Draft, new Date(2021,3,25,12,0)));
-    this.allWorkPlans.push(new WorkPlan("WT3",Status.Submitted, new Date(2021,3,11,11,0)));
-    this.allWorkPlans.push(new WorkPlan("WT4",Status.Submitted, new Date(2021,3,22,12,45)));
+    this.allWorkPlans.push(new WorkPlan("WT1", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,21,12,16)));
+    this.allWorkPlans.push(new WorkPlan("WT2", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,25,12,0)));
+    this.allWorkPlans.push(new WorkPlan("WT3", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,11,11,0)));
+    this.allWorkPlans.push(new WorkPlan("WT4", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,22,12,45)));
     
     this.filteredWorkPlans = new Array<WorkPlan>();
 
@@ -54,7 +56,7 @@ export class WorkPlanComponent implements OnInit {
       if(this.getFilterFieldValue("workPlanStatusFilter") === "Draft"){
         this.status = Status.Draft;
       }else{
-        this.status = Status.Submitted;
+        this.status = Status.Approved;
       }
     }
     console.log(this.getFilterFieldValue("workPlanStatusFilter"));
@@ -113,5 +115,9 @@ export class WorkPlanComponent implements OnInit {
 
   getFilterFieldValue(filterFieldId: string) {
     return (<HTMLInputElement> document.getElementById(filterFieldId)).value;
+  }
+
+  workPlanClick(workPlan: WorkPlan){
+
   }
 }

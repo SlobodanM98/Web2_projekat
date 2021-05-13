@@ -22,6 +22,17 @@
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
+                <label for="incident">Incident</label>
+                <select formControlName="incident" type="text" name="incident" id="incident" class="form-control">
+                    <option *ngFor="let incidnetID of allIncidents" [value]="incidnetID.ID">{{incidnetID.ID}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="incident!.invalid && incident!.touched">
+                    <div *ngIf="incident!.errors!.required">Incident is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
                 <label for="address">Address</label>
                 <input formControlName="address" type="text" name="address" id="address" class="form-control"/>
                 <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
@@ -29,6 +40,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="startDate">Start date</label>
@@ -38,14 +51,25 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="endDate">End date</label>
                 <input formControlName="endDate" type="date" name="endDate" id="endDate" class="form-control"/>
                 <div class="alert alert-danger" *ngIf="endDate!.invalid && endDate!.touched">
                     <div *ngIf="endDate!.errors!.required">End date is required.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="team">Team</label>
+                <select formControlName="team" type="text" name="team" id="team" class="form-control">
+                    <option *ngFor="let teamID of allTeams" [value]="teamID.id">{{teamID.id}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="team!.invalid && team!.touched">
+                    <div *ngIf="team!.errors!.required">Team is required.</div>
                 </div>
             </div>
         </div>

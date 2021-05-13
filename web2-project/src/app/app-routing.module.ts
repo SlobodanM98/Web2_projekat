@@ -26,6 +26,7 @@ import { WorkAccountFilteredComponent } from "./components/work-account/work-acc
 import { WorkAccountNewComponent } from "./components/work-account/work-account-new/work-account-new.component";
 import { WorkAccountBasicInfoComponent } from "./components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component"
 import { MapComponent } from "./components/map/map.component"
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -77,6 +78,7 @@ const routes: Routes = [
       { path: 'AddingTeamsNew', component: AddingTeamsNewComponent },
       { path: 'AddingTeams', component: AddingTeamsComponent },
       { path: 'Map', component: MapComponent},
+      { path: 'Settings', component: SettingsComponent}
     ]},
   { path: '', component: LoginComponent, pathMatch: 'full' },
   
