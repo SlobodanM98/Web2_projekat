@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { NotificationDescription} from '../../model/notification-description/notification-description.module';
+import { NotificationDescription, NotificationType} from '../../model/notification-description/notification-description.module';
 
 @Component({
   selector: 'app-notifications',
@@ -16,10 +16,10 @@ export class NotificationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.allNotifications = new Array<NotificationDescription>();
-    this.allNotifications.push(new NotificationDescription("Save successfule", "success", false, false, "", new Date(2021,4,21,12,16)));
-    this.allNotifications.push(new NotificationDescription("Uploated file has virus.", "error", false, false, "", new Date(2021,4,21,12,10)));
-    this.allNotifications.push(new NotificationDescription("Switching plan S1 has changed it's status.", "info", false, true, "http://www.google.com", new Date(2021,4,21,12,12)));
-    this.allNotifications.push(new NotificationDescription("Warning", "warning", false, false, "", new Date(2021,4,21,12,14)));
+    this.allNotifications.push(new NotificationDescription("Save successfule", NotificationType.Success, false, false, "", new Date(2021,4,21,12,16)));
+    this.allNotifications.push(new NotificationDescription("Uploated file has virus.", NotificationType.Error, false, false, "", new Date(2021,4,21,12,10)));
+    this.allNotifications.push(new NotificationDescription("Switching plan S1 has changed it's status.", NotificationType.Info, false, true, "http://www.google.com", new Date(2021,4,21,12,12)));
+    this.allNotifications.push(new NotificationDescription("Warning", NotificationType.Warning, false, false, "", new Date(2021,4,21,12,14)));
 
     this.filteredNotifications = new Array<NotificationDescription>();
   }
@@ -39,21 +39,21 @@ export class NotificationsComponent implements OnInit {
     this.clearToast();
     this.allNotifications.forEach(element => {
       if(element.hasLink){
-        if(element.type === "success"){
+        if(element.type === NotificationType.Success){
           this.toastr.success(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-        }else if(element.type === "error"){
+        }else if(element.type === NotificationType.Error){
           this.toastr.error(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-        }else if(element.type === "info"){
+        }else if(element.type === NotificationType.Info){
           this.toastr.info(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }else{
           this.toastr.warning(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }else{
-        if(element.type === "success"){
+        if(element.type === NotificationType.Success){
           this.toastr.success(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-        }else if(element.type === "error"){
+        }else if(element.type === NotificationType.Error){
           this.toastr.error(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-        }else if(element.type === "info"){
+        }else if(element.type === NotificationType.Info){
           this.toastr.info(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }else{
           this.toastr.warning(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
@@ -67,21 +67,21 @@ export class NotificationsComponent implements OnInit {
     this.allNotifications.forEach(element => {
       if(!element.isRead){
         if(element.hasLink){
-          if(element.type === "success"){
+          if(element.type === NotificationType.Success){
             this.toastr.success(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-          }else if(element.type === "error"){
+          }else if(element.type === NotificationType.Error){
             this.toastr.error(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-          }else if(element.type === "info"){
+          }else if(element.type === NotificationType.Info){
             this.toastr.info(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
           }else{
             this.toastr.warning(element.description + '<a href="' + element.link + '"> Open </a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
           }
         }else{
-          if(element.type === "success"){
+          if(element.type === NotificationType.Success){
             this.toastr.success(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-          }else if(element.type === "error"){
+          }else if(element.type === NotificationType.Error){
             this.toastr.error(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
-          }else if(element.type === "info"){
+          }else if(element.type === NotificationType.Info){
             this.toastr.info(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
           }else{
             this.toastr.warning(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
@@ -95,11 +95,11 @@ export class NotificationsComponent implements OnInit {
     this.clearToast();
     this.allNotifications.forEach(element => {
       if(element.hasLink){
-        if(element.type === "error"){
+        if(element.type === NotificationType.Error){
           this.toastr.error(element.description + '<a href="' + element.link + '"> Open</a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }else{
-        if(element.type === "error"){
+        if(element.type === NotificationType.Error){
           this.toastr.error(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }
@@ -110,11 +110,11 @@ export class NotificationsComponent implements OnInit {
     this.clearToast();
     this.allNotifications.forEach(element => {
       if(element.hasLink){
-        if(element.type === "info"){
+        if(element.type === NotificationType.Info){
           this.toastr.info(element.description + '<a href="' + element.link + '"> Open</a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }else{
-        if(element.type === "info"){
+        if(element.type === NotificationType.Info){
           this.toastr.info(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }
@@ -125,11 +125,11 @@ export class NotificationsComponent implements OnInit {
     this.clearToast();
     this.allNotifications.forEach(element => {
       if(element.hasLink){
-        if(element.type === "success"){
+        if(element.type === NotificationType.Success){
           this.toastr.success(element.description + '<a href="' + element.link + '"> Open</a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }else{
-        if(element.type === "success"){
+        if(element.type === NotificationType.Success){
           this.toastr.success(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }
@@ -140,11 +140,11 @@ export class NotificationsComponent implements OnInit {
     this.clearToast();
     this.allNotifications.forEach(element => {
       if(element.hasLink){
-        if(element.type === "warning"){
+        if(element.type === NotificationType.Warning){
           this.toastr.warning(element.description + '<a href="' + element.link + '"> Open</a>', element.date.toLocaleString(),{enableHtml: true}).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }else{
-        if(element.type === "warning"){
+        if(element.type === NotificationType.Warning){
           this.toastr.warning(element.description, element.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick(element));
         }
       }

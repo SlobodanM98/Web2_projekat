@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export enum Role {
     TeamMember,
     Dispatcher,
@@ -13,24 +15,23 @@ export class User {
     public lastName: string;
     public password:string;
     public birthDate:Date;
-    public address:string;
+    public address: Address;
     public email: string
     public Role:Role;
     public selecetdFile?: File;
 
    
 
-    constructor(username:string, first:string, last:string, password:string, bd:Date,addr:string, email:string, rola:Role, file?:File)
+    constructor(username:string, first:string, last:string, password:string, bd:Date,addr:Address, email:string, rola:Role, file?:File)
     {
-       
         this.username = username;
         this.firstName = first;
         this.lastName = last;
+        this.password = password;
         this.email = email;
         this.birthDate = bd;
         this.address = addr;
         this.Role = rola;
         this.selecetdFile = file;
-      
     }
 }

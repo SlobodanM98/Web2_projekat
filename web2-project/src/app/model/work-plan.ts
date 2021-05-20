@@ -1,3 +1,4 @@
+import { Device } from "./device";
 import { Incident } from "./incident";
 import { Team } from "./team/team.model";
 import { User } from "./user";
@@ -25,8 +26,9 @@ export class WorkPlan {// treba da se doda nalog za rad
     public phone: number;
     public creationDate: Date;
     public statusHistory: Array<StatusHistory>;
+    public equipment : Device
 
-    constructor(id: string, incident: Incident, address: string, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date){
+    constructor(id: string, incident: Incident, address: string, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device){
         this.id = id;
         this.status = Status.Draft;
         this.incident = incident;
@@ -42,6 +44,7 @@ export class WorkPlan {// treba da se doda nalog za rad
         this.creationDate = creationDate;
         this.statusHistory = new Array<StatusHistory>();
         this.statusHistory.push(new StatusHistory(this.creationDate, this.createdBy, this.status));
+        this.equipment = equipment;
     }
 }
 
