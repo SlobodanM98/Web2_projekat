@@ -9,12 +9,12 @@ export enum DeviceType{
 
 export class Device {
 	
-	private Type:DeviceType;
-	private ID:string;
-	private Name:string;
-	private Address:Address;
-	private LongCoord:number;
-	private LatCoord:number;
+	public Type:DeviceType;
+	public ID:string;
+	public Name:string;
+	public Address:Address;
+	public LongCoord:number;
+	public LatCoord:number;
 	
 	construcotr(type:DeviceType, id:string, name:string, addr:Address, longcoord:number, latcoord:number)
 	{

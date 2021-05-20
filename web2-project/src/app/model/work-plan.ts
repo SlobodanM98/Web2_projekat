@@ -1,3 +1,4 @@
+import { Address } from "./address";
 import { Device } from "./device";
 import { Incident } from "./incident";
 import { Team } from "./team/team.model";
@@ -15,7 +16,7 @@ export class WorkPlan {// treba da se doda nalog za rad
     public id: string;
     public status: Status;
     public incident: Incident;
-    public address: string;
+    public address: Address;
     public team: Team;
     public createdBy: User;
     public startDate: Date;
@@ -25,10 +26,10 @@ export class WorkPlan {// treba da se doda nalog za rad
     public company: string;
     public phone: number;
     public creationDate: Date;
-    public statusHistory: Array<StatusHistory>;
+    public statusHistory: Array<WorkPlanStatusHistory>;
     public equipment : Device
 
-    constructor(id: string, incident: Incident, address: string, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device){
+    constructor(id: string, incident: Incident, address: Address, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device){
         this.id = id;
         this.status = Status.Draft;
         this.incident = incident;
@@ -42,13 +43,13 @@ export class WorkPlan {// treba da se doda nalog za rad
         this.company = company;
         this.phone = phone;
         this.creationDate = creationDate;
-        this.statusHistory = new Array<StatusHistory>();
-        this.statusHistory.push(new StatusHistory(this.creationDate, this.createdBy, this.status));
+        this.statusHistory = new Array<WorkPlanStatusHistory>();
+        this.statusHistory.push(new WorkPlanStatusHistory(this.creationDate, this.createdBy, this.status));
         this.equipment = equipment;
     }
 }
 
-export class StatusHistory{
+export class WorkPlanStatusHistory{
     public date: Date;
     public changedBy: User;
     public status: Status;

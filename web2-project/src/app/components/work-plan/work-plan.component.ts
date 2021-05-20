@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Address } from 'src/app/model/address';
+import { Call } from 'src/app/model/call';
+import { Device } from 'src/app/model/device';
 import { Incident, IncidentType } from 'src/app/model/incident';
 import { Team } from 'src/app/model/team/team.model';
 import { Role, User } from 'src/app/model/user';
@@ -27,11 +30,10 @@ export class WorkPlanComponent implements OnInit {
 
   ngOnInit(): void {
     this.allWorkPlans = new Array<WorkPlan>();
-    this.allWorkPlans.push(new WorkPlan("WT1", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,21,12,16)));
-    this.allWorkPlans.push(new WorkPlan("WT2", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,25,12,0)));
-    this.allWorkPlans.push(new WorkPlan("WT3", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,11,11,0)));
-    this.allWorkPlans.push(new WorkPlan("WT4", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr"), "address", new Team("T1","name",new Array<User>()), new User("Pera", "Pera", "Peric", "123", new Date(), "address", "email", Role.TeamMember), new Date(), new Date(), "", "", "", 123, new Date(2021,3,22,12,45)));
-    
+    this.allWorkPlans.push(new WorkPlan("WT1", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address("", 1, 1), new Team("","", new Array<User>()), new User("","","","",new Date(), new Address("", 1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
+    this.allWorkPlans.push(new WorkPlan("WT2", new Incident("INC2", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address("", 1, 1), new Team("","", new Array<User>()), new User("","","","",new Date(), new Address("", 1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
+    this.allWorkPlans.push(new WorkPlan("WT3", new Incident("INC3", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address("", 1, 1), new Team("","", new Array<User>()), new User("","","","",new Date(), new Address("", 1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
+    this.allWorkPlans.push(new WorkPlan("WT4", new Incident("INC4", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address("", 1, 1), new Team("","", new Array<User>()), new User("","","","",new Date(), new Address("", 1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
     this.filteredWorkPlans = new Array<WorkPlan>();
 
     this.allWorkPlans.forEach(element => {
