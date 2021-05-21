@@ -1,0 +1,102 @@
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-9 text-left">
+            <button class="btn btn-success" (click)="openAddDeviceModal(content)">New</button>
+        </div>
+        <div class="col-md-3">
+            <div class="text-right">
+                <button type="button" class="btn btn-primary" style="margin-left: 30px;" (click)="FilterDevices()">Filter</button>
+                <button type="button" class="btn btn-secondary" style="margin-left: 15px;" (click)="resetFilter()">Reset</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <div [hidden]="filteredDevices.length !== 0">
+                <hr/>
+                <h5 style="text-align: center;">There are no devices with the defined parameters</h5>
+            </div>
+            <div >
+                <app-devices-filtered [filteredData]="filteredDevices"></app-devices-filtered>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add device</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addDeviceForm" (ngSubmit)="submitDevice()">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="id"><span style="color: red;">*</span>ID</label>
+                        <input formControlName="id" type="text" id="id" name="id" class="form-control"/>
+                        <div class="alert alert-danger" *ngIf="id!.invalid && id!.touched">
+                            <div *ngIf="id!.errors!.required">ID is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Name"><span style="color:red;">*</span>Name</label>
+                        <input formControlName="Name" type="text" name="Name" id="Name" class="form-control">
+                        <div class="alert alert-danger" *ngIf="Name!.invalid && Name!.touched">
+                            <div *ngIf="Name!.errors!.required">Name is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Tip"><span style="color:red;"></span>Tip</label>
+                        <select formControlName="Tip" type="text" name="Tip" id="Tip" class="form-control">
+                            <option value="Prekidac">Prekidac</option>
+                            <option value="Osigurac">Osigurac</option>
+                            <option value="Transformator">Transformator</option>
+                            <option value="Diskonektor">Diskonektor</option>
+                        </select>
+                        <div class="alert alert-danger" *ngIf="Tip!.invalid && Tip!.touched">
+                            <div *ngIf="Tip!.errors!.required">Type is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Lon"><span style="color: red;"></span>Longitude</label>
+                        <input formControlName="Lon" type="text" name="Lon" id="Lon" class="form-control">
+                        <div class="alert alert-danger" *ngIf="Lon!.invalid && Lon!.untouched">
+                            <div *ngIf="Lon!.errors!.required">Longitude is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Lat"><span style="color: red;"></span>Latitude</label>
+                        <input formControlName="Lat" type="text" name="Lat" id="Lat" class="form-control">
+                        <div class="alert alert-danger" *ngIf="Lat!.invalid && Lat!.untouched">
+                            <div *ngIf="Lat!.errors!.required">Latitude is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="submitDevice()" [disabled]="!addDeviceForm.valid">Add</button>
+    </div>
+
+</ng-template>

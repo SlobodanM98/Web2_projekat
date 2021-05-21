@@ -25,9 +25,9 @@
         <div class="col">
             <div [hidden]="filteredIncidents.length !== 0">
                 <hr/>
-                <h5>There are no incidents with the defined parameters.</h5>
+                <h5 style="text-align: center;">There are no incidents with the defined parameters.</h5>
             </div>
-            <div [hidden]="filteredIncidents.length === 0">
+            <div >
                 <app-incidents-filtered [filteredData]="filteredIncidents"></app-incidents-filtered>
             </div>
         </div>

@@ -14,7 +14,7 @@ import { WorkPlanBasicInfoComponent} from "./components/work-plan/work-plan-new/
 import { ConsumersComponent} from "./components/consumers/consumers.component";
 import { ConsumersFilteredComponent} from "./components/consumers/consumers-filtered/consumers-filtered.component"
 import { DocumentsComponent } from './components/documents/documents.component';
-import {DocumentsFilteredComponent} from './components/documents/documents-filtered/documents-filtered.component';
+import { DocumentsFilteredComponent} from './components/documents/documents-filtered/documents-filtered.component';
 import { IncidentsComponent } from './components/incidents/incidents.component';
 import { IncidentsNewComponent } from './components/incidents/incidents-new/incidents-new.component';
 import { IncidentsFilteredComponent } from './components/incidents/incidents-filtered/incidents-filtered.component';
@@ -26,6 +26,8 @@ import { WorkAccountFilteredComponent } from "./components/work-account/work-acc
 import { WorkAccountNewComponent } from "./components/work-account/work-account-new/work-account-new.component";
 import { WorkAccountBasicInfoComponent } from "./components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component"
 import { MapComponent } from "./components/map/map.component"
+import { DevicesComponent } from "./components/devices/devices.component"
+import { DevicesFilteredComponent } from "./components/devices/devices-filtered/devices-filtered.component"
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -48,6 +50,11 @@ const routes: Routes = [
       { path: 'Profile', component: ProfileComponent },
       { path: 'ViewAllProfiles', component: ViewAllProfilesComponent },
       { path: 'Notifications', component: NotificationsComponent},
+      { path: 'Devices', component:DevicesComponent,
+      children:
+      [
+        {path:'DevicesFiltered', component:DevicesFilteredComponent}
+      ]},
       { path: 'WorkPlan', component: WorkPlanComponent,
        children: [
          { path: 'WorkPlanFiltered', component: WorkPlanFilteredComponent}

@@ -1,0 +1,113 @@
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
+        <ng-container matColumnDef="ID">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+            <td mat-cell *matCellDef="let element">{{element.ID}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+            <td mat-cell *matCellDef="let element">{{element.Name}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Tip">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+            <td mat-cell *matCellDef="let element">{{element.Tip}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Lon">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Longitude</th>
+            <td mat-cell *matCellDef="let element">{{element.Lon}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Lat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Latitude</th>
+            <td mat-cell *matCellDef="let element">{{element.Lat}}</td>
+        </ng-container>
+        <ng-container>
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+                <mat-cell>
+                    <button mat-button class="btn btn-warning" (click)="edit(element, contentEdit)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-button class="btn btn-danger" (click)="delete(element, contentDelete)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </mat-cell>
+            </td>
+
+        </ng-container>
+        <tr mat-header-row  *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[2,3,4]" showFirstLastButtons></mat-paginator>
+</div>
+
+<ng-template #contentEdit let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-edit">Edit device</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="editDeviceForm" (ngSubmit)="submitEdit()">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input formControlName="id" type="text" id="id" name="id" class="form-control" placeholder="{{deviceForEdit.ID}}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input formControlName="name" type="text" name="name" class="form-control" placeholder="{{deviceForEdit.Name}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="lon">Longitude</label>
+                        <input formControlName="lon" type="text" name="lon" class="form-control" placeholder="{{deviceForEdit.LongCoord}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="lat">Longitude</label>
+                        <input formControlName="lat" type="text" name="lat" class="form-control" placeholder="{{deviceForEdit.LatCoord}}">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Tip">Type</label>
+                        <select formControlName="Tip" type="text" id="Tip" name="Tip" class="form-control">
+                            <option value="Transformator" [selected]="deviceForEdit.Type">Transformator</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="submitEdit()" [disabled]="!editDeviceForm.valid">Edit</button>
+    </div>
+</ng-template>
+
+<ng-template #contentDelete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-delete">Delete Device</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body">
+        Are you sure you want to delete the device with the ID: {{deleteDevice.ID}}?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+    </div>
+
+</ng-template>

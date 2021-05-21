@@ -24,7 +24,7 @@ export class DocumentsFilteredComponent implements OnInit {
 
   @Input() filteredData : Array<SafetyDocument>;
 
-  displayedColumns: string[] = ['TipDokumenta', 'PlanRada', 'Author', 'Details', 'Notes', 'PhoneNum'];
+  displayedColumns: string[] = ['Author','TipDokumenta', 'PlanRada'];
   dataSource:any;
   tableElements: Array<SafetyDocument>;
 
@@ -49,7 +49,7 @@ export class DocumentsFilteredComponent implements OnInit {
       PhoneNum: ['', [
       ]]
     });
-
+    this.dataSource = new MatTableDataSource();
 
   }
 

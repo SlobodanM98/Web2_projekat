@@ -8,14 +8,18 @@ export enum IncidentType
 
 //nezavrsena klasa
 export class Incident {
-    private ID:string;
+    public ID:string;
     private Tip:IncidentType;
     private Prioritet:number;
     private Potvrdjen:boolean;
-    private Status:string;
+    public Status:string;
+    public  Uzrok:string;
+    public  Poduzrok:string;
+    public  Konstrukcija:string;
+    public  Materijal:string;
     private ETA:string;
     private ATA:string;
-    private VremeIncidenta:string;
+    public VremeIncidenta:string;
     private ETR:string;
     private NivoNapona:number;
     private PVR:string; //planirano vreme rada

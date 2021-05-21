@@ -6,14 +6,14 @@ export enum TipDokumenta {
 
 export class SafetyDocument {
 
-    private TipDokumenta: TipDokumenta;
-    private PlanRada:string;
-    private Author:string;
-    private Team:string;
-    private Details:string;
-    private Notes:string;
-    private PhoneNum:string;
-    private dateOfCreation:Date;
+    public TipDokumenta: TipDokumenta;
+    public PlanRada:string;
+    public Author:string;
+    public Team:string;
+    public Details:string;
+    public Notes:string;
+    public PhoneNum:string;
+    public dateOfCreation:Date;
 
 
     constructor(tip:TipDokumenta, plan:string, author:string, details:string, notes:string, telBroj:string)

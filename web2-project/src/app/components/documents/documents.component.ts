@@ -11,7 +11,7 @@ import { SafetyDocument, TipDokumenta} from 'src/app/model/safety-document';
 export class DocumentsComponent implements OnInit {
 
   allDocuments:Array<SafetyDocument>;
-  filteredDocuments:Array<SafetyDocument>;
+  filteredDocuments:Array<SafetyDocument> = new Array<SafetyDocument>();
   authorFilter:string;
 
 
@@ -27,6 +27,7 @@ export class DocumentsComponent implements OnInit {
       Notes:['', [Validators.required]],
       PhoneNum:['', [Validators.required]]
     });
+    
     this.allDocuments = new Array<SafetyDocument>();
     this.allDocuments.push(new SafetyDocument(TipDokumenta.NeplaniraniRad, "123", "Pera", "Detalj 1", "Notes1", "381655406188"));
     this.allDocuments.push(new SafetyDocument(TipDokumenta.PlaniraniRad,"91","Zika", "Details 2", "Notes 2", "3815528288"));

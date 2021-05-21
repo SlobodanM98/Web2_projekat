@@ -40,6 +40,8 @@ import { WorkAccountFilteredComponent } from './components/work-account/work-acc
 import { WorkAccountNewComponent } from './components/work-account/work-account-new/work-account-new.component';
 import { WorkAccountBasicInfoComponent } from './components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component';
 import { MapComponent } from './components/map/map.component';
+import { DevicesComponent } from './components/devices/devices.component';
+import { DevicesFilteredComponent } from './components/devices/devices-filtered/devices-filtered.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { MapComponent } from './components/map/map.component';
     WorkAccountNewComponent,
     WorkAccountBasicInfoComponent,
     MapComponent,
+    DevicesComponent,
+    DevicesFilteredComponent,
    
   ],
   imports: [

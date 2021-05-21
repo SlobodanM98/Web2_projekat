@@ -24,13 +24,13 @@ export class ConsumersComponent implements OnInit {
   ngOnInit(): void {
     this.allConsumers = new Array<Consumer>();
     this.filteredConsumers = new Array<Consumer>();
-
     this.allConsumers.push(new Consumer("Marko", "Marković", "Kralja Milana 5", 38164123, 101, Type.Commercial));
     this.allConsumers.push(new Consumer("Nikola", "Nikolić", "Kralja Aleksandra 33", 38164124, 102, Type.Residential));
     this.allConsumers.push(new Consumer("Darko", "Petrović", "Laze Lazarević 2", 38164234, 103, Type.Residential));
     this.allConsumers.push(new Consumer("Jovan", "Jovanović", "Nate Jeličić 14", 38163223, 104, Type.Commercial));
     this.allConsumers.push(new Consumer("Janko", "Veselinović", "Kneza Ive 6", 38161823, 105, Type.Residential));
 
+    
     this.allConsumers.forEach(element => {
       this.filteredConsumers.push(element);
     });
