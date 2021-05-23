@@ -17,21 +17,21 @@ export class AddingTeamsNewComponent implements OnInit {
 
 
   teamMembers = [
-    new User('pepe', "pera", "peric", "", new Date(), new Address("", 1, 1), "pera@gmail.com", Role.TeamMember, undefined),
-    new User('m2', 'marko', 'matic', "", new Date(), new Address("", 1, 1), "marko@gmail.com", Role.TeamMember, undefined),
-    new User('jj', 'jole', 'jokic', "", new Date(), new Address("", 1, 1), 'jole@gmail.com', Role.TeamMember, undefined),
-    new User('pepe', "pera", "peric", "", new Date(), new Address("", 1, 1), "pera@gmail.com", Role.TeamMember, undefined),
-    new User('m2', 'marko', 'matic', "", new Date(), new Address("", 1, 1), "marko@gmail.com", Role.TeamMember, undefined),
-    new User('jj', 'jole', 'jokic', "", new Date(), new Address("", 1, 1), 'jole@gmail.com', Role.TeamMember, undefined),
+    new User(1,'pepe', "pera", "peric", "", new Date(), new Address(1,"", 1,"",1, 1), "pera@gmail.com", Role.TeamMember, undefined),
+    new User(2,'m2', 'marko', 'matic', "", new Date(), new Address(1,"", 1,"",1, 1), "marko@gmail.com", Role.TeamMember, undefined),
+    new User(3,'jj', 'jole', 'jokic', "", new Date(), new Address(1,"", 1,"",1, 1), 'jole@gmail.com', Role.TeamMember, undefined),
+    new User(4,'pepe', "pera", "peric", "", new Date(), new Address(1,"", 1,"",1, 1), "pera@gmail.com", Role.TeamMember, undefined),
+    new User(5,'m2', 'marko', 'matic', "", new Date(), new Address(1,"", 1,"",1, 1), "marko@gmail.com", Role.TeamMember, undefined),
+    new User(6,'jj', 'jole', 'jokic', "", new Date(), new Address(1,"", 1,"",1, 1), 'jole@gmail.com', Role.TeamMember, undefined),
   ];
 
   allMembers = [
-    new User('caca', "caca", "caric", "", new Date(), new Address("", 1, 1), "caca@gmail.com", Role.TeamMember, undefined),
-    new User('luk', 'luka', 'lukic', "", new Date(), new Address("", 1, 1), "luka@gmail.com", Role.TeamMember, undefined),
-    new User('tara', 'tamara', 'tatic', "", new Date(), new Address("", 1, 1), 'tara@gmail.com', Role.TeamMember, undefined),
-    new User('caca', "caca", "caric", "", new Date(), new Address("", 1, 1), "caca@gmail.com", Role.TeamMember, undefined),
-    new User('luk', 'luka', 'lukic', "", new Date(), new Address("", 1, 1), "luka@gmail.com", Role.TeamMember, undefined),
-    new User('tara', 'tamara', 'tatic', "", new Date(), new Address("", 1, 1), 'tara@gmail.com', Role.TeamMember, undefined),
+    new User(7,'caca', "caca", "caric", "", new Date(), new Address(1,"", 1,"",1, 1), "caca@gmail.com", Role.TeamMember, undefined),
+    new User(8,'luk', 'luka', 'lukic', "", new Date(), new Address(1,"", 1,"",1, 1), "luka@gmail.com", Role.TeamMember, undefined),
+    new User(9,'tara', 'tamara', 'tatic', "", new Date(), new Address(1,"", 1,"",1, 1), 'tara@gmail.com', Role.TeamMember, undefined),
+    new User(10,'caca', "caca", "caric", "", new Date(), new Address(1,"", 1,"",1, 1), "caca@gmail.com", Role.TeamMember, undefined),
+    new User(11,'luk', 'luka', 'lukic', "", new Date(), new Address(1,"", 1,"",1, 1), "luka@gmail.com", Role.TeamMember, undefined),
+    new User(12,'tara', 'tamara', 'tatic', "", new Date(), new Address(1,"", 1,"",1, 1), 'tara@gmail.com', Role.TeamMember, undefined),
   ];
 
   constructor(private fb: FormBuilder, public router : Router) { }

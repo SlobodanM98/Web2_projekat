@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +13,9 @@ export class LoginComponent implements OnInit {
   poruka : string;
   reportOutageForm : FormGroup;
 
-  constructor(private commonService : CommonService, public router : Router, private formBuilder : FormBuilder, private modalService: NgbModal) { }
+  constructor(public router : Router, private formBuilder : FormBuilder, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.commonService.data$.subscribe(message => this.poruka = message);
     this.reportOutageForm = this.formBuilder.group({
       reason: ['', [
         Validators.required
@@ -35,7 +33,6 @@ export class LoginComponent implements OnInit {
   }
 
   logIn(){
-    this.commonService.changeData("true");
     this.router.navigate(["/Navbar"]);
   }
 

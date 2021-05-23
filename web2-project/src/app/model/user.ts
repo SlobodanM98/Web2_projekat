@@ -9,7 +9,7 @@ export enum Role {
 }
 
 export class User {
-   
+    public userID: number;
     public username: string;
     public firstName: string;
     public lastName: string;
@@ -22,8 +22,9 @@ export class User {
 
    
 
-    constructor(username:string, first:string, last:string, password:string, bd:Date,addr:Address, email:string, rola:Role, file?:File)
+    constructor(userID: number, username:string, first:string, last:string, password:string, bd:Date,addr:Address, email:string, rola:Role, file?:File)
     {
+        this.userID = userID;
         this.username = username;
         this.firstName = first;
         this.lastName = last;

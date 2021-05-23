@@ -36,9 +36,9 @@ export class SettingsComponent implements OnInit {
       }
     );
     this.allAddresses = new Array<Address>();
-    this.allAddresses.push(new Address("Kralja Petra", 0, 1));
-    this.allAddresses.push(new Address("Laze Lazarevic", 0, 1));
-    this.allAddresses.push(new Address("Stojana Novakovic", 0, 1));
+    this.allAddresses.push(new Address(1,"Kralja Petra", 0,"",1, 1));
+    this.allAddresses.push(new Address(2,"Laze Lazarevic", 0,"",1, 1));
+    this.allAddresses.push(new Address(3,"Stojana Novakovic", 0,"",1, 1));
   }
 
   submitPassword(){
