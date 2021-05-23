@@ -16,7 +16,7 @@ export class Device {
 	public LongCoord:number;
 	public LatCoord:number;
 	
-	construcotr(type:DeviceType, id:string, name:string, addr:Address, longcoord:number, latcoord:number)
+	constructor(type:DeviceType, id:string, name:string, addr:Address, longcoord:number, latcoord:number)
 	{
 		this.Type = type;
 		this.ID = id;
@@ -25,4 +25,5 @@ export class Device {
 		this.LongCoord = longcoord;
 		this.LatCoord = latcoord;
 	}
+	
 }
