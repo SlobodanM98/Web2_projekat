@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Address } from 'src/app/model/address';
 import { Consumer, Type } from 'src/app/model/consumer';
+import { ConsumerService } from 'src/app/services/consumer.service';
+import { ConsumersFilteredComponent } from './consumers-filtered/consumers-filtered.component';
 
 @Component({
   selector: 'app-consumers',
@@ -13,41 +16,43 @@ export class ConsumersComponent implements OnInit {
   allConsumers: Array<Consumer>;
   filteredConsumers: Array<Consumer>;
 
+  allAddresses: Array<Address>;
+
   typeFilter: boolean;
 
   typeValue: Type;
 
   addConsumerForm: FormGroup;
 
-  constructor(private formBuilder : FormBuilder, private modalService: NgbModal) { }
+  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService: ConsumerService) { }
 
   ngOnInit(): void {
     this.allConsumers = new Array<Consumer>();
     this.filteredConsumers = new Array<Consumer>();
-    this.allConsumers.push(new Consumer("Marko", "Marković", "Kralja Milana 5", 38164123, 101, Type.Commercial));
-    this.allConsumers.push(new Consumer("Nikola", "Nikolić", "Kralja Aleksandra 33", 38164124, 102, Type.Residential));
-    this.allConsumers.push(new Consumer("Darko", "Petrović", "Laze Lazarević 2", 38164234, 103, Type.Residential));
-    this.allConsumers.push(new Consumer("Jovan", "Jovanović", "Nate Jeličić 14", 38163223, 104, Type.Commercial));
-    this.allConsumers.push(new Consumer("Janko", "Veselinović", "Kneza Ive 6", 38161823, 105, Type.Residential));
+    this.allAddresses = new Array<Address>();
 
-    
-    this.allConsumers.forEach(element => {
-      this.filteredConsumers.push(element);
+    this.consumerService.getConsumers().subscribe(data => {
+      this.allConsumers = data;
+      this.filteredConsumers = new Array<Consumer>();
+      this.allConsumers.forEach(element => {
+        this.filteredConsumers.push(element);
+      });
+    });
+
+    this.consumerService.getAddress().subscribe(data => {
+      this.allAddresses = data;
     });
 
     this.typeFilter = false;
 
     this.addConsumerForm = this.formBuilder.group({
-      id: ['', [
-        Validators.required
-      ]],
       name: ['', [
         Validators.required
       ]],
       lastName: ['', [
         Validators.required
       ]],
-      location: ['', [
+      address: ['', [
         Validators.required
       ]],
       phoneNumber: ['', [
@@ -90,9 +95,12 @@ export class ConsumersComponent implements OnInit {
   }
 
   resetFilter(){
-    this.filteredConsumers = new Array<Consumer>();
-    this.allConsumers.forEach(element => {
-      this.filteredConsumers.push(element);
+    this.consumerService.getConsumers().subscribe(data => {
+      this.allConsumers = data;
+      this.filteredConsumers = new Array<Consumer>();
+      this.allConsumers.forEach(element => {
+        this.filteredConsumers.push(element);
+      });
     });
   }
 
@@ -101,7 +109,6 @@ export class ConsumersComponent implements OnInit {
   }
 
   submitConsumer(){
-    console.log("submit")
     var type : Type;
     if(this.addConsumerForm.controls['type'].value === '0'){
       type = Type.Residential;
@@ -109,9 +116,20 @@ export class ConsumersComponent implements OnInit {
       type = Type.Commercial;
     }
     
-    var component = new Consumer(this.addConsumerForm.controls['name'].value, this.addConsumerForm.controls['lastName'].value, this.addConsumerForm.controls['location'].value, this.addConsumerForm.controls['phoneNumber'].value, this.addConsumerForm.controls['id'].value, type);
-    
-    this.allConsumers.push(component);
+    var address : Address;
+    address = new Address(1,"",1,"",1,1);
+
+    this.allAddresses.forEach(element => {
+      if(element.addressID == this.addConsumerForm.controls['address'].value){
+        address = element;
+      }
+    });
+
+    var consumer = new Consumer(this.addConsumerForm.controls['name'].value, this.addConsumerForm.controls['lastName'].value, address, Number(this.addConsumerForm.controls['phoneNumber'].value), type);
+
+    this.consumerService.postConsumer(consumer).subscribe();
+
+    this.allConsumers.push(consumer);
     this.filteredConsumers = new Array<Consumer>();
 
     this.allConsumers.forEach(element => {
@@ -134,8 +152,8 @@ export class ConsumersComponent implements OnInit {
     return this.addConsumerForm.get('lastName');
   }
 
-  get location(){
-    return this.addConsumerForm.get('location');
+  get address(){
+    return this.addConsumerForm.get('address');
   }
 
   get phoneNumber(){

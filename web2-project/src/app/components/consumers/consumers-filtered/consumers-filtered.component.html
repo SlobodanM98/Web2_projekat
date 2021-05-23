@@ -12,9 +12,21 @@
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Last name </th>
             <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
         </ng-container>
-        <ng-container matColumnDef="location">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
-            <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+        <ng-container matColumnDef="postalNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Postal Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.postalNumber}} </td>
+        </ng-container>
+        <ng-container matColumnDef="city">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+            <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+        </ng-container>
+        <ng-container matColumnDef="street">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Street </th>
+            <td mat-cell *matCellDef="let element"> {{element.street}} </td>
+        </ng-container>
+        <ng-container matColumnDef="number">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Number </th>
+            <td mat-cell *matCellDef="let element"> {{element.number}} </td>
         </ng-container>
         <ng-container matColumnDef="phoneNumber">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone number </th>
@@ -55,16 +67,8 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="id">ID</label>
-                    <input formControlName="id" type="number" id="id" name="id" class="form-control" placeholder="{{consumerForEdit.id}}"/>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input formControlName="name" type="text" name="name" id="name" class="form-control" placeholder="{{consumerForEdit.name}}">
+                    <label for="name">First name</label>
+                    <input formControlName="name" type="text" name="name" id="name" class="form-control" placeholder="{{consumerForEdit.firstName}}">
                 </div>
             </div>
         </div>
@@ -79,8 +83,10 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="location">Location</label>
-                    <input formControlName="location" type="text" name="location" id="location" class="form-control" placeholder="{{consumerForEdit.location}}">
+                    <label for="address">Address</label>
+                    <select formControlName="address" type="text" id="address" name="address" class="form-control">
+                        <option *ngFor="let address of allAddresses" [value]="address.addressID" [selected]="address.postalNumber === consumerForEdit.address.postalNumber && address.city === consumerForEdit.address.city && address.street === consumerForEdit.address.street && address.number === consumerForEdit.address.number">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ', ' + address.number}}</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -97,8 +103,8 @@
                 <div class="form-group">
                     <label for="type">Type</label>
                     <select formControlName="type" type="text" id="type" name="type" class="form-control">
-                        <option value="Residential" [selected]="consumerForEdit.type.toString() === 'Residential'">Residential</option>
-                        <option value="Commercial" [selected]="consumerForEdit.type.toString() === 'Commercial'">Commercial</option>
+                        <option value="Residential" [selected]="consumerForEdit.type == 0">Residential</option>
+                        <option value="Commercial" [selected]="consumerForEdit.type == 1">Commercial</option>
                     </select>
                 </div>
             </div>
@@ -106,7 +112,7 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-success" (click)="submitEdit()" [disabled]="!editConsumerForm.valid">Edit</button>
+      <button type="button" class="btn btn-success" (click)="submitEdit()" [disabled]="!hasInput()">Edit</button>
     </div>
 </ng-template>
 
@@ -118,7 +124,7 @@
       </button>
     </div>
     <div class="modal-body">
-        Are you sure you want to delte the consumer with the ID: {{deleteConsumer.id}} ?
+        Are you sure you want to delete the consumer with the ID: {{deleteConsumerID}} ?
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>

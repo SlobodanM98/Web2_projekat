@@ -16,7 +16,7 @@
                 <select type="text" id="workPlanStatusFilter" name="status" class="form-control">
                     <option hidden selected>Select one...</option>
                     <option value="Draft">Draft</option>
-                    <option value="Submitted">Submitted</option>
+                    <option value="Approved">Approved</option>
                 </select>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 <h5 style="text-align: center;">There are no work planes with the defined parameters.</h5>
             </div>
             <div [hidden]="filteredWorkPlans.length === 0">
-                <app-work-plan-filtered [filteredData]="filteredWorkPlans"></app-work-plan-filtered>
+                <app-work-plan-filtered [filteredData]="filteredWorkPlans" (workPlanClickEvent)="workPlanClick($event)"></app-work-plan-filtered>
             </div>
         </div>
     </div>

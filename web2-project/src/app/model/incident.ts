@@ -1,3 +1,6 @@
+import { Call } from "./call";
+import { Device } from "./device";
+import { Team } from "./team/team.model";
 
 export enum IncidentType
 {
@@ -9,22 +12,25 @@ export enum IncidentType
 //nezavrsena klasa
 export class Incident {
     public ID:string;
-    private Tip:IncidentType;
-    private Prioritet:number;
-    private Potvrdjen:boolean;
+    public Tip:IncidentType;
+    public Prioritet:number;
+    public Potvrdjen:boolean;
     public Status:string;
-    public  Uzrok:string;
-    public  Poduzrok:string;
-    public  Konstrukcija:string;
-    public  Materijal:string;
-    private ETA:string;
-    private ATA:string;
+    public ETA:string;
+    public ATA:string;
     public VremeIncidenta:string;
-    private ETR:string;
-    private NivoNapona:number;
-    private PVR:string; //planirano vreme rada
+    public ETR:string;
+    public NivoNapona:number;
+    public PVR:string; //planirano vreme rada
+    public Devices:Array<Device>;
+    public Calls:Array<Call>;
+    public Team:Team;
+    public Uzrok:string;
+    public Poduzrok:string;
+    public Konstrukcija:string;
+    public Materijal:string;
 
-    constructor(id:string,tip:IncidentType,prioritet:number,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string)
+    constructor(id:string,tip:IncidentType,prioritet:number,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string, devices : Array<Device>, calls : Array<Call>, team : Team, poduzrok : string, uzrok : string, konstrukcija : string, materijal : string)
     {
         this.ID = id;
         this.Tip = tip;
@@ -36,6 +42,13 @@ export class Incident {
         this.ETR = etr;
         this.NivoNapona = nivonapona;
         this.PVR = pvr;
+        this.Devices = devices;
+        this.Calls = calls;
+        this.Team = team;
+        this.Poduzrok = poduzrok;
+        this.Uzrok = uzrok;
+        this.Konstrukcija = konstrukcija;
+        this.Materijal = materijal;
     }
 }
 

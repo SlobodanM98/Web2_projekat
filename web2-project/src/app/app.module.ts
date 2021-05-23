@@ -42,6 +42,12 @@ import { WorkAccountBasicInfoComponent } from './components/work-account/work-ac
 import { MapComponent } from './components/map/map.component';
 import { DevicesComponent } from './components/devices/devices.component';
 import { DevicesFilteredComponent } from './components/devices/devices-filtered/devices-filtered.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -73,6 +79,7 @@ import { DevicesFilteredComponent } from './components/devices/devices-filtered/
     MapComponent,
     DevicesComponent,
     DevicesFilteredComponent,
+    SettingsComponent,
    
   ],
   imports: [
@@ -92,7 +99,12 @@ import { DevicesFilteredComponent } from './components/devices/devices-filtered/
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

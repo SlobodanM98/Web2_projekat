@@ -4,13 +4,19 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Address } from 'src/app/model/address';
 import { Consumer, Type } from 'src/app/model/consumer';
+
+import { ConsumerService } from 'src/app/services/consumer.service';
 
 export interface TableElement{
   id: number;
   name: string;
   lastName: string;
-  location: string;
+  postalNumber: number;
+  city: string;
+  street: string;
+  number: number;
   phoneNumber: number;
   type: string;
 }
@@ -23,16 +29,18 @@ export interface TableElement{
 export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
 
   @Input() filteredData : Array<Consumer>;
+  @Input() allAddresses : Array<Address>;
 
-  displayedColumns: string[] = ['id', 'name', 'lastName', 'location', 'phoneNumber', 'type', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'lastName', 'postalNumber', 'city', 'street', 'number', 'phoneNumber', 'type', 'actions'];
   dataSource: any;
   tableElements: Array<TableElement>;
 
   editConsumerForm: FormGroup;
-  deleteConsumer: Consumer;
+
+  deleteConsumerID: number;
   consumerForEdit: Consumer;
 
-  constructor(private formBuilder : FormBuilder, private modalService: NgbModal) { }
+  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService : ConsumerService) { }
 
   ngOnInit(): void {
     this.editConsumerForm = this.formBuilder.group({
@@ -42,7 +50,7 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
       ]],
       lastName: ['', [
       ]],
-      location: ['', [
+      address: ['', [
       ]],
       phoneNumber: ['', [
       ]],
@@ -62,7 +70,7 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes : SimpleChange){
     this.tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data : TableElement = {id: element.id, name: element.name, lastName: element.lastName, location: element.location, phoneNumber: element.phoneNumber, type: Type[element.type].toString()};
+      var data : TableElement = {id: element.consumerID, name: element.firstName, lastName: element.lastName, postalNumber: element.address.postalNumber, city: element.address.city, street: element.address.street, number: element.address.number, phoneNumber: element.phoneNumber, type: Type[element.type].toString()};
       this.tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(this.tableElements);
@@ -70,51 +78,106 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  edit(element: Consumer, content: any){
-    this.consumerForEdit = element;
+  edit(element: TableElement, content: any){
+    var type : Type;
+
+    if(element.type === "Residential"){
+      type = Type.Residential;
+    }else{
+      type = Type.Commercial;
+    }
+
+    this.allAddresses.forEach(address => {
+      if(address.city === element.city && address.number === element.number && address.postalNumber === element.postalNumber && address.street === element.street){
+        this.consumerForEdit = new Consumer(element.name, element.lastName, address, element.phoneNumber, type);
+        this.consumerForEdit.consumerID = element.id;
+      }
+    });
+
     this.modalService.open(content, {ariaLabelledBy: 'modal-edit'});
   }
 
-  delete(element: Consumer, contentDelete: any){
-    this.deleteConsumer = element;
+  delete(element: TableElement, contentDelete: any){
+    this.deleteConsumerID = element.id;
     this.modalService.open(contentDelete, {ariaLabelledBy: 'modal-delete'});
   }
 
   submitEdit(){
     this.modalService.dismissAll();
+
     for(var i = 0; i < this.tableElements.length; i++){
-      if(this.tableElements[i].id === this.consumerForEdit.id){
-        if(this.editConsumerForm.controls['id'].value){
-          this.tableElements[i].id = this.editConsumerForm.controls['id'].value;
-        }
+      if(this.tableElements[i].id === this.consumerForEdit.consumerID){
         if(this.editConsumerForm.controls['name'].value){
+          this.consumerForEdit.firstName = this.editConsumerForm.controls['name'].value;
+
           this.tableElements[i].name = this.editConsumerForm.controls['name'].value;
         }
         if(this.editConsumerForm.controls['lastName'].value){
+          this.consumerForEdit.lastName = this.editConsumerForm.controls['lastName'].value;
+
           this.tableElements[i].lastName = this.editConsumerForm.controls['lastName'].value;
         }
-        if(this.editConsumerForm.controls['location'].value){
-          this.tableElements[i].location = this.editConsumerForm.controls['location'].value;
+        if(this.editConsumerForm.controls['address'].value){
+          for(var j = 0; j < this.allAddresses.length; j++){
+            if(this.allAddresses[j].addressID === Number(this.editConsumerForm.controls['address'].value)){
+              this.consumerForEdit.address = this.allAddresses[j];
+              this.consumerForEdit.priority = this.allAddresses[j].priority;
+
+              this.tableElements[i].city = this.allAddresses[j].city;
+              this.tableElements[i].number = this.allAddresses[j].number;
+              this.tableElements[i].postalNumber = this.allAddresses[j].postalNumber;
+              this.tableElements[i].street = this.allAddresses[j].street;
+              break;
+            }
+          };
         }
         if(this.editConsumerForm.controls['phoneNumber'].value){
+          this.consumerForEdit.phoneNumber = this.editConsumerForm.controls['phoneNumber'].value;
+
           this.tableElements[i].phoneNumber = this.editConsumerForm.controls['phoneNumber'].value;
         }
         if(this.editConsumerForm.controls['type'].value){
+          var type : Type;
+
+          if(this.editConsumerForm.controls['type'].value === "Residential"){
+            type = Type.Residential;
+          }else{
+            type = Type.Commercial;
+          }
+
+          this.consumerForEdit.type = type;
+
           this.tableElements[i].type = this.editConsumerForm.controls['type'].value;
         }
         break;
       }
     }
+
+    this.consumerService.putConsumer(this.consumerForEdit).subscribe();
+
     this.dataSource = new MatTableDataSource(this.tableElements);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.editConsumerForm.reset();
   }
 
+  hasInput(){
+    if(this.editConsumerForm.controls['id'].value || this.editConsumerForm.controls['name'].value 
+      || this.editConsumerForm.controls['lastName'].value || this.editConsumerForm.controls['address'].value
+        || this.editConsumerForm.controls['phoneNumber'].value || this.editConsumerForm.controls['type'].value){
+          return true;
+    }else{
+      return false;
+    }
+  }
+
   confirmDelete(){
     this.modalService.dismissAll();
+
+    this.consumerService.deleteConsumer(this.deleteConsumerID).subscribe();
+
     for(var i = 0; i < this.tableElements.length; i++){
-      if(this.tableElements[i].id === this.deleteConsumer.id){
+      if(this.tableElements[i].id === this.deleteConsumerID){
         this.tableElements.splice(i, 1);
         break;
       }

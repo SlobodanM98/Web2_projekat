@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, AfterViewInit, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, SimpleChange, Output, EventEmitter } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -18,6 +18,7 @@ export interface TableElement{
 export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
 
   @Input() filteredData : Array<WorkPlan>;
+  @Output() workPlanClickEvent = new EventEmitter<WorkPlan>(); 
 
   displayedColumns: string[] = ['id', 'startDate', 'status'];
   dataSource: any;
@@ -46,4 +47,8 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  workPlanClick(row: WorkPlan){
+    console.log(row);
+    this.workPlanClickEvent.emit(row);
+  }
 }

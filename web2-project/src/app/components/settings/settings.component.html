@@ -1,0 +1,121 @@
+<div class="container mt-3">
+    <div class="row">
+        <form [formGroup]="passwordForm" class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="password-form-field" class="form-field">
+                            <mat-label>New password</mat-label>
+                            <input id="password" matInput type="password"  formControlName ="password">
+                            <mat-error id="password-error" *ngIf="passwordForm.get('password')?.invalid">Password is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="confirm-password-form-field" class="form-field">
+                            <mat-label>Confirm password</mat-label>
+                            <input id="confirmPassword" matInput type="password"  formControlName ="confirmPassword" [errorStateMatcher]="confirmPasswordMatcher">
+                            <mat-error id="confirm-password-error" *ngIf="passwordForm.get('confirmPassword')?.invalid">Password is required!</mat-error>
+                            <mat-error id="passwords-error" *ngIf="passwordForm.hasError('passwordsDontMatch')">Passwords don't match!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" (click)="submitPassword()" [disabled]="!passwordForm.valid">Change password</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form [formGroup]="priorityForm" class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="address-select">
+                            <mat-label>Select address</mat-label>
+                            <mat-select id="address" name="address" matInput formControlName="address">
+                                <mat-option *ngFor="let address of allAddresses" [value]="address.street">{{address.street}}</mat-option>
+                            </mat-select>
+                            <mat-error id="address-error" *ngIf="priorityForm.get('address')?.invalid">Address is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="priority-select">
+                            <mat-label>Select priority</mat-label>
+                            <mat-select id="priority" name="priority" matInput formControlName="priority">
+                                <mat-option value="1">1</mat-option>
+                                <mat-option value="2">2</mat-option>
+                                <mat-option value="3">3</mat-option>
+                            </mat-select>
+                            <mat-error id="priority-error" *ngIf="priorityForm.get('priority')?.invalid">Priority is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-12">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-success" (click)="submitPriority()" [disabled]="!priorityForm.valid">Change priority</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <div class="col-md-5 col-sm-12">
+            <div class="form-group">
+                <mat-label>Select notifications to show</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')">
+                                        Error
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')">
+                                        Info
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')">
+                                        Success
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')">
+                                        Warning
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-5 col-sm-12">
+            <div class="form-group">
+                <mat-label>Hide unnecessary fields</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="hideFields" (change)="setValue($event.checked,'hideFields')">
+                                        Hide
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <div class="form-group">
+                <button type="button" class="btn btn-success" (click)="reset()">Reset all</button>
+            </div>
+        </div>
+    </div>
+</div>

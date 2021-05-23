@@ -28,6 +28,7 @@ import { WorkAccountBasicInfoComponent } from "./components/work-account/work-ac
 import { MapComponent } from "./components/map/map.component"
 import { DevicesComponent } from "./components/devices/devices.component"
 import { DevicesFilteredComponent } from "./components/devices/devices-filtered/devices-filtered.component"
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -84,6 +85,7 @@ const routes: Routes = [
       { path: 'AddingTeamsNew', component: AddingTeamsNewComponent },
       { path: 'AddingTeams', component: AddingTeamsComponent },
       { path: 'Map', component: MapComponent},
+      { path: 'Settings', component: SettingsComponent}
     ]},
   { path: '', component: LoginComponent, pathMatch: 'full' },
   

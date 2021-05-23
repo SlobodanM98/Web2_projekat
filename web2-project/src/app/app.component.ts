@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonService } from './services/common.service';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +12,7 @@ export class AppComponent {
   isLoggedIn : boolean;
   pageDescription : string;
 
-  constructor(private commonService : CommonService, public router : Router){
+  constructor(public router : Router){
     this.isLoggedIn = false;
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) { 
@@ -23,15 +22,5 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    this.commonService.data$.subscribe(
-      message => 
-      {
-        if(message == "true"){
-          this.isLoggedIn = true;
-        }else if(message == "false"){
-          this.isLoggedIn = false;
-        }
-      }
-    );
   }
 }

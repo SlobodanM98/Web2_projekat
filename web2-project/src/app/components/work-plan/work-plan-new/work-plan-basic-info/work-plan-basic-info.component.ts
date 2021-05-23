@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Call } from 'src/app/model/call';
+import { Device } from 'src/app/model/device';
+import { Incident, IncidentType } from 'src/app/model/incident';
+import { Team } from 'src/app/model/team/team.model';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-work-plan-basic-info',
@@ -11,11 +16,27 @@ export class WorkPlanBasicInfoComponent implements OnInit {
   workPlanForm: FormGroup;
   currentDate = new Date();
 
+  allIncidents: Array<Incident>;
+  allTeams: Array<Team>;
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.allIncidents = new Array<Incident>();
+    this.allIncidents.push(new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
+    this.allIncidents.push(new Incident("INC2", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
+    this.allIncidents.push(new Incident("INC3", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
+
+    this.allTeams = new Array<Team>();
+    this.allTeams.push(new Team("T1","name",new Array<User>()));
+    this.allTeams.push(new Team("T2","name",new Array<User>()));
+    this.allTeams.push(new Team("T3","name",new Array<User>()));
+
     this.workPlanForm = this.fb.group({
       type: ['', [
+        Validators.required
+      ]],
+      incident: ['', [
         Validators.required
       ]],
       address: ['', [
@@ -25,6 +46,9 @@ export class WorkPlanBasicInfoComponent implements OnInit {
         Validators.required
       ]],
       endDate: ['', [
+        Validators.required
+      ]],
+      team: ['', [
         Validators.required
       ]],
       purpose: ['', [
@@ -50,6 +74,10 @@ export class WorkPlanBasicInfoComponent implements OnInit {
     return this.workPlanForm.get('type');
   }
 
+  get incident(){
+    return this.workPlanForm.get('incident');
+  }
+
   get address(){
     return this.workPlanForm.get('address');
   }
@@ -60,6 +88,10 @@ export class WorkPlanBasicInfoComponent implements OnInit {
 
   get endDate(){
     return this.workPlanForm.get('endDate');
+  }
+
+  get team(){
+    return this.workPlanForm.get('team');
   }
 
   get purpose(){
