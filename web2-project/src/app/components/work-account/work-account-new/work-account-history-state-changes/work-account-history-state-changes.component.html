@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <label>Last changed:</label>
+            <div style="font-weight: 600;">
+                1/1/2021
+            </div>
+        </div>
+        <div class="col-4">
+            <label>Changed by:</label>
+            <div style="font-weight: 600;">
+                Pera Peric
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="stateForm" (ngSubmit)="submitState()" class="mt-5">
+        <div class="row">
+            <div class="col-6">
+                <label for="state">State</label>
+                <select formControlName="state" (change)="stateChanged($event)" type="text" name="state" id="state" class="form-control">
+                    <option value="Draft">Draft</option>
+                    <option value="Approve">Approve</option>
+                    <option value="Deny">Deny</option>
+                    <option value="Cancel">Cancel</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="state!.invalid && state!.touched">
+                    <div *ngIf="state!.errors!.required">State is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-right">
+                <button type="submit" class="btn btn-success" [disabled]="!stateForm.valid">Save</button>
+            </div>
+        </div>
+    </form>
+</div>

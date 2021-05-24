@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-    get username() {
+  get username() {
     return this.registerForm.get('username');
   }
 

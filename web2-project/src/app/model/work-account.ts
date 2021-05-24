@@ -12,8 +12,7 @@ export enum Status{
     Draft,
     Approved,
     Denied,
-    Canceled,
-    Finished
+    Canceled
 }
 
 export class WorkAccount {

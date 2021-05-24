@@ -45,6 +45,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
+import { WorkAccountHistoryStateChangesComponent } from './components/work-account/work-account-new/work-account-history-state-changes/work-account-history-state-changes.component';
+import { WorkAccountMultimediaComponent } from './components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +78,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     WorkAccountBasicInfoComponent,
     MapComponent,
     SettingsComponent,
+    WorkAccountHistoryStateChangesComponent,
+    WorkAccountMultimediaComponent,
    
   ],
   imports: [
@@ -98,7 +103,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

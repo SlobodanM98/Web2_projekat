@@ -24,9 +24,11 @@ import { AddingTeamsNewComponent } from './components/adding-teams/adding-teams-
 import { WorkAccountComponent } from "./components/work-account/work-account.component";
 import { WorkAccountFilteredComponent } from "./components/work-account/work-account-filtered/work-account-filtered.component";
 import { WorkAccountNewComponent } from "./components/work-account/work-account-new/work-account-new.component";
-import { WorkAccountBasicInfoComponent } from "./components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component"
-import { MapComponent } from "./components/map/map.component"
+import { WorkAccountBasicInfoComponent } from "./components/work-account/work-account-new/work-account-basic-info/work-account-basic-info.component";
+import { MapComponent } from "./components/map/map.component";
 import { SettingsComponent } from './components/settings/settings.component';
+import { WorkAccountHistoryStateChangesComponent } from './components/work-account/work-account-new/work-account-history-state-changes/work-account-history-state-changes.component';
+import { WorkAccountMultimediaComponent } from './components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component'
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -73,7 +75,9 @@ const routes: Routes = [
       },
       { path: 'WorkAccountNew', component: WorkAccountNewComponent,
       children: [
-        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent}
+        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent},
+        { path: 'WorkAccountHistoryStateChanges', component: WorkAccountHistoryStateChangesComponent},
+        { path: 'WorkAccountMultimedia', component: WorkAccountMultimediaComponent}
       ]},
       { path: 'AddingTeamsNew', component: AddingTeamsNewComponent },
       { path: 'AddingTeams', component: AddingTeamsComponent },

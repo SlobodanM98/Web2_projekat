@@ -1,1 +1,5 @@
-.big-checkbox {width: 20px; height: 20px;}
+.big-checkbox {width: 18px; height: 18px;}
+
+.checkbox-margin {
+    margin-top: 35px;
+}
