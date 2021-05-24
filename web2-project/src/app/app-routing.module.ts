@@ -29,6 +29,8 @@ import { MapComponent } from "./components/map/map.component"
 import { DevicesComponent } from "./components/devices/devices.component"
 import { DevicesFilteredComponent } from "./components/devices/devices-filtered/devices-filtered.component"
 import { SettingsComponent } from './components/settings/settings.component';
+import { WorkAccountHistoryStateChangesComponent } from './components/work-account/work-account-new/work-account-history-state-changes/work-account-history-state-changes.component';
+import { WorkAccountMultimediaComponent } from './components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component'
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -80,7 +82,9 @@ const routes: Routes = [
       },
       { path: 'WorkAccountNew', component: WorkAccountNewComponent,
       children: [
-        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent}
+        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent},
+        { path: 'WorkAccountHistoryStateChanges', component: WorkAccountHistoryStateChangesComponent},
+        { path: 'WorkAccountMultimedia', component: WorkAccountMultimediaComponent}
       ]},
       { path: 'AddingTeamsNew', component: AddingTeamsNewComponent },
       { path: 'AddingTeams', component: AddingTeamsComponent },
