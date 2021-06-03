@@ -15,6 +15,8 @@ namespace Web2BackEnd.AutoMapper
 			CreateMap<Address, DTOAddress>();
 			CreateMap<DTOConsumer, Consumer>();
 			CreateMap<Consumer, DTOConsumer>();
+			CreateMap<DTOCall, Call>();
+			CreateMap<Call, DTOCall>();
 		}
 	}
 }

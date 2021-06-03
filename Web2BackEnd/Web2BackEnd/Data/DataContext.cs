@@ -12,5 +12,6 @@ namespace Web2BackEnd.Data
 		public DataContext(DbContextOptions<DataContext> options) : base(options){ }
 		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Consumer> Consumers { get; set; }
+		public DbSet<Call> Calls { get; set; }
 	}
 }

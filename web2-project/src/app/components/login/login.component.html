@@ -63,53 +63,61 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="reason"><span style="color: red;">*</span>Reason</label>
-                    <select formControlName="reason" type="text" id="reason" name="reason" class="form-control">
-                        <option value="Nema struje">Nema struje</option>
-                        <option value="Postoji kvar">Postoji kvar</option>
-                        <option value="Treperenje svetla">Treperenje svetla</option>
-                        <option value="Povratak struje">Povratak struje</option>
-                        <option value="Delemicna struja">Delimicna struja</option>
-                        <option value="Problemi s naponom">Problemi s naponom</option>
-                    </select>
-                    <div class="alert alert-danger" *ngIf="reason!.invalid && reason!.touched">
-                        <div *ngIf="reason!.errors!.required">Reason is required.</div>
-                    </div>
+                    <mat-form-field id="reason-select">
+                        <mat-label>Reason</mat-label>
+                        <mat-select id="reason" name="reason" matInput formControlName="reason">
+                            <mat-option value="Nema struje">Nema struje</mat-option>
+                            <mat-option value="Postoji kvar">Postoji kvar</mat-option>
+                            <mat-option value="Treperenje svetla">Treperenje svetla</mat-option>
+                            <mat-option value="Povratak struje">Povratak struje</mat-option>
+                            <mat-option value="Delemicna struja">Delimicna struja</mat-option>
+                            <mat-option value="Problemi s naponom">Problemi s naponom</mat-option>
+                        </mat-select>
+                        <mat-error id="reason-error" *ngIf="reportOutageForm.get('reason')?.invalid">Reason is required!</mat-error>
+                    </mat-form-field>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="address"><span style="color: red;">*</span>Address</label>
-                    <input formControlName="address" type="text" name="address" id="address" class="form-control">
-                    <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
-                        <div *ngIf="address!.errors!.required">Address is required.</div>
-                    </div>
+                    <mat-form-field id="address-form-field" class="form-field">
+                        <mat-label>Address</mat-label>
+                        <mat-select id="address" name="address" matInput formControlName="address">
+                            <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
+                        </mat-select>
+                        <mat-error id="address-error" *ngIf="reportOutageForm.get('address')?.invalid">Address is required!</mat-error>
+                    </mat-form-field>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="comment">Comment</label>
-                    <input formControlName="comment" type="text" name="comment" id="comment" class="form-control">
+                    <mat-form-field id="comment-form-field" class="form-field">
+                        <mat-label>Comment</mat-label>
+                        <input id="comment" matInput type="text"  formControlName ="comment">
+                    </mat-form-field>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    <input formControlName="name" type="text" name="name" id="name" class="form-control">
+                    <mat-form-field id="name-form-field" class="form-field">
+                        <mat-label>First name</mat-label>
+                        <input id="name" matInput type="text"  formControlName ="name">
+                    </mat-form-field>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <label for="lastName">Last name</label>
-                    <input formControlName="lastName" type="text" name="lastName" id="lastName" class="form-control">
+                    <mat-form-field id="lastName-form-field" class="form-field">
+                        <mat-label>Last name</mat-label>
+                        <input id="lastName" matInput type="text"  formControlName ="lastName">
+                    </mat-form-field>
                 </div>
             </div>
         </div>
