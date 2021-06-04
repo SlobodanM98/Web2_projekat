@@ -13,5 +13,6 @@ namespace Web2BackEnd.Data
 		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Consumer> Consumers { get; set; }
 		public DbSet<Call> Calls { get; set; }
+		public DbSet<Notification> Notifications { get; set; }
 	}
 }

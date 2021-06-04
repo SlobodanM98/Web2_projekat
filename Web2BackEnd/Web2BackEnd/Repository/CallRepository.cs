@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web2BackEnd.Data;
 using Web2BackEnd.Models;
+using Web2BackEnd.Repository.Interface;
 
 namespace Web2BackEnd.Repository
 {
-	public class CallRepository : GenericRepository<Call>
+	public class CallRepository : GenericRepository<Call>, ICallRepository
 	{
 		public CallRepository(DataContext context) : base(context) { }
 

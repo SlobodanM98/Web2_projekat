@@ -3,6 +3,7 @@ import { Device } from "./device";
 import { Incident } from "./incident";
 import { Team } from "./team/team.model";
 import { User } from "./user";
+import { WorkAccount } from "./work-account";
 
 export enum Status{
     Draft,
@@ -12,10 +13,17 @@ export enum Status{
     Finished
 }
 
+export enum Type{
+    Planned,
+    Unplanned
+}
+
 export class WorkPlan {// treba da se doda nalog za rad
-    public id: string;
+    public workPlanID: number;
+    public type: Type;
+    public workAccount?: WorkAccount;
     public status: Status;
-    public incident: Incident;
+    public incident?: Incident;
     public address: Address;
     public team: Team;
     public createdBy: User;
@@ -29,8 +37,9 @@ export class WorkPlan {// treba da se doda nalog za rad
     public statusHistory: Array<WorkPlanStatusHistory>;
     public equipment : Device
 
-    constructor(id: string, incident: Incident, address: Address, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device){
-        this.id = id;
+    constructor(type: Type, address: Address, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device, incident?: Incident, workAccount?: WorkAccount){
+        this.type = type;
+        this.workAccount = workAccount;
         this.status = Status.Draft;
         this.incident = incident;
         this.address = address;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { NotificationDescription, NotificationType} from '../../model/notification-description/notification-description.module';
+import { Notification, NotificationType} from '../../model/notification-description/notification.module';
 
 @Component({
   selector: 'app-notifications',
@@ -9,22 +9,18 @@ import { NotificationDescription, NotificationType} from '../../model/notificati
 })
 export class NotificationsComponent implements OnInit {
 
-  allNotifications: Array<NotificationDescription>;
-  filteredNotifications: Array<NotificationDescription>;
+  allNotifications: Array<Notification>;
+  filteredNotifications: Array<Notification>;
 
   constructor(private toastr : ToastrService) { }
 
   ngOnInit(): void {
-    this.allNotifications = new Array<NotificationDescription>();
-    this.allNotifications.push(new NotificationDescription("Save successfule", NotificationType.Success, false, false, "", new Date(2021,4,21,12,16)));
-    this.allNotifications.push(new NotificationDescription("Uploated file has virus.", NotificationType.Error, false, false, "", new Date(2021,4,21,12,10)));
-    this.allNotifications.push(new NotificationDescription("Switching plan S1 has changed it's status.", NotificationType.Info, false, true, "http://www.google.com", new Date(2021,4,21,12,12)));
-    this.allNotifications.push(new NotificationDescription("Warning", NotificationType.Warning, false, false, "", new Date(2021,4,21,12,14)));
+    this.allNotifications = new Array<Notification>();
 
-    this.filteredNotifications = new Array<NotificationDescription>();
+    this.filteredNotifications = new Array<Notification>();
   }
 
-  onNotificationClick(notification: NotificationDescription){
+  onNotificationClick(notification: Notification){
     if(!notification.isRead){
       for(let element of this.allNotifications){
         if(element.description === notification.description && element.type === notification.type){
