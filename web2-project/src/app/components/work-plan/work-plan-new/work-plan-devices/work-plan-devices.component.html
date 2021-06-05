@@ -2,9 +2,17 @@
     <div class="col">
         <form [formGroup]="submitDeviceForm" (ngSubmit)="submitDevice()">
             <div class="row">
+                <div class="col-12">
+                    <div class="page-header mb-4 mt-3">
+                        <h3>Add a device</h3>
+                        <hr class="solid">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col text-left">
                     <div class="form-group">
-                        <mat-form-field id="type-select">
+                        <mat-form-field id="type-select" appearance="outline">
                             <mat-label>Device</mat-label>
                             <mat-select id="device" name="device" matInput formControlName="device">
                                 <mat-option *ngFor="let device of allDevices" [value]="device.ID">{{device.Name}}</mat-option>
@@ -13,9 +21,7 @@
                         </mat-form-field>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col text-left">
+                <div class="col text-right">
                     <button type="button" class="btn btn-success" (click)="submitDevice()" [disabled]="!submitDeviceForm.valid">Submit device</button>
                 </div>
             </div>

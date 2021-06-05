@@ -1,10 +1,18 @@
 <div class="container mt-3">
     <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4 mt-3">
+                <h3>Change password</h3>
+                <hr class="solid">
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <form [formGroup]="passwordForm" class="container">
             <div class="row">
                 <div class="col-md-5 col-sm-12">
                     <div class="form-group">
-                        <mat-form-field id="password-form-field" class="form-field">
+                        <mat-form-field id="password-form-field" class="form-field" appearance="outline">
                             <mat-label>New password</mat-label>
                             <input id="password" matInput type="password"  formControlName ="password">
                             <mat-error id="password-error" *ngIf="passwordForm.get('password')?.invalid">Password is required!</mat-error>
@@ -13,7 +21,7 @@
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div class="form-group">
-                        <mat-form-field id="confirm-password-form-field" class="form-field">
+                        <mat-form-field id="confirm-password-form-field" class="form-field" appearance="outline">
                             <mat-label>Confirm password</mat-label>
                             <input id="confirmPassword" matInput type="password"  formControlName ="confirmPassword" [errorStateMatcher]="confirmPasswordMatcher">
                             <mat-error id="confirm-password-error" *ngIf="passwordForm.get('confirmPassword')?.invalid">Password is required!</mat-error>
@@ -30,11 +38,19 @@
         </form>
     </div>
     <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4 mt-3">
+                <h3>Change priority</h3>
+                <hr class="solid">
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <form [formGroup]="priorityForm" class="container">
             <div class="row">
                 <div class="col-md-5 col-sm-12">
                     <div class="form-group">
-                        <mat-form-field id="address-select">
+                        <mat-form-field id="address-select" appearance="outline">
                             <mat-label>Select address</mat-label>
                             <mat-select id="address" name="address" matInput formControlName="address">
                                 <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
@@ -45,7 +61,7 @@
                 </div>
                 <div class="col-md-5 col-sm-12">
                     <div class="form-group">
-                        <mat-form-field id="priority-select">
+                        <mat-form-field id="priority-select" appearance="outline">
                             <mat-label>Select priority</mat-label>
                             <mat-select id="priority" name="priority" matInput formControlName="priority">
                                 <mat-option value="1">1</mat-option>
@@ -65,6 +81,14 @@
         </form>
     </div>
     <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4 mt-3">
+                <h3>Change visibility</h3>
+                <hr class="solid">
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-5 col-sm-12">
             <div class="form-group">
                 <mat-label>Select notifications to show</mat-label>
@@ -72,22 +96,22 @@
                         <span>
                             <ul style="list-style: none;">
                                 <li>
-                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')" [checked]="settings.errorEnabled">
+                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')" [checked]="settings.errorEnabled" color="primary">
                                         Error
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')" [checked]="settings.infoEnabled">
+                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')" [checked]="settings.infoEnabled" color="primary">
                                         Info
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')" [checked]="settings.successEnabled">
+                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')" [checked]="settings.successEnabled" color="primary">
                                         Success
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')" [checked]="settings.warningEnabled">
+                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')" [checked]="settings.warningEnabled" color="primary">
                                         Warning
                                     </mat-checkbox>
                                 </li>
@@ -103,7 +127,7 @@
                         <span>
                             <ul style="list-style: none;">
                                 <li>
-                                    <mat-checkbox id="showFields" (change)="setValue($event.checked,'showFields')" [checked]="settings.showFields">
+                                    <mat-checkbox id="showFields" (change)="setValue($event.checked,'showFields')" [checked]="settings.showFields" color="primary">
                                         Show
                                     </mat-checkbox>
                                 </li>

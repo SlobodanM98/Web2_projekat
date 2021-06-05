@@ -2,9 +2,17 @@
     <div class="col">
         <form [formGroup]="submitInstructionForm" (ngSubmit)="submitInstruction()">
             <div class="row">
-                <div class="col-md-6 text-left">
+                <div class="col-12">
+                    <div class="page-header mb-4 mt-3">
+                        <h3>Add a instruction</h3>
+                        <hr class="solid">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 text-left">
                     <div class="form-group">
-                        <mat-form-field id="type-select">
+                        <mat-form-field id="type-select" appearance="outline">
                             <mat-label>Device</mat-label>
                             <mat-select id="device" name="device" matInput formControlName="device">
                                 <mat-option *ngFor="let device of allDevices" [value]="device.ID">{{device.Name}}</mat-option>
@@ -13,18 +21,16 @@
                         </mat-form-field>
                     </div>
                 </div>
-                <div class="col-md-6 text-left">
+                <div class="col-md-4 text-left">
                     <div class="form-group">
-                        <mat-form-field id="description-form-field" class="form-field">
+                        <mat-form-field id="description-form-field" class="form-field" appearance="outline">
                             <mat-label>Description</mat-label>
                             <input id="description" matInput type="text"  formControlName ="description">
                             <mat-error id="description-error" *ngIf="submitInstructionForm.get('description')?.invalid">Description is required!</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col text-left">
+                <div class="col-md-4 justify-content-center">
                     <button type="button" class="btn btn-success" (click)="submitInstruction()" [disabled]="!submitInstructionForm.valid">Submit instruction</button>
                 </div>
             </div>

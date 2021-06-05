@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="name-form-field" class="form-field">
+                    <mat-form-field id="name-form-field" class="form-field" appearance="outline">
                         <mat-label>First name</mat-label>
                         <input id="name" matInput type="text"  formControlName ="name">
                         <mat-error id="name-error" *ngIf="addConsumerForm.get('name')?.invalid">Name is required!</mat-error>
@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="lastName-form-field" class="form-field">
+                    <mat-form-field id="lastName-form-field" class="form-field" appearance="outline">
                         <mat-label>Last name</mat-label>
                         <input id="lastName" matInput type="text"  formControlName ="lastName">
                         <mat-error id="lastName-error" *ngIf="addConsumerForm.get('lastName')?.invalid">Last name is required!</mat-error>
@@ -68,7 +68,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="type-select">
+                    <mat-form-field id="type-select" appearance="outline">
                         <mat-label>Address</mat-label>
                         <mat-select id="address" name="address" matInput formControlName="address">
                             <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
@@ -81,9 +81,9 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="phoneNumber-form-field" class="form-field">
+                    <mat-form-field id="phoneNumber-form-field" class="form-field" appearance="outline">
                         <mat-label>Phone number</mat-label>
-                        <input id="phoneNumber" matInput type="text"  formControlName ="phoneNumber">
+                        <input id="phoneNumber" matInput type="number"  formControlName ="phoneNumber">
                         <mat-error id="phoneNumber-error" *ngIf="addConsumerForm.get('phoneNumber')?.invalid">Phone number is required!</mat-error>
                     </mat-form-field>
                 </div>
@@ -92,7 +92,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="type-select">
+                    <mat-form-field id="type-select" appearance="outline">
                         <mat-label>Type</mat-label>
                         <mat-select id="type" name="type" matInput formControlName="type">
                             <mat-option value="Residential">Residential</mat-option>

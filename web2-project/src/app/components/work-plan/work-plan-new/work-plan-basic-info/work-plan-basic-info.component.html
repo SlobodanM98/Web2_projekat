@@ -2,120 +2,126 @@
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="type">Type</label>
-                <select formControlName="type" type="text" name="type" id="type" class="form-control">
-                    <option value="Planned">Planned work</option>
-                    <option value="Unpplaned">Unpplaned work</option>
-                </select>
-                <div class="alert alert-danger" *ngIf="type!.invalid && type!.touched">
-                    <div *ngIf="type!.errors!.required">Type is required.</div>
-                </div>
+                <mat-form-field id="type-select" appearance="outline">
+                    <mat-label>Type</mat-label>
+                    <mat-select id="type" name="type" matInput formControlName="type">
+                        <mat-option value="Planned">Planned work</mat-option>
+                        <mat-option value="Unpplaned">Unpplaned work</mat-option>
+                    </mat-select>
+                    <mat-error id="type-error" *ngIf="workPlanForm.get('type')?.invalid">Type is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label>Status</label>
-                <p class="form-control" style="font-weight: 600;">Draft</p>
+                <mat-form-field id="status-form-field" class="form-field" appearance="outline">
+                    <input matInput type="text" disabled placeholder="Draft">
+                </mat-form-field>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="incident">Incident</label>
-                <select formControlName="incident" type="text" name="incident" id="incident" class="form-control">
-                    <option *ngFor="let incidnetID of allIncidents" [value]="incidnetID.ID">{{incidnetID.ID}}</option>
-                </select>
-                <div class="alert alert-danger" *ngIf="incident!.invalid && incident!.touched">
-                    <div *ngIf="incident!.errors!.required">Incident is required.</div>
-                </div>
+                <mat-form-field id="incident-form-field" class="form-field" appearance="outline">
+                    <mat-label>Incident</mat-label>
+                    <mat-select id="incident" name="incident" matInput formControlName="incident">
+                        <mat-option *ngFor="let incidnetID of allIncidents" [value]="incidnetID.ID">{{incidnetID.ID}}</mat-option>
+                    </mat-select>
+                    <mat-error id="incident-error" *ngIf="workPlanForm.get('incident')?.invalid">Incident is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="address">Address</label>
-                <input formControlName="address" type="text" name="address" id="address" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
-                    <div *ngIf="address!.errors!.required">Address is required.</div>
-                </div>
+                <mat-form-field id="address-form-field" class="form-field" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <mat-select id="address" name="address" matInput formControlName="address">
+                        <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
+                    </mat-select>
+                    <mat-error id="address-error" *ngIf="workPlanForm.get('address')?.invalid">Address is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="startDate">Start date</label>
-                <input formControlName="startDate" type="date" name="startDate" id="startDate" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="startDate!.invalid && startDate!.touched">
-                    <div *ngIf="startDate!.errors!.required">Start date is required.</div>
-                </div>
+                <mat-form-field id="startDate-form-field" class="form-field" appearance="outline">
+                    <mat-label>Start date</mat-label>
+                    <input id="startDate" matInput type="date"  formControlName ="startDate">
+                    <mat-error id="startDate-error" *ngIf="workPlanForm.get('startDate')?.invalid">Start date is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="endDate">End date</label>
-                <input formControlName="endDate" type="date" name="endDate" id="endDate" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="endDate!.invalid && endDate!.touched">
-                    <div *ngIf="endDate!.errors!.required">End date is required.</div>
-                </div>
+                <mat-form-field id="endDate-form-field" class="form-field" appearance="outline">
+                    <mat-label>End date</mat-label>
+                    <input id="endDate" matInput type="date"  formControlName ="endDate">
+                    <mat-error id="endDate-error" *ngIf="workPlanForm.get('endDate')?.invalid">End date is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="team">Team</label>
-                <select formControlName="team" type="text" name="team" id="team" class="form-control">
-                    <option *ngFor="let teamID of allTeams" [value]="teamID.id">{{teamID.id}}</option>
-                </select>
-                <div class="alert alert-danger" *ngIf="team!.invalid && team!.touched">
-                    <div *ngIf="team!.errors!.required">Team is required.</div>
-                </div>
+                <mat-form-field id="team-form-field" class="form-field" appearance="outline">
+                    <mat-label>Team</mat-label>
+                    <mat-select id="team" name="team" matInput formControlName="team">
+                        <mat-option *ngFor="let teamID of allTeams" [value]="teamID.id">{{teamID.id}}</mat-option>
+                    </mat-select>
+                    <mat-error id="team-error" *ngIf="workPlanForm.get('team')?.invalid">Team is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label>Creator</label>
-                <p class="form-control" style="font-weight: 600;">Pera Perić</p>
+                <mat-form-field id="creator-form-field" class="form-field" appearance="outline">
+                    <input matInput type="text" disabled placeholder="Pera Perić">
+                </mat-form-field>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="company">Company</label>
-                <input formControlName="company" type="text" name="company" id="company" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="company!.invalid && company!.touched">
-                    <div *ngIf="company!.errors!.required">Company is required.</div>
-                </div>
+                <mat-form-field id="company-form-field" class="form-field" appearance="outline">
+                    <mat-label>Company</mat-label>
+                    <input id="company" matInput type="text"  formControlName ="company">
+                    <mat-error id="company-error" *ngIf="workPlanForm.get('company')?.invalid">Company is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="phoneNomber">Phone number</label>
-                <input formControlName="phoneNomber" type="number" name="phoneNomber" id="phoneNomber" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="phoneNomber!.invalid && phoneNomber!.touched">
-                    <div *ngIf="phoneNomber!.errors!.required">Phone number is required.</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <label for="purpose">Purpose</label>
-                <input formControlName="purpose" type="text" name="purpose" id="purpose" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="purpose!.invalid && purpose!.touched">
-                    <div *ngIf="purpose!.errors!.required">Purpose is required.</div>
-                </div>
+                <mat-form-field id="phoneNomber-form-field" class="form-field" appearance="outline">
+                    <mat-label>Phone number</mat-label>
+                    <input id="phoneNombe" matInput type="number"  formControlName ="phoneNomber">
+                    <mat-error id="phoneNomber-error" *ngIf="workPlanForm.get('phoneNomber')?.invalid">Phone number is required!</mat-error>
+                </mat-form-field>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <div class="form-group">
-                <label for="notes">Notes</label>
-                <input formControlName="notes" type="text" name="notes" id="notes" class="form-control"/>
+                <mat-form-field id="purpose-form-field" class="form-field" appearance="outline">
+                    <mat-label>Purpose</mat-label>
+                    <input id="purpose" matInput type="text"  formControlName ="purpose">
+                    <mat-error id="purpose-error" *ngIf="workPlanForm.get('purpose')?.invalid">Purpose is required!</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <mat-form-field id="notes-form-field" class="form-field" appearance="outline">
+                    <mat-label>Notes</mat-label>
+                    <input id="notes" matInput type="text"  formControlName ="notes">
+                </mat-form-field>
             </div>
         </div>
     </div>

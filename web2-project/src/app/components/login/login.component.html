@@ -63,7 +63,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="reason-select">
+                    <mat-form-field id="reason-select" appearance="outline">
                         <mat-label>Reason</mat-label>
                         <mat-select id="reason" name="reason" matInput formControlName="reason">
                             <mat-option value="Nema struje">Nema struje</mat-option>
@@ -81,7 +81,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="address-form-field" class="form-field">
+                    <mat-form-field id="address-form-field" class="form-field" appearance="outline">
                         <mat-label>Address</mat-label>
                         <mat-select id="address" name="address" matInput formControlName="address">
                             <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
@@ -94,7 +94,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="comment-form-field" class="form-field">
+                    <mat-form-field id="comment-form-field" class="form-field" appearance="outline">
                         <mat-label>Comment</mat-label>
                         <input id="comment" matInput type="text"  formControlName ="comment">
                     </mat-form-field>
@@ -104,7 +104,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="name-form-field" class="form-field">
+                    <mat-form-field id="name-form-field" class="form-field" appearance="outline">
                         <mat-label>First name</mat-label>
                         <input id="name" matInput type="text"  formControlName ="name">
                     </mat-form-field>
@@ -114,7 +114,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <mat-form-field id="lastName-form-field" class="form-field">
+                    <mat-form-field id="lastName-form-field" class="form-field" appearance="outline">
                         <mat-label>Last name</mat-label>
                         <input id="lastName" matInput type="text"  formControlName ="lastName">
                     </mat-form-field>

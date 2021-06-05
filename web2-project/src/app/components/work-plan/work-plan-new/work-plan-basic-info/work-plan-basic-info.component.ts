@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Address } from 'src/app/model/address';
 import { Call } from 'src/app/model/call';
 import { Device } from 'src/app/model/device';
 import { Incident, IncidentType } from 'src/app/model/incident';
@@ -17,6 +18,7 @@ export class WorkPlanBasicInfoComponent implements OnInit {
   workPlanForm: FormGroup;
   currentDate = new Date();
 
+  allAddresses: Array<Address>;
   allIncidents: Array<Incident>;
   allTeams: Array<Team>;
 
@@ -24,6 +26,8 @@ export class WorkPlanBasicInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.addToProceed.canMove = false;
+
+    this.allAddresses = new Array<Address>();
 
     this.allIncidents = new Array<Incident>();
     this.allIncidents.push(new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
