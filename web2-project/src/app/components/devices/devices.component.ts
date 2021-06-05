@@ -56,7 +56,7 @@ export class DevicesComponent implements OnInit {
 
       var a:string;
       a = 'aaa';
-      var component = new Device(Dtype, this.addDeviceForm.controls['id'].value,  this.addDeviceForm.controls['Name'].value, new Address(1,'',1,'',2,2),this.addDeviceForm.controls['Lon'].value,this.addDeviceForm.controls['Lat'].value);
+      var component = new Device(Dtype, this.addDeviceForm.controls['Name'].value, new Address(1,'',1,'',2,2),this.addDeviceForm.controls['Lon'].value,this.addDeviceForm.controls['Lat'].value);
       console.log(component);
     }
 

@@ -5,7 +5,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import { Status, WorkPlan } from 'src/app/model/work-plan';
 
 export interface TableElement{
-  id: string;
+  id: number;
   startDate: Date;
   status: string;
 }
@@ -39,7 +39,7 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes : SimpleChange){
     var tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data : TableElement = {id: element.id, startDate: element.startDate, status: Status[element.status].toString()};
+      var data : TableElement = {id: element.workPlanID, startDate: element.startDate, status: Status[element.status].toString()};
       tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(tableElements);

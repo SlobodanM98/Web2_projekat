@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col">
+        <form [formGroup]="submitInstructionForm" (ngSubmit)="submitInstruction()">
+            <div class="row">
+                <div class="col-md-6 text-left">
+                    <div class="form-group">
+                        <mat-form-field id="type-select">
+                            <mat-label>Device</mat-label>
+                            <mat-select id="device" name="device" matInput formControlName="device">
+                                <mat-option *ngFor="let device of allDevices" [value]="device.ID">{{device.Name}}</mat-option>
+                            </mat-select>
+                            <mat-error id="device-error" *ngIf="submitInstructionForm.get('device')?.invalid">Device is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6 text-left">
+                    <div class="form-group">
+                        <mat-form-field id="description-form-field" class="form-field">
+                            <mat-label>Description</mat-label>
+                            <input id="description" matInput type="text"  formControlName ="description">
+                            <mat-error id="description-error" *ngIf="submitInstructionForm.get('description')?.invalid">Description is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-left">
+                    <button type="button" class="btn btn-success" (click)="submitInstruction()" [disabled]="!submitInstructionForm.valid">Submit instruction</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <div class="mat-elevation-z8">
+            <table mat-table [dataSource]="dataSource" matSort style="width: 100%;">
+                <ng-container matColumnDef="ID">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+                </ng-container>
+                <ng-container matColumnDef="DeviceName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Device name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.DeviceName} </td>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.Status}} </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[2, 3, 4]" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>

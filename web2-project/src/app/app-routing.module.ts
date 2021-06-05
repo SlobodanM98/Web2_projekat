@@ -31,6 +31,11 @@ import { DevicesFilteredComponent } from "./components/devices/devices-filtered/
 import { SettingsComponent } from './components/settings/settings.component';
 import { WorkAccountHistoryStateChangesComponent } from './components/work-account/work-account-new/work-account-history-state-changes/work-account-history-state-changes.component';
 import { WorkAccountMultimediaComponent } from './components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component'
+import { AddToProceedGuard } from './guards/add-to-proceed.guard';
+import { WorkPlanMultimediaComponent } from './components/work-plan/work-plan-new/work-plan-multimedia/work-plan-multimedia.component';
+import { NoReturnGuard } from './guards/no-return.guard';
+import { WorkPlanDevicesComponent } from './components/work-plan/work-plan-new/work-plan-devices/work-plan-devices.component';
+import { WorkPlanInstructionsComponent } from './components/work-plan/work-plan-new/work-plan-instructions/work-plan-instructions.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -68,7 +73,10 @@ const routes: Routes = [
        ]},
       { path: 'WorkPlanNew', component: WorkPlanNewComponent,
        children: [
-         { path: 'WorkPlanBasicInfo', component: WorkPlanBasicInfoComponent}
+         { path: 'WorkPlanBasicInfo', component: WorkPlanBasicInfoComponent, canActivate:[NoReturnGuard]},
+         { path: 'WorkPlanMultimedia', component: WorkPlanMultimediaComponent, canActivate:[AddToProceedGuard]},
+         { path: 'WorkPlanDevices', component: WorkPlanDevicesComponent, canActivate:[AddToProceedGuard]},
+         { path: 'WorkPlanInstruction', component: WorkPlanInstructionsComponent, canActivate:[AddToProceedGuard]}
        ]},
       { path: 'Consumers', component: ConsumersComponent,
        children: [

@@ -50,6 +50,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 import { WorkAccountHistoryStateChangesComponent } from './components/work-account/work-account-new/work-account-history-state-changes/work-account-history-state-changes.component';
 import { WorkAccountMultimediaComponent } from './components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component';
+import { AddToProceedGuard } from './guards/add-to-proceed.guard';
+import { WorkPlanMultimediaComponent } from './components/work-plan/work-plan-new/work-plan-multimedia/work-plan-multimedia.component';
+import { NoReturnGuard } from './guards/no-return.guard';
+import { WorkPlanDevicesComponent } from './components/work-plan/work-plan-new/work-plan-devices/work-plan-devices.component';
+import { WorkPlanInstructionsComponent } from './components/work-plan/work-plan-new/work-plan-instructions/work-plan-instructions.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +89,9 @@ import { WorkAccountMultimediaComponent } from './components/work-account/work-a
     SettingsComponent,
     WorkAccountHistoryStateChangesComponent,
     WorkAccountMultimediaComponent,
+    WorkPlanMultimediaComponent,
+    WorkPlanDevicesComponent,
+    WorkPlanInstructionsComponent,
    
   ],
   imports: [
@@ -110,7 +118,7 @@ import { WorkAccountMultimediaComponent } from './components/work-account/work-a
     MatCheckboxModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AddToProceedGuard, NoReturnGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

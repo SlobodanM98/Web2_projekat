@@ -4,6 +4,7 @@ import { Incident } from "./incident";
 import { Team } from "./team/team.model";
 import { User } from "./user";
 import { WorkAccount } from "./work-account";
+import { WorkInstruction } from "./work-instruction";
 
 export enum Status{
     Draft,
@@ -36,6 +37,7 @@ export class WorkPlan {// treba da se doda nalog za rad
     public creationDate: Date;
     public statusHistory: Array<WorkPlanStatusHistory>;
     public equipment : Device
+    public instructions: Array<WorkInstruction>;
 
     constructor(type: Type, address: Address, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device, incident?: Incident, workAccount?: WorkAccount){
         this.type = type;
@@ -55,6 +57,7 @@ export class WorkPlan {// treba da se doda nalog za rad
         this.statusHistory = new Array<WorkPlanStatusHistory>();
         this.statusHistory.push(new WorkPlanStatusHistory(this.creationDate, this.createdBy, this.status));
         this.equipment = equipment;
+        this.instructions = new Array<WorkInstruction>();
     }
 }
 

@@ -8,7 +8,7 @@ import {Device,DeviceType} from  '../../../model/device';
 
 
 export interface TableElement{
-  ID:string;
+  ID:number;
   Name:string;
   Lon:number;
   Lat:number;

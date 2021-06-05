@@ -5,6 +5,7 @@ import { Device } from 'src/app/model/device';
 import { Incident, IncidentType } from 'src/app/model/incident';
 import { Team } from 'src/app/model/team/team.model';
 import { User } from 'src/app/model/user';
+import { AddToProceedService } from 'src/app/services/add-to-proceed.service';
 
 @Component({
   selector: 'app-work-plan-basic-info',
@@ -19,9 +20,11 @@ export class WorkPlanBasicInfoComponent implements OnInit {
   allIncidents: Array<Incident>;
   allTeams: Array<Team>;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private addToProceed: AddToProceedService) { }
 
   ngOnInit(): void {
+    this.addToProceed.canMove = false;
+
     this.allIncidents = new Array<Incident>();
     this.allIncidents.push(new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
     this.allIncidents.push(new Incident("INC2", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
@@ -67,7 +70,8 @@ export class WorkPlanBasicInfoComponent implements OnInit {
   }
 
   submitWorkPlan(){
-
+    this.addToProceed.canMove = true;
+    this.addToProceed.canReturn = false;
   }
 
   get type(){
