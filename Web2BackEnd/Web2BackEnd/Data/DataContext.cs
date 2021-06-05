@@ -14,5 +14,6 @@ namespace Web2BackEnd.Data
 		public DbSet<Consumer> Consumers { get; set; }
 		public DbSet<Call> Calls { get; set; }
 		public DbSet<Notification> Notifications { get; set; }
+		public DbSet<Settings> Settings { get; set; }
 	}
 }

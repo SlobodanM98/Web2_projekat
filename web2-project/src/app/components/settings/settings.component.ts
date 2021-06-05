@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { confirmPasswordValidator, ConfirmPasswordMatcher } from 'src/app/directives/custom-validator';
 import { Address } from 'src/app/model/address';
+import { Settings } from 'src/app/model/settings';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,13 +12,15 @@ import { Address } from 'src/app/model/address';
 })
 export class SettingsComponent implements OnInit {
 
+  settings: Settings;
+
   passwordForm: FormGroup;
   confirmPasswordMatcher = new ConfirmPasswordMatcher();
 
   priorityForm: FormGroup;
   allAddresses: Array<Address>;
 
-  constructor() { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit(): void {
     this.passwordForm = new FormGroup(
@@ -36,9 +40,16 @@ export class SettingsComponent implements OnInit {
       }
     );
     this.allAddresses = new Array<Address>();
-    this.allAddresses.push(new Address(1,"Kralja Petra", 0,"",1, 1));
-    this.allAddresses.push(new Address(2,"Laze Lazarevic", 0,"",1, 1));
-    this.allAddresses.push(new Address(3,"Stojana Novakovic", 0,"",1, 1));
+    
+    this.settingsService.getAddress().subscribe(data => {
+      this.allAddresses = data;
+    });
+
+    this.settings = new Settings();
+
+    this.settingsService.getSettings().subscribe(data => {
+      this.settings = data;
+    });
   }
 
   submitPassword(){
@@ -46,14 +57,49 @@ export class SettingsComponent implements OnInit {
   }
 
   submitPriority(){
+    var address : Address;
+    address = new Address(1,"",1,"",1,1);
 
+    this.allAddresses.forEach(element => {
+      if(element.addressID === Number(this.priorityForm.controls['address'].value)){
+        address = element;
+      }
+    });
+
+    address.priority = Number(this.priorityForm.controls['priority'].value);
+
+    this.settingsService.putAddress(address).subscribe();
   }
 
   setValue(checked: boolean, name: string){
+    switch(name){
+      case "success":
+        this.settings.successEnabled = checked;
+        break;
+      case "error":
+        this.settings.errorEnabled = checked;
+        break;
+      case "info":
+        this.settings.infoEnabled = checked;
+        break;
+      case "warning":
+        this.settings.warningEnabled = checked;
+        break;
+      case "showFields":
+        this.settings.showFields = checked;
+        break;
+    }
 
+    this.settingsService.putSettings(this.settings).subscribe();
   }
 
   reset(){
-    
+    this.settings.successEnabled = true;
+    this.settings.errorEnabled = true;
+    this.settings.infoEnabled = true;
+    this.settings.warningEnabled = true;
+    this.settings.showFields = true;
+
+    this.settingsService.putSettings(this.settings).subscribe();
   }
 }

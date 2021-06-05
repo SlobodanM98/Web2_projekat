@@ -37,7 +37,7 @@
                         <mat-form-field id="address-select">
                             <mat-label>Select address</mat-label>
                             <mat-select id="address" name="address" matInput formControlName="address">
-                                <mat-option *ngFor="let address of allAddresses" [value]="address.street">{{address.street}}</mat-option>
+                                <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
                             </mat-select>
                             <mat-error id="address-error" *ngIf="priorityForm.get('address')?.invalid">Address is required!</mat-error>
                         </mat-form-field>
@@ -72,22 +72,22 @@
                         <span>
                             <ul style="list-style: none;">
                                 <li>
-                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')">
+                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')" [checked]="settings.errorEnabled">
                                         Error
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')">
+                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')" [checked]="settings.infoEnabled">
                                         Info
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')">
+                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')" [checked]="settings.successEnabled">
                                         Success
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')">
+                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')" [checked]="settings.warningEnabled">
                                         Warning
                                     </mat-checkbox>
                                 </li>
@@ -98,13 +98,13 @@
         </div>
         <div class="col-md-5 col-sm-12">
             <div class="form-group">
-                <mat-label>Hide unnecessary fields</mat-label>
+                <mat-label>Show unnecessary fields</mat-label>
                     <section>
                         <span>
                             <ul style="list-style: none;">
                                 <li>
-                                    <mat-checkbox id="hideFields" (change)="setValue($event.checked,'hideFields')">
-                                        Hide
+                                    <mat-checkbox id="showFields" (change)="setValue($event.checked,'showFields')" [checked]="settings.showFields">
+                                        Show
                                     </mat-checkbox>
                                 </li>
                             </ul>
