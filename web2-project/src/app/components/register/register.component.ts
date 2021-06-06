@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {User} from 'src/app/model/user';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {User, Role} from 'src/app/model/user';
+import { UserService } from '../../services/user/user.service';
+import { Address } from '../../model/address'
+import { ToastrService } from 'ngx-toastr';
+import { element } from 'protractor';
+import { confirmPasswordValidator, ConfirmPasswordMatcher } from 'src/app/directives/custom-validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,11 +18,45 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   newUser:User;
   imageSrc:string = '../assets/profil.png';
+  allAddresses: Array<Address>;
+  allUsers: Array<User>
+  confirmPasswordMatcher = new ConfirmPasswordMatcher();
+  selectedFile: File;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private toastr: ToastrService, public router : Router) { }
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
+    this.allAddresses = new Array<Address>();
+
+    this.userService.getAddress().subscribe(data => {
+      this.allAddresses = data;
+    });
+
+    this.allUsers = new Array<User>();
+
+    this.userService.getUsers().subscribe(data => {
+      this.allUsers = data;
+    });
+
+    this.registerForm = new FormGroup(
+      {
+        username: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('',[Validators.required]),
+        confirmPassword: new FormControl('',[Validators.required]),
+        name: new FormControl('', [Validators.required]),
+        lastname: new FormControl('', [Validators.required]),
+        dateOfBirth: new FormControl('', [Validators.required]),
+        address: new FormControl('', [Validators.required]),
+        role: new FormControl('', [Validators.required]),
+        picture: new FormControl('', [Validators.required]),
+      },
+      {
+        validators: confirmPasswordValidator()
+      }
+    );
+
+    /*this.registerForm = this.fb.group({
       username: ['', [
         Validators.required,
         Validators.minLength(3)
@@ -51,16 +91,50 @@ export class RegisterComponent implements OnInit {
       picture: ['', [
         Validators.required
       ]]
-    })
+    })*/
 
     //this.registerForm.valueChanges.subscribe(console.log)
   }
 
   submitRegistration() {
+    console.log("qqqq");
+    var address : Address;
+    address = new Address(1,"",1,"",1,1);
+
+    this.allUsers.forEach(element => {
+      if(element.username === this.registerForm.controls['username'].value || element.email ===this.registerForm.controls['email'].value) {
+        return;
+      }
+    });
+
+    this.allAddresses.forEach(element => {
+      if(element.addressID == this.registerForm.controls['address'].value){
+        address = element;
+      }
+    });
+
+    var role: Role;
+    switch(this.registerForm.controls['role'].value) {
+      case 'Dispecer':
+        role = Role.Dispatcher;
+        break;
+      case 'Radnik':
+        role = Role.Worker;
+        break;
+      default:
+        role = Role.TeamMember;
+        break;
+    }
+
     console.log(this.registerForm.controls);
     this.newUser = new User(this.registerForm.controls['username'].value, this.registerForm.controls['name'].value, this.registerForm.controls['lastname'].value, this.registerForm.controls['password'].value, 
-    this.registerForm.controls['dateOfBirth'].value, this.registerForm.controls['address'].value, this.registerForm.controls['email'].value, this.registerForm.controls['role'].value, this.registerForm.controls['picture'].value);
-    localStorage.setItem('session', JSON.stringify(this.newUser));
+    this.registerForm.controls['dateOfBirth'].value, this.registerForm.controls['address'].value, this.registerForm.controls['email'].value, role, this.selectedFile);
+    console.log(this.newUser);
+    this.userService.postUser(this.newUser).subscribe(
+    );
+    this.router.navigate(["/Login"]);
+    
+    //localStorage.setItem('session', JSON.stringify(this.newUser));
     
   }
 
@@ -75,6 +149,8 @@ export class RegisterComponent implements OnInit {
         this.imageSrc = reader.result as string;
       };
     }
+
+    this.selectedFile = <File>e.target.files[0];
   }
 
   get username() {
@@ -89,8 +165,8 @@ export class RegisterComponent implements OnInit {
     return this.registerForm.get('password');
   }
 
-  get password2() {
-    return this.registerForm.get('password2');
+  get confirmPassword() {
+    return this.registerForm.get('confirmPassword');
   }
 
   get name() {

@@ -17,99 +17,96 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="username">Username</label>
-                        <input formControlName="username" type="text" name="username" id="username" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="username!.invalid && username!.touched">
-                            <div *ngIf="username!.errors!.required">Username is required.</div>
-                            <div *ngIf="username!.errors!.minlength">Username shouled be minimum {{ username!.errors!.minlength.requiredLength }} characters.</div>
-                        </div>
+                        <mat-form-field id="username-form-field" class="form-field">
+                            <mat-label>Username</mat-label>
+                            <input id="username" matInput type="text"  formControlName ="username">
+                            <mat-error id="username-error" *ngIf="registerForm.get('username')?.invalid">Username is required!</mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input formControlName="email" type="text" name="email" id="email" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="email!.invalid && email!.touched">
-                            <div *ngIf="email!.errors!.required">Email is required.</div>
-                            <div *ngIf="email!.errors!.email">Email does not look good.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input formControlName="password" type="password" name="password" id="password" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="password!.invalid && password!.touched">
-                            <div *ngIf="password!.errors!.required">Password is required.</div>
-                            <div *ngIf="password!.errors!.pattern">Password does not mach patern.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="password2">Repeat Password</label>
-                        <input formControlName="password2" type="password" name="password2" id="password2" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="password2!.invalid && password2!.touched">
-                            <div *ngIf="password2!.errors!.required">Repeat password is required.</div>
-                            <div *ngIf="password2!.errors!.pattern">Repeat password does not mach patern.</div>
-                        </div>
+                        <mat-form-field id="email-form-field" class="form-field">
+                            <mat-label>Email</mat-label>
+                            <input id="email" matInput type="email"  formControlName ="email">
+                            <mat-error id="email-error" *ngIf="registerForm.get('email')?.invalid">Email is required!</mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input formControlName="name" type="text" name="name" id="name" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="name!.invalid && name!.touched">
-                            <div *ngIf="name!.errors!.required">Name is required.</div>
-                        </div>
+                        <mat-form-field id="password-form-field" class="form-field">
+                            <mat-label>New password</mat-label>
+                            <input id="password" matInput type="password"  formControlName ="password">
+                            <mat-error id="password-error" *ngIf="registerForm.get('password')?.invalid">Password is required!</mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="lastname">Lastname</label>
-                        <input formControlName="lastname" type="text" name="lastname" id="lastname" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="lastname!.invalid && lastname!.touched">
-                            <div *ngIf="lastname!.errors!.required">Lastname is required.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="dateOfBirth">Date of birth</label>
-                        <input formControlName="dateOfBirth" type="date" name="dateOfBirth" id="dateOfBirth" value="0000-00-00" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="dateOfBirth!.invalid && dateOfBirth!.touched">
-                            <div *ngIf="dateOfBirth!.errors!.required">Date of birth is required.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input formControlName="address" type="text" name="address" id="address" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
-                            <div *ngIf="address!.errors!.required">Address is required.</div>
-                        </div>
+                        <mat-form-field id="confirm-password-form-field" class="form-field">
+                            <mat-label>Confirm password</mat-label>
+                            <input id="confirmPassword" matInput type="password"  formControlName ="confirmPassword" [errorStateMatcher]="confirmPasswordMatcher">
+                            <mat-error id="confirm-password-error" *ngIf="registerForm.get('confirmPassword')?.invalid">Password is required!</mat-error>
+                            <mat-error id="passwords-error" *ngIf="registerForm.hasError('passwordsDontMatch')">Passwords don't match!</mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="form-group">
-                        <label for="role">Role</label>
-                        <select formControlName="role" name="role" id="role" class="form-control">
-                            <option>Clan ekipe</option>
-                            <option>Dispecer</option>
-                            <option>Radnik</option>
-                        </select>
-                        <div class="alert alert-danger" *ngIf="role!.invalid && role!.touched">
-                            <div *ngIf="role!.errors!.required">Role is required.</div>
-                        </div>
+                        <mat-form-field id="name-form-field" class="form-field">
+                            <mat-label>Name</mat-label>
+                            <input id="name" matInput type="text"  formControlName ="name">
+                            <mat-error id="name-error" *ngIf="registerForm.get('name')?.invalid">Name is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="lastname-form-field" class="form-field">
+                            <mat-label>Lastname</mat-label>
+                            <input id="lastname" matInput type="text"  formControlName ="lastname">
+                            <mat-error id="lastname-error" *ngIf="registerForm.get('lastname')?.invalid">Lastname is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="dateOfBirth-form-field" class="form-field">
+                            <mat-label>Date of birth</mat-label>
+                            <input id="dateOfBirth" matInput type="date"  formControlName ="dateOfBirth">
+                            <mat-error id="dateOfBirth-error" *ngIf="registerForm.get('dateOfBirth')?.invalid">Date of birth is required!</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="address-form-field" class="form-field">
+                            <mat-label>Address</mat-label>
+                            <mat-select id="address" name="address" matInput formControlName="address">
+                                <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.street}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <mat-form-field id="role-form-field" class="form-field">
+                            <mat-label>Role</mat-label>
+                            <select formControlName="role" matNativeControl name="role" id="role">
+                                <option>Clan ekipe</option>
+                                <option>Dispecer</option>
+                                <option>Radnik</option>
+                            </select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12">
@@ -139,7 +136,7 @@
         <div class="col-md-8 col-sm-6">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    <input type="submit" class="btn btn-primary btn-block mt-3" value="Sign up"/>
+                    <input type="submit" [disabled]="!registerForm.valid" class="btn btn-primary btn-block mt-3" value="Sign up"/>
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <input type="button" routerLink="/" class="btn btn-secondary btn-block mt-3" value="Cancel"/>

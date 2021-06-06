@@ -71,7 +71,7 @@ namespace Web2BackEnd.Services
 			{
 				await _addressRepository.SaveChanges();
 			}
-			catch
+			catch(Exception e)
 			{
 				success = false;
 			}

@@ -46,7 +46,8 @@ namespace Web2BackEnd.Repository
 		}
 
 		public virtual async Task<int> SaveChanges(){
-			return await _context.SaveChangesAsync();
+			var rez = await _context.SaveChangesAsync();
+			return rez;
 		}
 	}
 }
