@@ -14,6 +14,11 @@ using System.Threading.Tasks;
 using Web2BackEnd.AutoMapper;
 using Web2BackEnd.Data;
 using AutoMapper;
+using Web2BackEnd.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Web2BackEnd
 {
@@ -32,6 +37,9 @@ namespace Web2BackEnd
 			services.AddControllers();
 
 			services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DataContext")));
+			services.AddDbContext<ApplicationUserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+			//services.AddDefaultIdentity<User>().AddEntityFrameworkStores<ApplicationUserContext>().AddDefaultTokenProviders();
+			services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<ApplicationUserContext>().AddDefaultTokenProviders();
 
 			services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
@@ -40,6 +48,21 @@ namespace Web2BackEnd
 				builder.AllowAnyMethod();
 				builder.AllowAnyHeader();
 			}));
+
+			services.Configure<IdentityOptions>(opts =>
+			{
+				opts.User.RequireUniqueEmail = true;
+				opts.Password.RequiredLength = 8;
+
+				opts.SignIn.RequireConfirmedEmail = true;
+			});
+
+			services.Configure<FormOptions>(o =>
+			{
+				o.ValueLengthLimit = int.MaxValue;
+				o.MultipartBodyLengthLimit = int.MaxValue;
+				o.MemoryBufferThreshold = int.MaxValue;
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +78,15 @@ namespace Web2BackEnd
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
+
+			app.UseStaticFiles();
+			/*app.UseStaticFiles(new StaticFileOptions
+			{
+				FileProvider = new PhysicalFileProvider(ConfigurationPath.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
+				RequestPath = new Microsoft.AspNetCore.Http.PathString("/StaticFiles")  
+			});*/
+
+			app.UseAuthentication();
 
 			app.UseAuthorization();
 

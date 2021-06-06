@@ -49,7 +49,7 @@ namespace Web2BackEnd.Controllers
 
 			if(success)
 			{
-				return NoContent();
+				return Ok();
 			}
 			else
 			{
@@ -73,14 +73,13 @@ namespace Web2BackEnd.Controllers
 		}
 
 		//DELETE: api/Address/3
-		[HttpDelete]
-		[Route("/{id}")]
+		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteAddress(int id){
 			bool success = await _service.DeleteAddress(id);
 
 			if(success)
 			{
-				return NoContent();
+				return Ok();
 			}
 			else
 			{
