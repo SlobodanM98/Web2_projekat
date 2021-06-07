@@ -68,9 +68,10 @@ export class DocumentsComponent implements OnInit {
   {
     console.log('reseting');
   }
+  /*
   openAddDocumentModal(content : any){
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
-
+*/
 }

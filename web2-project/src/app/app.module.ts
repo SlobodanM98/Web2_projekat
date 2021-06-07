@@ -50,6 +50,11 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { HttpClientModule } from '@angular/common/http';
 import { WorkAccountHistoryStateChangesComponent } from './components/work-account/work-account-new/work-account-history-state-changes/work-account-history-state-changes.component';
 import { WorkAccountMultimediaComponent } from './components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component';
+import { DocumentsNewComponent } from './components/documents/documents-new/documents-new.component';
+import { DocumentsBasicInfoComponent } from './components/documents/documents-new/documents-basic-info/documents-basic-info.component';
+import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
+import { IncidentDevicesComponent } from './components/incidents/incidents-new/incident-devices/incident-devices.component';
+import { IncidentsResolutionComponent } from './components/incidents/incidents-new/incidents-resolution/incidents-resolution.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +89,12 @@ import { WorkAccountMultimediaComponent } from './components/work-account/work-a
     SettingsComponent,
     WorkAccountHistoryStateChangesComponent,
     WorkAccountMultimediaComponent,
+    DocumentsNewComponent,
+    DocumentsBasicInfoComponent,
+    DocumentsChecklistComponent,
+    IncidentDevicesComponent,
+    IncidentsResolutionComponent,
+    
    
   ],
   imports: [
