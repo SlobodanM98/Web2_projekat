@@ -36,6 +36,10 @@ import { WorkPlanMultimediaComponent } from './components/work-plan/work-plan-ne
 import { NoReturnGuard } from './guards/no-return.guard';
 import { WorkPlanDevicesComponent } from './components/work-plan/work-plan-new/work-plan-devices/work-plan-devices.component';
 import { WorkPlanInstructionsComponent } from './components/work-plan/work-plan-new/work-plan-instructions/work-plan-instructions.component';
+import { DocumentsNewComponent } from './components/documents/documents-new/documents-new.component';
+import { DocumentsBasicInfoComponent } from './components/documents/documents-new/documents-basic-info/documents-basic-info.component';
+import { IncidentDevicesComponent } from './components/incidents/incidents-new/incident-devices/incident-devices.component';
+import { IncidentsResolutionComponent } from './components/incidents/incidents-new/incidents-resolution/incidents-resolution.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -67,9 +71,19 @@ const routes: Routes = [
        children: [
          { path: 'WorkPlanFiltered', component: WorkPlanFilteredComponent}
        ]},
+
+      {
+        path:'DocumentNew', component:DocumentsNewComponent,
+        children: [
+          { path:'DocumentBasicInfo', component:DocumentsBasicInfoComponent}
+        ],
+      },
+      
       { path:'NewIncident', component:IncidentsNewComponent,
        children: [
-         { path:'IncidentBasicInfo', component:IncidentsBasicInfoComponent}
+         { path:'IncidentBasicInfo', component:IncidentsBasicInfoComponent},
+         { path: 'IncidentDevices', component:IncidentDevicesComponent},
+         { path: 'IncidentResolution', component:IncidentsResolutionComponent}
        ]},
       { path: 'WorkPlanNew', component: WorkPlanNewComponent,
        children: [

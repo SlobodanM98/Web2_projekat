@@ -1,3 +1,6 @@
+import {WorkPlan} from 'src/app/model/work-plan';
+
+
 export enum TipDokumenta {
     PlaniraniRad,
     NeplaniraniRad

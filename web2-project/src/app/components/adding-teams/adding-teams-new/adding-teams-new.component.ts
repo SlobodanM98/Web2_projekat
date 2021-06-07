@@ -12,31 +12,16 @@ import { Address } from "../../../model/address"
   styleUrls: ['./adding-teams-new.component.css']
 })
 export class AddingTeamsNewComponent implements OnInit {
-
   creatingTeamForm: FormGroup;
+  teamMembers: Array<User>;
+  allMembers: Array<User>;
 
-
-  /*teamMembers = [
-    new User("1",'pepe', "pera", "peric", "", new Date(), 1, "pera@gmail.com", Role.TeamMember, undefined),
-    new User("2",'m2', 'marko', 'matic', "", new Date(), 1, "marko@gmail.com", Role.TeamMember, undefined),
-    new User("3",'jj', 'jole', 'jokic', "", new Date(), 1, 'jole@gmail.com', Role.TeamMember, undefined),
-    new User("4",'pepe', "pera", "peric", "", new Date(), 1, "pera@gmail.com", Role.TeamMember, undefined),
-    new User("5",'m2', 'marko', 'matic', "", new Date(), 1, "marko@gmail.com", Role.TeamMember, undefined),
-    new User("6",'jj', 'jole', 'jokic', "", new Date(), 1, 'jole@gmail.com', Role.TeamMember, undefined),
-  ];
-
-  allMembers = [
-    new User('caca', "caca", "caric", "", new Date(), 1, "caca@gmail.com", Role.TeamMember, undefined),
-    new User("8",'luk', 'luka', 'lukic', "", new Date(), 1, "luka@gmail.com", Role.TeamMember, undefined),
-    new User("9",'tara', 'tamara', 'tatic', "", new Date(), 1, 'tara@gmail.com', Role.TeamMember, undefined),
-    new User("10",'caca', "caca", "caric", "", new Date(), 1, "caca@gmail.com", Role.TeamMember, undefined),
-    new User("11",'luk', 'luka', 'lukic', "", new Date(), 1, "luka@gmail.com", Role.TeamMember, undefined),
-    new User("12",'tara', 'tamara', 'tatic', "", new Date(), 1, 'tara@gmail.com', Role.TeamMember, undefined),
-  ];*/
 
   constructor(private fb: FormBuilder, public router : Router) { }
 
   ngOnInit(): void {
+    this.teamMembers = new Array<User>();
+    this.allMembers = new Array<User>();
     this.creatingTeamForm = this.fb.group({
       id: [''],
       name: [''],
@@ -57,5 +42,6 @@ export class AddingTeamsNewComponent implements OnInit {
 
     this.router.navigate(['/Navbar/AddingTeams']);
   }
+  
 
 }

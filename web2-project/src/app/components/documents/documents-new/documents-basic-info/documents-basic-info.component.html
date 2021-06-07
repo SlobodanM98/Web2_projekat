@@ -1,0 +1,72 @@
+<form [formGroup]="DocumentBasicInfo" class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="documentType">Document Type</label>
+                <select formControlName="documentType" type="text" name="documentType" id="documentType" class="form-contol">
+                    <option value="Planned">Planned Work</option>
+                    <option value="Unplanned">Unplanned Work</option>
+                </select>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label for="phoneNum">Phone No:</label>
+                <input type="text" formControlName="phoneNum" name="phoneNum" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <input type="text" formControlName="status" name="status" class="form-control" value="Draft" locked>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <label for="crew">Incident:</label>
+            <input type="text" formControlName="crew" name="crew" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="switchPlan">Switching plan:</label>
+                <select formControlName="switchPlan" name="switchPlan" class="form-control">
+
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="dateCreated">Date and time created:</label>
+                <input type="datetime" formControlName="dateCreated" class="form-control" locked>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="author">Created by:</label>
+                <input type="text" formControlName="author" class="form-control" locked>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+                <label for="details">Details:</label>
+                <input type="text" formControlName="details" class="form-control">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="form-group">
+                <label for="notes">Notes:</label>
+                <input type="text" formControlName="notes" class="form-control">
+            </div>
+        </div>
+    </div>
+    
+</form>

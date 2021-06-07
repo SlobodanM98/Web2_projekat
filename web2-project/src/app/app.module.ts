@@ -55,6 +55,11 @@ import { WorkPlanMultimediaComponent } from './components/work-plan/work-plan-ne
 import { NoReturnGuard } from './guards/no-return.guard';
 import { WorkPlanDevicesComponent } from './components/work-plan/work-plan-new/work-plan-devices/work-plan-devices.component';
 import { WorkPlanInstructionsComponent } from './components/work-plan/work-plan-new/work-plan-instructions/work-plan-instructions.component';
+import { DocumentsNewComponent } from './components/documents/documents-new/documents-new.component';
+import { DocumentsBasicInfoComponent } from './components/documents/documents-new/documents-basic-info/documents-basic-info.component';
+import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
+import { IncidentDevicesComponent } from './components/incidents/incidents-new/incident-devices/incident-devices.component';
+import { IncidentsResolutionComponent } from './components/incidents/incidents-new/incidents-resolution/incidents-resolution.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +97,12 @@ import { WorkPlanInstructionsComponent } from './components/work-plan/work-plan-
     WorkPlanMultimediaComponent,
     WorkPlanDevicesComponent,
     WorkPlanInstructionsComponent,
+    DocumentsNewComponent,
+    DocumentsBasicInfoComponent,
+    DocumentsChecklistComponent,
+    IncidentDevicesComponent,
+    IncidentsResolutionComponent,
+    
    
   ],
   imports: [
