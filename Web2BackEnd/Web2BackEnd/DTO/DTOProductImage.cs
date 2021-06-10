@@ -7,7 +7,7 @@ namespace Web2BackEnd.DTO
 {
     public class DTOProductImage
     {
-        public int ProductId { get; set; }
+        public int ProductImageId { get; set; }
 
         public string ImagePath { get; set; }
 

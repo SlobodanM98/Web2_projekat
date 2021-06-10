@@ -82,5 +82,27 @@ namespace Web2BackEnd.Services
             IEnumerable<User> users = await _userRepository.GetAll();
             return _mapper.Map<IEnumerable<UserForRegistrationDto>>(users);
         }
+
+
+        public async Task<IEnumerable<UserForRegistrationDto>> GetUsersEmailCofirm()
+        {
+            IEnumerable<User> users = await _userRepository.GetAll();
+            IEnumerable<User> copyUsers = users.Where(u => u.EmailConfirmed == true);
+            return _mapper.Map<IEnumerable<UserForRegistrationDto>>(copyUsers);
+        }
+
+        public async Task<bool> UpdateStatus(UserForRegistrationDto model)
+        {
+            User mapUser = _mapper.Map<User>(model);
+            _userRepository.Update(mapUser);
+
+            bool success = true;
+            User u = await _userRepository.Get(mapUser.Id);
+            if (u == null || u.Status != model.Status)
+            {
+                success = false;
+            }
+            return success;
+        }
     }
 }

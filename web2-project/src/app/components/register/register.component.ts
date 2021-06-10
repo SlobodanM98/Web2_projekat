@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.allAddresses = new Array<Address>();
 
-    this.userService.getAddress().subscribe(data => {
+    this.userService.getAddresses().subscribe(data => {
       this.allAddresses = data;
     });
 
@@ -102,7 +102,7 @@ export class RegisterComponent implements OnInit {
     address = new Address(1,"",1,"",1,1);
 
     this.allUsers.forEach(element => {
-      if(element.username === this.registerForm.controls['username'].value || element.email ===this.registerForm.controls['email'].value) {
+      if(element.userName === this.registerForm.controls['username'].value || element.email ===this.registerForm.controls['email'].value) {
         return;
       }
     });

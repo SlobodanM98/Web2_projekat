@@ -30,8 +30,7 @@ namespace Web2BackEnd.Controllers
 		}
 
 		//GET: api/Address/3
-		[HttpGet]
-		[Route("/{id}")]
+		[HttpGet("{id}")]
 		public async Task<ActionResult<DTOAddress>> GetAddress(int id){
 			DTOAddress address = await _service.GetAddress(id);
 

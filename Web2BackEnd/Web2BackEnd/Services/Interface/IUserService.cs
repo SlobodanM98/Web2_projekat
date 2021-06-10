@@ -12,5 +12,15 @@ namespace Web2BackEnd.Services.Interface
 
         Task<bool> DeleteUser(string id);
 
+        Task<string> GenerateToken(UserForRegistrationDto model);
+
+        Task<bool> ConfirmeToken(string email, string token);
+
+        Task<IEnumerable<UserForRegistrationDto>> GetUsers();
+
+        Task<IEnumerable<UserForRegistrationDto>> GetUsersEmailCofirm();
+
+        Task<bool> UpdateStatus(UserForRegistrationDto model);
+
     }
 }

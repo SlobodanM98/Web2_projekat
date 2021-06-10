@@ -16,14 +16,18 @@ export class UserService {
     return this.http.get<User[]>(this.url + "/api/User");
   }
 
-  getAddress(): Observable<Address[]>{
+  getUsersEmailConfirme(): Observable<User[]>{
+    return this.http.get<User[]>(this.url + "/api/User/GetUsersEmailConfirm");
+  }
+
+  getAddresses(): Observable<Address[]>{
     return this.http.get<Address[]>(this.url + "/api/Address");
   }
 
   postUser(user: User){
     const formData = new FormData();
-    formData.append('username',user.username);
-    formData.append('name', user.firstName);
+    formData.append('username',user.userName);
+    formData.append('firstName', user.firstName);
     formData.append('lastname', user.lastName);
     formData.append('password', user.password);
     formData.append('birthDate', user.birthDate.toString());
@@ -34,15 +38,23 @@ export class UserService {
     return this.http.post(this.url + "/api/User", formData, httpOptions);
   }
 
-  putUser(user: User){
+  /*putUser(user: User){
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json'})
     }
     return this.http.put(this.url + "/api/User", user, httpOptions);
-  }
+  }*/
 
   deleteUser(id: number){
     return this.http.delete(this.url + "/api/User/" + id);
+  }
+
+  getAddress(id: number): Observable<Address>{
+    return this.http.get<Address>(this.url + "/api/Address/" + id);
+  }
+
+  updateStatus(user: User) {
+    return this.http.put(this.url + "/api/User/UpdateStatus", user);
   }
 
 }

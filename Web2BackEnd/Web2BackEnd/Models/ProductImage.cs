@@ -10,7 +10,7 @@ namespace Web2BackEnd.Models
     public class ProductImage
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ProductId { get; set; }
+        public int ProductImageId { get; set; }
 
         [Required]
         public string ImagePath { get; set; }

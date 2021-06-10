@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Web2BackEnd.Models;
 
 namespace Web2BackEnd.DTO
 {
@@ -30,7 +31,9 @@ namespace Web2BackEnd.DTO
 
         public Models.Role Role { get; set; }
 
+        public Status Status { get; set; }
+
         public IFormFile SelecetdFile { get; set; }
-        public DTOProductImage Image { get; set; }
+        public DTOProductImage ProductImage { get; set; }
     }
 }

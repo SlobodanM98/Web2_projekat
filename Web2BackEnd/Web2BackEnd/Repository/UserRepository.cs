@@ -45,7 +45,7 @@ namespace Web2BackEnd.Repository
 
         public async Task<IEnumerable<User>> GetAll()
         {
-            return await _userManager.Users.ToListAsync();
+            return await _userManager.Users.Include("ProductImage").ToListAsync();
         }
 
         public async Task<string> GenerateToken(User user)
@@ -59,6 +59,14 @@ namespace Web2BackEnd.Repository
             if (user != null)
                 return await _userManager.ConfirmEmailAsync(user, token);
             return IdentityResult.Failed();
+        }
+
+
+        public async void Update(User user)
+        {
+            //User copy = await Get(user.Id);
+            //copy.Status = user.Status;
+            await _userManager.UpdateAsync(user);
         }
     }
 }

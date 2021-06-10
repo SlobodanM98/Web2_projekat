@@ -28,10 +28,10 @@ namespace Web2BackEnd.Models
 		public int AddressID { get; set; }
 		[Required]
 		public Role Role { get; set; }
+		[Required]
+		public Status Status { get; set; }
 
-		public bool AdminConfirme { get; set; }
-
-		public ProductImage Image { get; set; }
+		public ProductImage ProductImage { get; set; }
 
 	}
 
@@ -42,5 +42,12 @@ namespace Web2BackEnd.Models
 		Worker,
 		Consumer,
 		Admin
+	}
+
+	public enum Status
+    {
+		Accepted,
+		Rejected,
+		Processing
 	}
 }

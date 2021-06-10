@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web2BackEnd.Data;
 
 namespace Web2BackEnd.Migrations.ApplicationUser
 {
     [DbContext(typeof(ApplicationUserContext))]
-    partial class ApplicationUserContextModelSnapshot : ModelSnapshot
+    [Migration("20210609144311_UpdateImageProduct2")]
+    partial class UpdateImageProduct2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,12 +257,12 @@ namespace Web2BackEnd.Migrations.ApplicationUser
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ImageProductImageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ProductImageId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
@@ -268,7 +270,7 @@ namespace Web2BackEnd.Migrations.ApplicationUser
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasIndex("ProductImageId");
+                    b.HasIndex("ImageProductImageId");
 
                     b.HasDiscriminator().HasValue("User");
                 });
@@ -326,9 +328,9 @@ namespace Web2BackEnd.Migrations.ApplicationUser
 
             modelBuilder.Entity("Web2BackEnd.Models.User", b =>
                 {
-                    b.HasOne("Web2BackEnd.Models.ProductImage", "ProductImage")
+                    b.HasOne("Web2BackEnd.Models.ProductImage", "Image")
                         .WithMany()
-                        .HasForeignKey("ProductImageId");
+                        .HasForeignKey("ImageProductImageId");
                 });
 #pragma warning restore 612, 618
         }

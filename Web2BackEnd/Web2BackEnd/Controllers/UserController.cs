@@ -38,7 +38,7 @@ namespace Web2BackEnd.Controllers
         public async Task<Object> Register([FromForm]UserForRegistrationDto model)
         {
             model.SelecetdFile = Request.Form.Files[0];
-                if (model.SelecetdFile != null)
+            if (model.SelecetdFile != null)
             {
                 var folderName = Path.Combine("StaticFiles", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
@@ -60,13 +60,13 @@ namespace Web2BackEnd.Controllers
                         objfiles.Image = target.ToArray();
                     }
 
-                    model.Image = objfiles;
-                    model.Image.ImagePath = dbPath;
+                    model.ProductImage = objfiles;
+                    model.ProductImage.ImagePath = dbPath;
                 }
             }
             User mapUser = _mapper.Map<User>(model);
             mapUser.Id = System.Guid.NewGuid().ToString();
-            mapUser.AdminConfirme = false;
+            mapUser.Status = Status.Processing;
             bool success = false;
             try
             {
@@ -118,7 +118,7 @@ namespace Web2BackEnd.Controllers
             }
         }
 
-
+        [HttpGet, Route("ConfirmEmail")]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -138,6 +138,28 @@ namespace Web2BackEnd.Controllers
         public async Task<IEnumerable<UserForRegistrationDto>> GetUser()
         {
             return await _service.GetUsers();
+        }
+
+        [HttpGet, Route("GetUsersEmailConfirm")]
+        public async Task<IEnumerable<UserForRegistrationDto>> GetUsersEmailConfirm()
+        {
+            return await _service.GetUsersEmailCofirm();
+        }
+
+        [HttpPut, Route("UpdateStatus")]
+        public async Task<IActionResult> UpdateStatus(UserForRegistrationDto user)
+        {
+            User copy = await _userManager.FindByIdAsync(user.Id);
+            copy.Status = user.Status;
+            await _userManager.UpdateAsync(copy);
+
+            bool success = true;
+            User u = await _userManager.FindByIdAsync(user.Id);
+            if (u == null || u.Status != user.Status)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }
