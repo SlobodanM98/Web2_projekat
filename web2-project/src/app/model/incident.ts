@@ -11,9 +11,11 @@ export enum IncidentType
 
 //nezavrsena klasa
 export class Incident {
-    public ID:string;
+    public ID:number;
+    //public userID:number;
+    //public crewID:number;
     public Tip:IncidentType;
-    public Prioritet:number;
+    public Prioritet:number = 0;
     public Potvrdjen:boolean;
     public Status:string;
     public ETA:string;
@@ -22,19 +24,20 @@ export class Incident {
     public ETR:string;
     public NivoNapona:number;
     public PVR:string; //planirano vreme rada
-    public Devices:Array<Device>;
-    public Calls:Array<Call>;
-    public Team:Team;
+    //public Devices:Array<Device>;
+    //public Calls:Array<Call>;
+    //public Team:Team;
     public Uzrok:string;
     public Poduzrok:string;
     public Konstrukcija:string;
     public Materijal:string;
 
-    constructor(id:string,tip:IncidentType,prioritet:number,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string, devices : Array<Device>, calls : Array<Call>, team : Team, poduzrok : string, uzrok : string, konstrukcija : string, materijal : string)
+    constructor(tip:IncidentType,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string)
     {
-        this.ID = id;
+       
         this.Tip = tip;
-        this.Prioritet = prioritet;
+        //this.Prioritet = 0;
+        //this.Potvrdjen = false;
         this.Status = status;
         this.ETA = eta;
         this.ATA = ata;
@@ -42,13 +45,12 @@ export class Incident {
         this.ETR = etr;
         this.NivoNapona = nivonapona;
         this.PVR = pvr;
-        this.Devices = devices;
-        this.Calls = calls;
-        this.Team = team;
-        this.Poduzrok = poduzrok;
-        this.Uzrok = uzrok;
-        this.Konstrukcija = konstrukcija;
-        this.Materijal = materijal;
+        //this.Uzrok = "";
+        //this.Poduzrok = "";
+        //this.Konstrukcija = "";
+        //this.Materijal = "";
+        
+        
     }
 }
 

@@ -30,6 +30,7 @@ export class WorkPlanBasicInfoComponent implements OnInit {
     this.allAddresses = new Array<Address>();
 
     this.allIncidents = new Array<Incident>();
+    /*
     this.allIncidents.push(new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
     this.allIncidents.push(new Incident("INC2", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
     this.allIncidents.push(new Incident("INC3", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "pvr", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "", "", "", ""));
@@ -38,6 +39,7 @@ export class WorkPlanBasicInfoComponent implements OnInit {
     this.allTeams.push(new Team("T1","name",new Array<User>()));
     this.allTeams.push(new Team("T2","name",new Array<User>()));
     this.allTeams.push(new Team("T3","name",new Array<User>()));
+    */
 
     this.workPlanForm = this.fb.group({
       type: ['', [

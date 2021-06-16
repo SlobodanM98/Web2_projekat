@@ -60,6 +60,10 @@ import { DocumentsBasicInfoComponent } from './components/documents/documents-ne
 import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
 import { IncidentDevicesComponent } from './components/incidents/incidents-new/incident-devices/incident-devices.component';
 import { IncidentsResolutionComponent } from './components/incidents/incidents-new/incidents-resolution/incidents-resolution.component';
+import { IncidentsCallsComponent } from './components/incidents/incidents-new/incidents-calls/incidents-calls.component';
+import { NewCallComponent } from './components/incidents/incidents-new/incidents-calls/new-call/new-call.component';
+import { IncidentsCrewComponent } from './components/incidents/incidents-new/incidents-crew/incidents-crew.component';
+import { MultimediaAttachmentsComponent } from './components/incidents/incidents-new/multimedia-attachments/multimedia-attachments.component';
 
 @NgModule({
   declarations: [
@@ -102,6 +106,10 @@ import { IncidentsResolutionComponent } from './components/incidents/incidents-n
     DocumentsChecklistComponent,
     IncidentDevicesComponent,
     IncidentsResolutionComponent,
+    IncidentsCallsComponent,
+    NewCallComponent,
+    IncidentsCrewComponent,
+    MultimediaAttachmentsComponent,
     
    
   ],

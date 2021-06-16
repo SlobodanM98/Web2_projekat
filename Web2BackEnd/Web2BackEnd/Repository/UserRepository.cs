@@ -32,6 +32,11 @@ namespace Web2BackEnd.Repository
             return await _userManager.FindByIdAsync(id);
         }
 
+        public async Task<User> GetByUsername(string username)
+        {
+            return await _userManager.FindByNameAsync(username);
+        }
+
         public async Task<IdentityResult> Delete(string id)
         {
             User user = await Get(id);

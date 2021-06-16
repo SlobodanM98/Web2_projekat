@@ -19,6 +19,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Web2BackEnd
 {
@@ -63,6 +66,11 @@ namespace Web2BackEnd
 				o.MultipartBodyLengthLimit = int.MaxValue;
 				o.MemoryBufferThreshold = int.MaxValue;
 			});
+
+
+			//JWT auth
+			
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

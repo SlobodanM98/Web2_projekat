@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LoginData } from 'src/app/model/login-data';
 import { Address } from '../../model/address';
 import { User } from '../../model/user';
 
@@ -18,6 +19,16 @@ export class UserService {
 
   getAddress(): Observable<Address[]>{
     return this.http.get<Address[]>(this.url + "/api/Address");
+  }
+
+  postLogin(ld:LoginData)
+  {
+    const formData = new FormData();
+    formData.append('username', ld.username);
+    formData.append('password', ld.password);
+    const httpOptions = { headers: new HttpHeaders({  observe: 'response'})};
+    return this.http.post(this.url + "/api/User/Login", formData, httpOptions);
+    //return this.http.post(this.url + "/api/User", username, password);
   }
 
   postUser(user: User){

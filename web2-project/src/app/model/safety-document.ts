@@ -8,7 +8,7 @@ export enum TipDokumenta {
 
 
 export class SafetyDocument {
-
+    public ID:number;
     public TipDokumenta: TipDokumenta;
     public PlanRada:string;
     public Author:string;
@@ -19,7 +19,7 @@ export class SafetyDocument {
     public dateOfCreation:Date;
 
 
-    constructor(tip:TipDokumenta, plan:string, author:string, details:string, notes:string, telBroj:string)
+    constructor(tip:TipDokumenta, plan:string, author:string, details:string, notes:string, telBroj:string, d:Date)
     {
         this.TipDokumenta = tip;
         this.PlanRada = plan;
@@ -28,5 +28,7 @@ export class SafetyDocument {
         this.Details = details;
         this.Notes = notes;
         this.PhoneNum = telBroj;
+        this.dateOfCreation = d;
+        
     }
 }

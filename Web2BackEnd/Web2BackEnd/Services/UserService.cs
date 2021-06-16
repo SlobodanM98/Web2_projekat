@@ -44,6 +44,18 @@ namespace Web2BackEnd.Services
             }
         }
 
+       // public async Task<string> Login(DTOLogin loginInfo)
+       /*
+        {
+          
+
+            
+
+
+
+
+        }
+       */
         public async Task<bool> DeleteUser(string id)
         {
             var result = await _userRepository.Delete(id);

@@ -4,7 +4,11 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Address } from 'src/app/model/address';
 import { Call, Reason } from 'src/app/model/call';
+import { LoginData } from 'src/app/model/login-data';
 import { CallService } from 'src/app/services/call.service';
+import { UserService } from '../../services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-login',
@@ -15,10 +19,11 @@ export class LoginComponent implements OnInit {
 
   poruka : string;
   reportOutageForm : FormGroup;
+  logInForm:FormGroup;
 
   allAddresses : Array<Address>;
 
-  constructor(public router : Router, private formBuilder : FormBuilder, private modalService: NgbModal, private callService: CallService) { }
+  constructor(public router : Router, private formBuilder : FormBuilder, private modalService: NgbModal, private callService: CallService, private userService:UserService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.allAddresses = new Array<Address>();
@@ -38,10 +43,35 @@ export class LoginComponent implements OnInit {
       lastName: ['', [
       ]]
     });
+    this.logInForm = this.formBuilder.group({
+      username:['', [
+        Validators.required
+      ]],
+      password:['',[
+       Validators.required
+      ]]
+    });
   }
 
   logIn(){
-    this.router.navigate(["/Navbar"]);
+    var mock = new LoginData("us1", "pass1");
+     console.log(mock);
+    var login = new LoginData(this.logInForm.controls["username"].value, this.logInForm.controls["password"].value);
+    //var login = new LoginData("dimitrije","dimitrije123");
+    console.log(login);
+    this.userService.postLogin(login).subscribe(
+      (res:any) => {
+        localStorage.setItem('token', res.token);
+        this.router.navigate(["/Navbar"]);
+      },
+      err => {
+        if (err.status == 400)
+          this.toastr.error("Incorect username or password");
+        else
+          console.log(err);
+      }
+
+    );
   }
 
   openReportOutageModal(content : any){
@@ -66,6 +96,16 @@ export class LoginComponent implements OnInit {
 
   get lastName(){
     return this.reportOutageForm.get('lastName');
+  }
+
+  get Username()
+  {
+    return this.logInForm.get('username');
+  }
+
+  get Password()
+  {
+    return this.logInForm.get('password');
   }
 
   submitReport(){

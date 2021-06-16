@@ -3,12 +3,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Observable } from 'rxjs';
 import {IncidentType, Incident} from 'src/app/model/incident'
 
 
 export interface TableElement
 {
-  id:string;
+  id:number;
   startDate:string;
   status:string;
 }
