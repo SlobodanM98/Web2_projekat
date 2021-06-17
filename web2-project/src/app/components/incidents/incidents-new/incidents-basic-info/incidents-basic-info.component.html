@@ -1,15 +1,15 @@
-<form [formGroup]="incidentBasicForm" class="container">
+<form [formGroup]="incidentBasicForm" class="container" (ngSubmit)="saveIncident()">
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
-                <label for="indicdentID">Incident ID:</label>
-                <input formControlName="indicdentID" type="text" name="indicdentID" id="incidentID" class="form-contol">
+                <label for="incidentID">Incident ID:</label>
+                <input formControlName="incidentID" type="number" name="incidentID" id="incidentID" class="form-contol" readonly>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="affectedCustomers">Affected Customers:</label>
-                <input formControlName="affectedCustomers" type="number" name="affectedCustomers" id="affectedCustomers" class="form-control">
+                <input formControlName="affectedCustomers" type="number" name="affectedCustomers" id="affectedCustomers" class="form-control" readonly>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
             <div class="form-group">
                 <label for="type">Type:</label>
                 <select formControllName="type" type="text" id="type" class="form-control">
-                    <option value="Planned">Planned Work</option>
+                    <option value="Planned" selected>Planned Work</option>
                     <option value="Unplanned">Unplanned Work</option>
                 </select>
             </div>
@@ -26,7 +26,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="outagetime">Outage time:</label>
-                <input formControlName="outagetime" type="date" name="outagetime" class="form-control" id="outagetime">
+                <input formControlName="outagetime" type="datetime-local" name="outagetime" class="form-control" id="outagetime">
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="priority">Priority:</label>
-                <input type="number"  formControlName="priority" name="priority" class="form-control" id="priority">
+                <input type="number"  formControlName="priority" name="priority" class="form-control" id="priority" readonly>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -84,7 +84,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="scheduled">Scheduled Time:</label>
-                <input type="date" class="form-control" formControlName="scheduled" name="scheduled">
+                <input type="datetime-local" class="form-control" formControlName="scheduled" name="scheduled">
             </div>
         </div>
     </div>
@@ -92,7 +92,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="eta">ETA:</label>
-                <input type="date" class="form-control" formControlName="eta" name="eta">
+                <input type="time" class="form-control" formControlName="eta" name="eta">
             </div>
         </div>
     </div>
@@ -102,6 +102,17 @@
                 <label for="ata">ATA:</label>
                 <input type="date" class="form-control" formControlName="ata" name="ata">
             </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <label for="pvr">Planirano vreme rada:</label>
+                <input type="time" class="form-control" formControlName="pvr" name="pvr">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-info mt-2" type="submit">Save</button>
         </div>
     </div>
 </form>

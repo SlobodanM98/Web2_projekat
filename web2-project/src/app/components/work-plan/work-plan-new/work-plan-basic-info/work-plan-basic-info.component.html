@@ -26,7 +26,7 @@
                 <mat-form-field id="incident-form-field" class="form-field" appearance="outline">
                     <mat-label>Incident</mat-label>
                     <mat-select id="incident" name="incident" matInput formControlName="incident">
-                        <mat-option *ngFor="let incidnetID of allIncidents" [value]="incidnetID.ID">{{incidnetID.ID}}</mat-option>
+                        <mat-option *ngFor="let incidnetID of allIncidents" [value]="incidnetID.id">{{incidnetID.id}}</mat-option>
                     </mat-select>
                     <mat-error id="incident-error" *ngIf="workPlanForm.get('incident')?.invalid">Incident is required!</mat-error>
                 </mat-form-field>

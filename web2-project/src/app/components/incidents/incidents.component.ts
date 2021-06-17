@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Incident} from 'src/app/model/incident'
+import { Observable } from 'rxjs';
+import {Incident} from 'src/app/model/incident';
+import { IncidentService } from 'src/app/services/incident.service';
+
 @Component({
   selector: 'app-incidents',
   templateUrl: './incidents.component.html',
@@ -7,11 +10,19 @@ import {Incident} from 'src/app/model/incident'
 })
 export class IncidentsComponent implements OnInit {
   filteredIncidents:Array<Incident>;
-  constructor() { }
+  constructor(private incidentServ:IncidentService) { }
 
   ngOnInit(): void {
-
     this.filteredIncidents = new Array<Incident>();
+    
+    this.incidentServ.getIncidents().subscribe(res =>{
+      this.filteredIncidents = new Array<Incident>();
+      this.filteredIncidents = res;
+      //console.log(this.filteredIncidents);
+      
+    });
+  
+    //console.log(this.filteredIncidents);
 
   }
 

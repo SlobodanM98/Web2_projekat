@@ -11,44 +11,48 @@ export enum IncidentType
 
 //nezavrsena klasa
 export class Incident {
-    public ID:string;
-    public Tip:IncidentType;
-    public Prioritet:number;
-    public Potvrdjen:boolean;
-    public Status:string;
-    public ETA:string;
-    public ATA:string;
-    public VremeIncidenta:string;
-    public ETR:string;
-    public NivoNapona:number;
-    public PVR:string; //planirano vreme rada
+    public id:number;
+    public userID:number;
+    //public crewID:number;
+    public tip:IncidentType;
+    public prioritet:number = 0;
+    public potvrdjen:boolean;
+    public status:string;
+    public eta:string;
+    public ata:string;
+    public vremeIncidenta:string;
+    public etr:string;
+    public nivoNapona:number;
+    public pvr:string; //planirano vreme rada
     public Devices:Array<Device>;
     public Calls:Array<Call>;
     public Team:Team;
-    public Uzrok:string;
-    public Poduzrok:string;
-    public Konstrukcija:string;
-    public Materijal:string;
+    public uzrok:string;
+    public poduzrok:string;
+    public konstrukcija:string;
+    public materijal:string;
 
-    constructor(id:string,tip:IncidentType,prioritet:number,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string, devices : Array<Device>, calls : Array<Call>, team : Team, poduzrok : string, uzrok : string, konstrukcija : string, materijal : string)
+    constructor(tip:IncidentType,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string)
     {
-        this.ID = id;
-        this.Tip = tip;
-        this.Prioritet = prioritet;
-        this.Status = status;
-        this.ETA = eta;
-        this.ATA = ata;
-        this.VremeIncidenta = vremeincidenta;
-        this.ETR = etr;
-        this.NivoNapona = nivonapona;
-        this.PVR = pvr;
-        this.Devices = devices;
-        this.Calls = calls;
-        this.Team = team;
-        this.Poduzrok = poduzrok;
-        this.Uzrok = uzrok;
-        this.Konstrukcija = konstrukcija;
-        this.Materijal = materijal;
+       
+        this.tip = tip;
+        //this.Prioritet = 0;
+        //this.Potvrdjen = false;
+        this.status = status;
+        this.eta = eta;
+        this.ata = ata;
+        this.vremeIncidenta = vremeincidenta;
+        this.etr = etr;
+        this.nivoNapona = nivonapona;
+        this.pvr = pvr;
+        this.Devices = new  Array<Device>();
+        this.Calls = new Array<Call>();
+        //this.Uzrok = "";
+        //this.Poduzrok = "";
+        //this.Konstrukcija = "";
+        //this.Materijal = "";
+        
+        
     }
 }
 

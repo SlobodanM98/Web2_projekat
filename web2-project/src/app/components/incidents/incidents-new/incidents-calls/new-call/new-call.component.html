@@ -1,0 +1,60 @@
+<form [formGroup]="newCallForm" (ngSubmit)="SubmitCall()">
+    <div class="row" >
+        <div class="col-md-6">
+            <mat-form-field >
+              <mat-label>Reason</mat-label>
+              <mat-select required formControlName="callReason">
+                <mat-option *ngFor="let reason of reasons" [value]="reason">{{reason}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+            <div class="p-3 py-5">
+              <mat-form-field class="w-100">
+                <mat-label>Hazard</mat-label>
+                <input matInput placeholder="Specify hazard" required formControlName="hazard" value="">
+              </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="row" >
+        <div class="col-md-6">
+              <mat-form-field class="w-100">
+                <mat-label>Comment</mat-label>
+                <textarea matInput formControlName="comment" placeholder="Explain in depth what caused the outage"></textarea>
+              </mat-form-field>
+        </div>
+        <div class="col-md-6">
+              <mat-form-field class="w-100 m-auto"  appearance="legacy">
+                  <mat-label>Address</mat-label>
+              </mat-form-field>
+              
+        </div>
+    
+
+
+    </div>
+    <div class="row" >
+        <div class="col-md-6">
+            <div class="p-3 py-5">
+              <mat-form-field class="w-100">
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Specify  name" value="{{consumer.firstName}}" disabled>
+              </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-3 py-5">
+              <mat-form-field class="w-100">
+                <mat-label>Last name</mat-label>
+                <input matInput placeholder="Specify last name" value="{{consumer.lastName}}" disabled>
+              </mat-form-field>
+            </div>
+        </div>
+
+
+    </div>
+</form>

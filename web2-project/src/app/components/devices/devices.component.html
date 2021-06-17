@@ -33,17 +33,7 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="addDeviceForm" (ngSubmit)="submitDevice()">
-            <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label for="id"><span style="color: red;">*</span>ID</label>
-                        <input formControlName="id" type="text" id="id" name="id" class="form-control"/>
-                        <div class="alert alert-danger" *ngIf="id!.invalid && id!.touched">
-                            <div *ngIf="id!.errors!.required">ID is required</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="row">
                 <div class="col">
                     <div class="form-group">
@@ -52,6 +42,19 @@
                         <div class="alert alert-danger" *ngIf="Name!.invalid && Name!.touched">
                             <div *ngIf="Name!.errors!.required">Name is required</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <mat-form-field id="type-select" appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <mat-select id="Address" name="Address" matInput formControlName="Address">
+                                <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
+                            </mat-select>
+                            <mat-error id="address-error" *ngIf="addDeviceForm.get('address')?.invalid">Address is required!</mat-error>
+                        </mat-form-field>
                     </div>
                 </div>
             </div>
@@ -75,7 +78,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="Lon"><span style="color: red;"></span>Longitude</label>
-                        <input formControlName="Lon" type="text" name="Lon" id="Lon" class="form-control">
+                        <input formControlName="Lon" type="number" name="Lon" id="Lon" class="form-control">
                         <div class="alert alert-danger" *ngIf="Lon!.invalid && Lon!.untouched">
                             <div *ngIf="Lon!.errors!.required">Longitude is required</div>
                         </div>
@@ -86,7 +89,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="Lat"><span style="color: red;"></span>Latitude</label>
-                        <input formControlName="Lat" type="text" name="Lat" id="Lat" class="form-control">
+                        <input formControlName="Lat" type="number" name="Lat" id="Lat" class="form-control">
                         <div class="alert alert-danger" *ngIf="Lat!.invalid && Lat!.untouched">
                             <div *ngIf="Lat!.errors!.required">Latitude is required</div>
                         </div>
@@ -96,7 +99,7 @@
         </form>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="submitDevice()" [disabled]="!addDeviceForm.valid">Add</button>
+        <button type="button" class="btn btn-success" (click)="submitDevice()">Add</button>
     </div>
 
 </ng-template>

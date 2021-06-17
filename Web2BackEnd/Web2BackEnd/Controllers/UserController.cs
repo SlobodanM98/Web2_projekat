@@ -1,14 +1,19 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Web2BackEnd.Data;
@@ -103,6 +108,45 @@ namespace Web2BackEnd.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpPost, Route("Login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromForm]DTOLogin loginInfo)
+        {
+            User user = await _userManager.FindByNameAsync(loginInfo.Username);
+            
+            if (user != null && await _userManager.CheckPasswordAsync(user, loginInfo.Password))
+            {
+                var token = generateJwtToken(user);
+                return Ok( new { token });
+            }
+            else
+            {
+                return BadRequest(new { message = "Incorect Password!" });
+            }
+            
+
+           
+        }
+
+        private string generateJwtToken(User user)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            
+            var key = Encoding.UTF8.GetBytes("9182019287192163");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()), new Claim("fullName", user.FirstName + " " + user.LastName), new Claim("username", user.UserName), new Claim("role", user.Role.ToString()) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
+        }
+
+
+
 
         [HttpDelete, Route("DeleteUser")]
         public async Task<IActionResult> DeleteUser(string id)

@@ -1,4 +1,4 @@
-<form [formGroup]="DocumentBasicInfo" class="container">
+<form [formGroup]="DocumentBasicInfo" class="container" (ngSubmit)="saveDocBasicInfo()">
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
@@ -18,11 +18,11 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="status">Status:</label>
-                <input type="text" formControlName="status" name="status" class="form-control" value="Draft" locked>
+                <input type="text" formControlName="status" name="status" class="form-control" value="Draft" >
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
-            <label for="crew">Incident:</label>
+            <label for="crew">Crew:</label>
             <input type="text" formControlName="crew" name="crew" class="form-control">
         </div>
     </div>
@@ -40,7 +40,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="dateCreated">Date and time created:</label>
-                <input type="datetime" formControlName="dateCreated" class="form-control" locked>
+                <input type="datetime" formControlName="dateCreated" class="form-control" >
             </div>
         </div>
     </div>
@@ -48,7 +48,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="author">Created by:</label>
-                <input type="text" formControlName="author" class="form-control" locked>
+                <input type="text" formControlName="author" class="form-control" >
             </div>
         </div>
     </div>
@@ -68,5 +68,6 @@
             </div>
         </div>
     </div>
+    <button type="submit">Save</button>
     
 </form>
