@@ -37,5 +37,7 @@ namespace Web2BackEnd.DTO
         public string Konstrukcija { get; set; }
         
         public string Materijal { get; set; }
+        //public ICollection<DTODevice> Devices { get; set; }
+        //public ICollection<DTOCall> Calls { get; set; }
     }
 }

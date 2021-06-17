@@ -12,5 +12,9 @@ namespace Web2BackEnd.Repository
     {
         public IncidentRepository(DataContext context):base(context) { }
 
+        public bool IncidentExists(int id)
+        {
+            return _context.Incidents.Any(inc => inc.ID == id);
+        }
     }
 }

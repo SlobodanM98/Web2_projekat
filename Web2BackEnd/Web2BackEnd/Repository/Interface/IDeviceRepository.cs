@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Web2BackEnd.Repository.Interface
 {
-    interface IIncidentRepository
+    interface IDeviceRepository
     {
-        bool IncidentExists(int id);
+        bool DeviceExists(int id);
 
     }
 }

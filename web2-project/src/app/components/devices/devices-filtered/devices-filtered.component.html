@@ -53,7 +53,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="id">ID</label>
-                        <input formControlName="id" type="text" id="id" name="id" class="form-control" placeholder="{{deviceForEdit.ID}}"/>
+                        <input formControlName="id" type="text" id="id" name="id" class="form-control" placeholder="{{deviceForEdit.id}}"/>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input formControlName="name" type="text" name="name" class="form-control" placeholder="{{deviceForEdit.Name}}">
+                        <input formControlName="name" type="text" name="name" class="form-control" placeholder="{{deviceForEdit.name}}">
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="lon">Longitude</label>
-                        <input formControlName="lon" type="text" name="lon" class="form-control" placeholder="{{deviceForEdit.LongCoord}}">
+                        <input formControlName="lon" type="text" name="lon" class="form-control" placeholder="{{deviceForEdit.longCoord}}">
                     </div>
                 </div>
             </div>
@@ -77,7 +77,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="lat">Longitude</label>
-                        <input formControlName="lat" type="text" name="lat" class="form-control" placeholder="{{deviceForEdit.LatCoord}}">
+                        <input formControlName="lat" type="text" name="lat" class="form-control" placeholder="{{deviceForEdit.latCoord}}">
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <label for="Tip">Type</label>
                         <select formControlName="Tip" type="text" id="Tip" name="Tip" class="form-control">
-                            <option value="Transformator" [selected]="deviceForEdit.Type">Transformator</option>
+                            <option value="Transformator" [selected]="deviceForEdit.type">Transformator</option>
                         </select>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="modal-body">
-        Are you sure you want to delete the device with the ID: {{deleteDevice.ID}}?
+        Are you sure you want to delete the device with the ID: {{deleteDevice.id}}?
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>

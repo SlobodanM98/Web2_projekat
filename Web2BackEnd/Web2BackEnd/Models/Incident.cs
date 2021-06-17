@@ -40,6 +40,9 @@ namespace Web2BackEnd.Models
         
         public string Materijal { get; set; }
 
+        //public ICollection<Device> Devices { get; set; }
+        //public ICollection<Call> Calls { get; set; }
+        //public Team team { get; set; }
         
 
         

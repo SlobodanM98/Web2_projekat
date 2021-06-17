@@ -9,20 +9,20 @@ export enum DeviceType{
 
 export class Device {
 	
-	public Type:DeviceType;
-	public ID:number;
-	public Name:string;
-	public Address:Address;
-	public LongCoord:number;
-	public LatCoord:number;
+	public type:DeviceType;
+	public id:number;
+	public name:string;
+	public address:Address;
+	public longCoord:number;
+	public latCoord:number;
 	
 	constructor(type:DeviceType, name:string, addr:Address, longcoord:number, latcoord:number)
 	{
-		this.Type = type;
-		this.Name = name;
-		this.Address = addr;
-		this.LongCoord = longcoord;
-		this.LatCoord = latcoord;
+		this.type = type;
+		this.name = name;
+		this.address = addr;
+		this.longCoord = longcoord;
+		this.latCoord = latcoord;
 	}
 	
 }

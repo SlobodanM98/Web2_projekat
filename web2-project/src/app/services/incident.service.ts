@@ -12,24 +12,24 @@ export class IncidentService {
   constructor(private http: HttpClient) { }
 
 
-  getIncidents():Observable<Incident>
+  getIncidents():Observable<Incident[]>
   {
-    return this.http.get<Incident>(this.url + '/api/Incident');
+    return this.http.get<Incident[]>(this.url + '/api/Incident');
   }
 
   postIncident(incident:Incident)
   {
     const formData = new FormData();
-    formData.append("Tip",incident.Tip.toString());
+    formData.append("Tip",incident.tip.toString());
     //formData.append("Prioritet", incident.Prioritet.toString());
     //formData.append("Potvrdjen", incident.Potvrdjen.valueOf.toString());
-    formData.append("Status", incident.Status);
-    formData.append("ETA", incident.ETA);
-    formData.append("ATA", incident.ATA);
-    formData.append("ETR", incident.ETR);
-    formData.append("PVR", incident.PVR);
-    formData.append("VremeIncidenta",incident.VremeIncidenta);
-    formData.append("NivoNapona",incident.NivoNapona.toString());
+    formData.append("Status", incident.status);
+    formData.append("ETA", incident.eta);
+    formData.append("ATA", incident.ata);
+    formData.append("ETR", incident.etr);
+    formData.append("PVR", incident.pvr);
+    formData.append("VremeIncidenta",incident.vremeIncidenta);
+    formData.append("NivoNapona",incident.nivoNapona.toString());
     formData.append("Uzrok", "/");
     formData.append("Poduzrok", "/");
     formData.append("Konstrukcija", "/");

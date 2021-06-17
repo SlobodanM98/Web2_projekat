@@ -11,40 +11,42 @@ export enum IncidentType
 
 //nezavrsena klasa
 export class Incident {
-    public ID:number;
-    //public userID:number;
+    public id:number;
+    public userID:number;
     //public crewID:number;
-    public Tip:IncidentType;
-    public Prioritet:number = 0;
-    public Potvrdjen:boolean;
-    public Status:string;
-    public ETA:string;
-    public ATA:string;
-    public VremeIncidenta:string;
-    public ETR:string;
-    public NivoNapona:number;
-    public PVR:string; //planirano vreme rada
-    //public Devices:Array<Device>;
-    //public Calls:Array<Call>;
-    //public Team:Team;
-    public Uzrok:string;
-    public Poduzrok:string;
-    public Konstrukcija:string;
-    public Materijal:string;
+    public tip:IncidentType;
+    public prioritet:number = 0;
+    public potvrdjen:boolean;
+    public status:string;
+    public eta:string;
+    public ata:string;
+    public vremeIncidenta:string;
+    public etr:string;
+    public nivoNapona:number;
+    public pvr:string; //planirano vreme rada
+    public Devices:Array<Device>;
+    public Calls:Array<Call>;
+    public Team:Team;
+    public uzrok:string;
+    public poduzrok:string;
+    public konstrukcija:string;
+    public materijal:string;
 
     constructor(tip:IncidentType,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string)
     {
        
-        this.Tip = tip;
+        this.tip = tip;
         //this.Prioritet = 0;
         //this.Potvrdjen = false;
-        this.Status = status;
-        this.ETA = eta;
-        this.ATA = ata;
-        this.VremeIncidenta = vremeincidenta;
-        this.ETR = etr;
-        this.NivoNapona = nivonapona;
-        this.PVR = pvr;
+        this.status = status;
+        this.eta = eta;
+        this.ata = ata;
+        this.vremeIncidenta = vremeincidenta;
+        this.etr = etr;
+        this.nivoNapona = nivonapona;
+        this.pvr = pvr;
+        this.Devices = new  Array<Device>();
+        this.Calls = new Array<Call>();
         //this.Uzrok = "";
         //this.Poduzrok = "";
         //this.Konstrukcija = "";

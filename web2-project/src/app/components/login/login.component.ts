@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit {
   }
 
   logIn(){
-    var mock = new LoginData("us1", "pass1");
-     console.log(mock);
+    //var mock = new LoginData("us1", "pass1");
+     //console.log(mock);
     var login = new LoginData(this.logInForm.controls["username"].value, this.logInForm.controls["password"].value);
     //var login = new LoginData("dimitrije","dimitrije123");
     console.log(login);

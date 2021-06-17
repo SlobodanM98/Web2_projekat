@@ -17,7 +17,7 @@ namespace Web2BackEnd.Repository
 
         public bool DocumentExists(int id)
         {
-            throw new NotImplementedException();
+            return _context.Documents.Any(doc => doc.ID == id);
         }
     }
 }

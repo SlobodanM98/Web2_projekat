@@ -17,5 +17,6 @@ namespace Web2BackEnd.Data
 		public DbSet<Settings> Settings { get; set; }
 		public DbSet<Incident> Incidents { get; set; }
 		public DbSet<SafetyDocument> Documents { get; set; }
+		public DbSet<Device> Devices { get; set; }
 	}
 }

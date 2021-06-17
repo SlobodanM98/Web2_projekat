@@ -46,7 +46,7 @@ export class WorkPlanDevicesComponent implements OnInit {
   loadDevices(){
     var tableElements = new Array<TableElement>();
     this.workPlanDevices.forEach(element => {
-      var data : TableElement = {ID: element.ID, Name: element.Name, Type: DeviceType[element.Type].toString()};
+      var data : TableElement = {ID: element.id, Name: element.name, Type: DeviceType[element.type].toString()};
       tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(tableElements);

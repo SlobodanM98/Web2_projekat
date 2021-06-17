@@ -1,4 +1,4 @@
-import { SimpleChange, ViewChild } from '@angular/core';
+import { AfterViewInit, SimpleChange, ViewChild } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -21,11 +21,12 @@ export interface TableElement
 })
 
 
-export class IncidentsFilteredComponent implements OnInit {
+export class IncidentsFilteredComponent implements OnInit, AfterViewInit {
 
   @Input() filteredData : Array<Incident>;
 
-  displayedColumns:string[] = ['ID','startDate','phoneNum', 'status'];
+  tableElements:Array<TableElement>;
+  displayedColumns:string[] = ['ID','startDate', 'status'];
   dataSource:any;
 
   constructor() { }
@@ -44,13 +45,19 @@ export class IncidentsFilteredComponent implements OnInit {
 
   ngOnChanges(changes : SimpleChange)
   {
-    var tableElements = new Array<TableElement>();
+
+    //console.log(this.filteredData);
+    this.tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data: TableElement = {id: element.ID, startDate: element.VremeIncidenta, status: element.Status}
-      tableElements.push(data);
+      console.log(element);
+      var data: TableElement = {id: element.id, startDate: element.vremeIncidenta, status: element.status}
+      console.log(data);
+      this.tableElements.push(data);
     })
 
-    this.dataSource = new MatTableDataSource(tableElements);
+    console.log(this.tableElements);
+
+    this.dataSource = new MatTableDataSource(this.tableElements);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }

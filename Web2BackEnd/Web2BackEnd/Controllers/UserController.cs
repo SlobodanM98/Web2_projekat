@@ -136,7 +136,7 @@ namespace Web2BackEnd.Controllers
             var key = Encoding.UTF8.GetBytes("9182019287192163");
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()), new Claim("role", user.Role.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()), new Claim("fullName", user.FirstName + " " + user.LastName), new Claim("username", user.UserName), new Claim("role", user.Role.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

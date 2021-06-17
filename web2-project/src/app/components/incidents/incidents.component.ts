@@ -9,15 +9,17 @@ import { IncidentService } from 'src/app/services/incident.service';
   styleUrls: ['./incidents.component.css']
 })
 export class IncidentsComponent implements OnInit {
-  filteredIncidents:Array<Incident> = new Array<Incident>();
+  filteredIncidents:Array<Incident>;
   constructor(private incidentServ:IncidentService) { }
 
   ngOnInit(): void {
-
     this.filteredIncidents = new Array<Incident>();
+    
     this.incidentServ.getIncidents().subscribe(res =>{
+      this.filteredIncidents = new Array<Incident>();
+      this.filteredIncidents = res;
+      //console.log(this.filteredIncidents);
       
-      console.log(res);
     });
   
     //console.log(this.filteredIncidents);

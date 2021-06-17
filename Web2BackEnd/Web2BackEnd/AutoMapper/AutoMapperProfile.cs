@@ -30,6 +30,8 @@ namespace Web2BackEnd.AutoMapper
 			CreateMap<DTOIncident, Incident>();
 			CreateMap<SafetyDocument, DTOSafetyDocument>();
 			CreateMap<DTOSafetyDocument, SafetyDocument>();
+			CreateMap<Device, DTODevice>();
+			CreateMap<DTODevice, Device>();
 		}
 	}
 }
