@@ -15,7 +15,7 @@
                         <mat-form-field id="type-select" appearance="outline">
                             <mat-label>Device</mat-label>
                             <mat-select id="device" name="device" matInput formControlName="device">
-                                <mat-option *ngFor="let device of allDevices" [value]="device.ID">{{device.Name}}</mat-option>
+                                <mat-option *ngFor="let device of allDevices" [value]="device.id">{{device.name}}</mat-option>
                             </mat-select>
                             <mat-error id="device-error" *ngIf="submitDeviceForm.get('device')?.invalid">Device is required!</mat-error>
                         </mat-form-field>

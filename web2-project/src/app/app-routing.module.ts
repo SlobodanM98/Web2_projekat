@@ -40,6 +40,10 @@ import { DocumentsNewComponent } from './components/documents/documents-new/docu
 import { DocumentsBasicInfoComponent } from './components/documents/documents-new/documents-basic-info/documents-basic-info.component';
 import { IncidentDevicesComponent } from './components/incidents/incidents-new/incident-devices/incident-devices.component';
 import { IncidentsResolutionComponent } from './components/incidents/incidents-new/incidents-resolution/incidents-resolution.component';
+import { IncidentsCallsComponent } from './components/incidents/incidents-new/incidents-calls/incidents-calls.component';
+import { NewCallComponent } from './components/incidents/incidents-new/incidents-calls/new-call/new-call.component';
+import { MultimediaAttachmentsComponent } from './components/incidents/incidents-new/multimedia-attachments/multimedia-attachments.component';
+import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -75,7 +79,8 @@ const routes: Routes = [
       {
         path:'DocumentNew', component:DocumentsNewComponent,
         children: [
-          { path:'DocumentBasicInfo', component:DocumentsBasicInfoComponent}
+          { path:'DocumentBasicInfo', component:DocumentsBasicInfoComponent},
+          { path:'DocumentChecklist', component:DocumentsChecklistComponent},
         ],
       },
       
@@ -83,7 +88,14 @@ const routes: Routes = [
        children: [
          { path:'IncidentBasicInfo', component:IncidentsBasicInfoComponent},
          { path: 'IncidentDevices', component:IncidentDevicesComponent},
-         { path: 'IncidentResolution', component:IncidentsResolutionComponent}
+         { path: 'IncidentResolution', component:IncidentsResolutionComponent},
+         { path:'IncidentMultimedia', component:MultimediaAttachmentsComponent},
+         { path: 'IncidentCalls', component:IncidentsCallsComponent, 
+              children:[
+                {path:'IncidentCallsNew', component:NewCallComponent}
+              ]
+        
+        },
        ]},
       { path: 'WorkPlanNew', component: WorkPlanNewComponent,
        children: [

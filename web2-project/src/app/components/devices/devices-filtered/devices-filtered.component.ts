@@ -43,6 +43,7 @@ export class DevicesFilteredComponent implements OnInit, AfterViewInit {
 
     });
     this.dataSource = new MatTableDataSource();
+   
   }
 
   @ViewChild(MatSort) sort:MatSort;
@@ -58,7 +59,8 @@ export class DevicesFilteredComponent implements OnInit, AfterViewInit {
   {
     this.tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data:TableElement = {ID:element.ID,Name:element.Name, Lon:element.LongCoord, Lat:element.LatCoord, Tip:DeviceType[element.Type].toString() };
+      var data:TableElement = {ID:element.id,Name:element.name, Lon:element.longCoord, Lat:element.latCoord, Tip:DeviceType[element.type].toString() };
+      this.tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(this.tableElements);
     this.dataSource.sort = this.sort;

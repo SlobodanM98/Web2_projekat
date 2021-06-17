@@ -6,7 +6,7 @@
         </ng-container>
         <ng-container matColumnDef="startDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
-            <td mat-cell *matCellDef="let element">{{element.vremeIncidenta}}</td>
+            <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
         </ng-container>
         <ng-container matColumnDef="phoneNum">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone Num.</th>
@@ -14,7 +14,7 @@
         </ng-container>
         <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-            <td mat-cell *matCellDef="let element">{{element.Address}}</td>
+            <td mat-cell *matCellDef="let element">{{element.status}}</td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns displayedColumns"></tr>

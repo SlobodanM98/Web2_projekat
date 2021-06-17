@@ -114,6 +114,96 @@ namespace Web2BackEnd.Migrations
                     b.ToTable("Consumers");
                 });
 
+            modelBuilder.Entity("Web2BackEnd.Models.Device", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AddressID")
+                        .HasColumnType("int");
+
+                    b.Property<float>("LatCoord")
+                        .HasColumnType("real");
+
+                    b.Property<float>("LongCoord")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AddressID");
+
+                    b.ToTable("Devices");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.Incident", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ATA")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ETA")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ETR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Konstrukcija")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Materijal")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("NivoNapona")
+                        .HasColumnType("real");
+
+                    b.Property<string>("PVR")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Poduzrok")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Potvrdjen")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("Prioritet")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Tip")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Uzrok")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VremeIncidenta")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Incidents");
+                });
+
             modelBuilder.Entity("Web2BackEnd.Models.Notification", b =>
                 {
                     b.Property<int>("NotificationID")
@@ -143,6 +233,42 @@ namespace Web2BackEnd.Migrations
                     b.HasKey("NotificationID");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.SafetyDocument", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DateOfCreation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNum")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PlanRada")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Team")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("tipDokumenta")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("Web2BackEnd.Models.Settings", b =>
@@ -182,6 +308,15 @@ namespace Web2BackEnd.Migrations
                 });
 
             modelBuilder.Entity("Web2BackEnd.Models.Consumer", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.Device", b =>
                 {
                     b.HasOne("Web2BackEnd.Models.Address", "Address")
                         .WithMany()
