@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,7 +15,7 @@ export class NavbarComponent implements OnInit {
   token:any;
 
 
-  constructor(public router : Router) {
+  constructor(public router : Router, private userService: UserService) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) { 
         let route = ev.url.split("/");
@@ -32,8 +33,19 @@ export class NavbarComponent implements OnInit {
     const helper = new JwtHelperService();
     this.token = localStorage.getItem('token');
     const DecodedToken = helper.decodeToken(this.token);
-    console.log(DecodedToken);
-    this.fullName = DecodedToken.fullName;
+    this.userService.getUser(DecodedToken.id).subscribe( data => {
+      this.userService.setUser(data);
+    });
+
+    this.fullName = "";
+
+    this.userService.logedInUser$.subscribe( data => {
+      this.fullName = data.firstName + " " + data.lastName;
+    });
   }
 
+  logOut(){
+    localStorage.setItem('token',"");
+    this.router.navigate(["../Login"]);
+  }
 }

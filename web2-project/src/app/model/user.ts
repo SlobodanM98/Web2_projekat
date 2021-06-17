@@ -15,7 +15,7 @@ export enum Status {
 }
 
 export class User {
-    public Id: string;
+    public id: string;
     public userName: string;
     public firstName: string;
     public lastName: string;

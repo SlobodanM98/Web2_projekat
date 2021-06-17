@@ -145,8 +145,61 @@ namespace Web2BackEnd.Controllers
             return tokenHandler.WriteToken(token);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromForm] UserForRegistrationDto user)
+        {
+            if (Request.Form.Files.Count != 0)
+			{
+                user.SelecetdFile = Request.Form.Files[0];
+			}
+			else
+			{
+                user.SelecetdFile = null;
+            }
 
+            if (user.SelecetdFile != null)
+            {
+                var folderName = Path.Combine("wwwroot", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                if (user.SelecetdFile.Length > 0)
+                {
+                    var objfiles = new DTOProductImage();
+                    var fullPath = Path.Combine(pathToSave, user.SelecetdFile.FileName);
+                    var dbPath = Path.Combine("Images", user.SelecetdFile.FileName);
 
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        user.SelecetdFile.CopyTo(stream);
+                    }
+
+                    using (var target = new MemoryStream())
+                    {
+                        user.SelecetdFile.CopyTo(target);
+                        objfiles.Image = target.ToArray();
+                    }
+
+                    user.ProductImage = objfiles;
+                    user.ProductImage.ImagePath = dbPath;
+                }
+            }
+
+			try
+			{
+                bool success = await _service.UpdateUser(user);
+                if (success)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+			catch
+			{
+                return NotFound();
+            }
+        }
 
         [HttpDelete, Route("DeleteUser")]
         public async Task<IActionResult> DeleteUser(string id)
@@ -183,6 +236,19 @@ namespace Web2BackEnd.Controllers
         public async Task<IEnumerable<UserForRegistrationDto>> GetUser()
         {
             return await _service.GetUsers();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UserForRegistrationDto>> GetUser(string id)
+        {
+            UserForRegistrationDto user = await _service.GetUser(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
         }
 
         [HttpGet, Route("GetUsersEmailConfirm")]

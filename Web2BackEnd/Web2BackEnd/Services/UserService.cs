@@ -116,5 +116,31 @@ namespace Web2BackEnd.Services
             }
             return success;
         }
-    }
+
+		public async Task<UserForRegistrationDto> GetUser(string id)
+		{
+            User user = await _userRepository.Get(id);
+            return _mapper.Map<UserForRegistrationDto>(user);
+        }
+
+		public async Task<bool> UpdateUser(UserForRegistrationDto user)
+		{
+            User mapUser = await _userRepository.Get(user.Id);
+
+            mapUser.UserName = user.UserName;
+            mapUser.FirstName = user.FirstName;
+            mapUser.LastName = user.LastName;
+            mapUser.AddressID = user.AddressID;
+            mapUser.Email = user.Email;
+            mapUser.BirthDate = user.BirthDate;
+            if (user.SelecetdFile != null)
+			{
+                mapUser.ProductImage = _mapper.Map<ProductImage>(user.ProductImage);
+            }
+            mapUser.Role = user.Role;
+            mapUser.Status = user.Status;
+
+            return await _userRepository.Update(mapUser);
+        }
+	}
 }

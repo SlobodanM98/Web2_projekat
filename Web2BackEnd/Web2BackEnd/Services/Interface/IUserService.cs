@@ -18,9 +18,12 @@ namespace Web2BackEnd.Services.Interface
 
         Task<IEnumerable<UserForRegistrationDto>> GetUsers();
 
+        Task<UserForRegistrationDto> GetUser(string id);
+
         Task<IEnumerable<UserForRegistrationDto>> GetUsersEmailCofirm();
 
         Task<bool> UpdateStatus(UserForRegistrationDto model);
 
+        Task<bool> UpdateUser(UserForRegistrationDto user);
     }
 }
