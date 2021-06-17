@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -127,9 +130,28 @@ import { IncidentsResolutionComponent } from './components/incidents/incidents-n
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule
   ],
-  providers: [AddToProceedGuard, NoReturnGuard],
+  providers: [
+    AddToProceedGuard, 
+    NoReturnGuard,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '709280903741-4434qlbnflls1bnbm6blupt1rc19vgih.apps.googleusercontent.com'
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig,
+    } 
+  ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

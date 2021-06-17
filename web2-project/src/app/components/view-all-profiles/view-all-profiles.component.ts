@@ -21,6 +21,7 @@ export class ViewAllProfilesComponent implements OnInit {
   roleModel: Role;
   statusModel: Status;
   allUsers: Array<User>;
+  newstr?: string;
 
   listaProfila: { username: string, role: Role, status: Status }[] = [
       { "username": "pera", "role": Role.Dispatcher, "status": Status.Accepted },
@@ -37,9 +38,10 @@ export class ViewAllProfilesComponent implements OnInit {
       console.log(this.allUsers);
       var re = /\\/gi; 
       //var str = "Apples are round, and apples are juicy.";
-      var newstr = this.allUsers[0].productImage?.imagePath.replace(re, "/"); 
-      console.log('../../../../../Web2BackEnd/Web2BackEnd/' + this.allUsers[0].productImage?.imagePath);
-      console.log('../../../../../Web2BackEnd/Web2BackEnd/' + newstr);
+      this.newstr = this.allUsers[1].productImage?.imagePath.replace(re, "/"); 
+      console.log(this.newstr);
+      //console.log('../../../../../Web2BackEnd/Web2BackEnd/' + this.allUsers[0].productImage?.imagePath);
+      //console.log('../../../../../Web2BackEnd/Web2BackEnd/' + this.newstr);
     });
 
   }

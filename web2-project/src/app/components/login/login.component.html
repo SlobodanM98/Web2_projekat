@@ -22,7 +22,7 @@
                 <a class="btn btn-primary w-50 mt-1" style="background-color: #3b5998" href="#!" role="button">
                     <i class="fab fa-facebook-f">Continue with Facebook</i>
                 </a><br>
-                <a class="btn btn-primary w-50 mt-1" style="background-color: #dd4b39" href="#!" role="button">
+                <a (click)="loginWithGoogle()" class="btn btn-primary w-50 mt-1" style="background-color: #dd4b39" href="#!" role="button">
                     <i class="fab fa-google">Continue with Google</i>
                 </a><br>
                 <a class="btn btn-primary w-50 mt-1" style="background-color: #55acee" href="#!" role="button">
@@ -34,7 +34,7 @@
                 <a class="btn btn-primary w-50 mt-1" style="background-color: #0082ca" href="#!" role="button">
                     <i class="fab fa-linkedin-in">Continue with LinkedIn</i>
                 </a><br>
-                <a class="btn btn-primary w-50 mt-1" style="background-color: #333333" href="#!" role="button">
+                <a (click)="logOut()" class="btn btn-primary w-50 mt-1" style="background-color: #333333" href="#!" role="button">
                     <i class="fab fa-github">Continue with Github</i>
                 </a><br>
             </div>

@@ -57,4 +57,8 @@ export class UserService {
     return this.http.put(this.url + "/api/User/UpdateStatus", user);
   }
 
+  socialLogin(formData:any) {
+    return this.http.post(this.url + "/api/User/SocialLogin", formData);
+  }
+
 }

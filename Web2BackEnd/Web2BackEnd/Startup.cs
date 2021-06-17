@@ -83,7 +83,7 @@ namespace Web2BackEnd
 			/*app.UseStaticFiles(new StaticFileOptions
 			{
 				FileProvider = new PhysicalFileProvider(ConfigurationPath.Combine(Directory.GetCurrentDirectory(), @"StaticFiles")),
-				RequestPath = new Microsoft.AspNetCore.Http.PathString("/StaticFiles")  
+				RequestPath = new Microsoft.AspNetCore.Http.PathString("/StaticFiles")
 			});*/
 
 			app.UseAuthentication();

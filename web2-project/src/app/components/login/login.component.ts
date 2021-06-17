@@ -5,6 +5,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Address } from 'src/app/model/address';
 import { Call, Reason } from 'src/app/model/call';
 import { CallService } from 'src/app/services/call.service';
+import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,14 @@ import { CallService } from 'src/app/services/call.service';
 })
 export class LoginComponent implements OnInit {
 
+  socialUser: SocialUser;
+
   poruka : string;
   reportOutageForm : FormGroup;
 
   allAddresses : Array<Address>;
 
-  constructor(public router : Router, private formBuilder : FormBuilder, private modalService: NgbModal, private callService: CallService) { }
+  constructor(public router : Router, private formBuilder : FormBuilder, private modalService: NgbModal, private callService: CallService, private socialAuthService: SocialAuthService, private userService: UserService) { }
 
   ngOnInit(): void {
     this.allAddresses = new Array<Address>();
@@ -42,6 +46,21 @@ export class LoginComponent implements OnInit {
 
   logIn(){
     this.router.navigate(["/Navbar"]);
+  }
+
+  loginWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then(socialusers => {
+      console.log(socialusers);
+      this.userService.socialLogin(socialusers).subscribe(
+        (res:any) => {
+          console.log("USPELI SMO!!!");
+        }
+      )
+    });
+  }
+
+  logOut(): void {
+    this.socialAuthService.signOut();
   }
 
   openReportOutageModal(content : any){

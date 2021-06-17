@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -40,14 +41,14 @@ namespace Web2BackEnd.Controllers
             model.SelecetdFile = Request.Form.Files[0];
             if (model.SelecetdFile != null)
             {
-                var folderName = Path.Combine("StaticFiles", "Images");
+                var folderName = Path.Combine("wwwroot", "Images");
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 if (model.SelecetdFile.Length > 0)
                 {
                     var objfiles = new DTOProductImage();
                     //var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     var fullPath = Path.Combine(pathToSave, model.SelecetdFile.FileName);
-                    var dbPath = Path.Combine(folderName, model.SelecetdFile.FileName);
+                    var dbPath = Path.Combine("Images", model.SelecetdFile.FileName);
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
@@ -159,6 +160,13 @@ namespace Web2BackEnd.Controllers
             {
                 return NotFound();
             }
+            return Ok();
+        }
+
+
+        [HttpPost, Route("SocialLogin")]
+        public async Task<IActionResult> SocialLogin([FromBody]LoginModel loginModel)
+        {
             return Ok();
         }
     }

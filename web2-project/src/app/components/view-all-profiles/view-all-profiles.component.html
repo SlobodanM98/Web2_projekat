@@ -65,7 +65,12 @@
             <div class="col mb-4" *ngFor="let item of allUsers; index as i;">
               <div class="card h-100">
                 <a (click)="open(content, i)">
-                    <img src="../../../assets/profil.png" class="card-img-top" alt="...">
+                    <div *ngIf="item.productImage !== undefined">
+                        <img src="http://localhost:61791/{{item!.productImage!.imagePath}}" class="card-img-top" alt="...">
+                    </div>
+                    <div *ngIf="item.productImage === undefined">
+                        <img src="../../../assets/profil.png" class="card-img-top" alt="...">
+                    </div>
                 </a>
                 <div class="card-body">
                   <h5 class="card-title">{{item.userName}}</h5>
