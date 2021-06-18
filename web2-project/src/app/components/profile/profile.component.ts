@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/model/address';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 import { Role, User } from 'src/app/model/user';
+import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -12,7 +15,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   editForm: FormGroup;
   token: any;
@@ -20,6 +23,8 @@ export class ProfileComponent implements OnInit {
   userAddress: Address;
   pictureSelected: boolean;
   selectedFile: File;
+
+  notification: Notification;
 
   allAddresses: Array<Address>;
 
@@ -104,8 +109,27 @@ export class ProfileComponent implements OnInit {
 
     if(input){
       this.userService.putUser(user).subscribe(data =>{
-        alert("User updated!");
+        this.notification = new Notification(user.id, "User changed successfully!", NotificationType.Success, false, false, new Date());
+        this.notificationService.postNotification(this.notification).subscribe();
+        this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
         this.userService.setUser(user);
+      }, error => {
+        const helper = new JwtHelperService();
+        var token : any = localStorage.getItem('token');
+        const DecodedToken = helper.decodeToken(token);
+        
+        this.notification = new Notification(DecodedToken.id, "User changed unsuccessfully!", NotificationType.Error, false, false, new Date());
+        this.notificationService.postNotification(this.notification).subscribe();
+        this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+      });
+    }
+  }
+
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
       });
     }
   }

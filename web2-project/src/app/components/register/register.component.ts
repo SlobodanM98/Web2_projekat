@@ -130,8 +130,11 @@ export class RegisterComponent implements OnInit {
     this.newUser = new User(this.registerForm.controls['username'].value, this.registerForm.controls['name'].value, this.registerForm.controls['lastname'].value, this.registerForm.controls['password'].value, 
     this.registerForm.controls['dateOfBirth'].value, this.registerForm.controls['address'].value, this.registerForm.controls['email'].value, role, this.selectedFile);
     console.log(this.newUser);
-    this.userService.postUser(this.newUser).subscribe(
-    );
+    this.userService.postUser(this.newUser).subscribe(data => {
+      this.toastr.success("Account created successfully!", new Date().toLocaleString());
+    }, error => {
+      this.toastr.error("Account created unsuccessfully!", new Date().toLocaleString());
+    });
     this.router.navigate(["/Login"]);
     
     //localStorage.setItem('session', JSON.stringify(this.newUser));

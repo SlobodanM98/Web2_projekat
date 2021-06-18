@@ -126,8 +126,10 @@ import { MultimediaAttachmentsComponent } from './components/incidents/incidents
     NgbModule,
     DragDropModule,
     ToastrModule.forRoot({
-      disableTimeOut: true,
-      preventDuplicates: true,
+      timeOut: 2000,
+      maxOpened: 7,
+      disableTimeOut: false,
+      preventDuplicates: false,
       positionClass: 'toast-bottom-right'
     }),
     MatTableModule,

@@ -12,6 +12,8 @@ namespace Web2BackEnd.Models
 		[Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int NotificationID { get; set; }
 		[Required]
+		public string UserID { get; set; }
+		[Required]
 		public string Description { get; set; }
 		[Required]
 		public NotificationType Type { get; set; }

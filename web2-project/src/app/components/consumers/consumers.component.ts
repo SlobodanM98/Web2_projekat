@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/model/address';
 import { Consumer, Type } from 'src/app/model/consumer';
 import { ConsumerService } from 'src/app/services/consumer.service';
-import { ConsumersFilteredComponent } from './consumers-filtered/consumers-filtered.component';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-consumers',
@@ -24,7 +27,9 @@ export class ConsumersComponent implements OnInit {
 
   addConsumerForm: FormGroup;
 
-  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService: ConsumerService) { }
+  notification: Notification;
+
+  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService: ConsumerService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
     this.allConsumers = new Array<Consumer>();
@@ -127,7 +132,23 @@ export class ConsumersComponent implements OnInit {
 
     var consumer = new Consumer(this.addConsumerForm.controls['name'].value, this.addConsumerForm.controls['lastName'].value, address, Number(this.addConsumerForm.controls['phoneNumber'].value), type);
 
-    this.consumerService.postConsumer(consumer).subscribe();
+    this.consumerService.postConsumer(consumer).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Consumer created successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Consumer created unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
 
     this.allConsumers.push(consumer);
     this.filteredConsumers = new Array<Consumer>();
@@ -138,6 +159,15 @@ export class ConsumersComponent implements OnInit {
 
     this.modalService.dismissAll();
     this.addConsumerForm.reset();
+  }
+
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
   }
 
   get id(){
