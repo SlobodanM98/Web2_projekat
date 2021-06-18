@@ -16,7 +16,7 @@ export class DocumentService {
     formData.append("TipDokumenta",document.TipDokumenta.toString());
     formData.append("PlanRada", document.PlanRada);
     formData.append("Author", document.Author);
-    formData.append("Team", document.Team);
+    //formData.append("Team", document.Team);
     formData.append("Details", document.Details);
     formData.append("Notes", document.Notes);
     formData.append("PhoneNum", document.PhoneNum);

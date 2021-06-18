@@ -46,7 +46,7 @@ export class DocumentsBasicInfoComponent implements OnInit {
       this.td = TipDokumenta.NeplaniraniRad;
     }
 
-    this.doc = new SafetyDocument(this.td,"/",this.DocumentBasicInfo.controls["author"].value,this.DocumentBasicInfo.controls["details"].value,this.DocumentBasicInfo.controls["notes"].value,this.DocumentBasicInfo.controls["phoneNum"].value, this.DocumentBasicInfo.controls["dateCreated"].value);
+    //this.doc = new SafetyDocument(this.td,"/",this.DocumentBasicInfo.controls["author"].value,this.DocumentBasicInfo.controls["details"].value,this.DocumentBasicInfo.controls["notes"].value,this.DocumentBasicInfo.controls["phoneNum"].value, this.DocumentBasicInfo.controls["dateCreated"].value);
     console.log(this.doc);
     this.docService.postIncident(this.doc).subscribe();
 
