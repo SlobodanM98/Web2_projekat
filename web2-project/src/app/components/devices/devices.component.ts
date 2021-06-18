@@ -16,6 +16,7 @@ export class DevicesComponent implements OnInit {
   filteredDevices:Array<Device>;
   allAddresses:Array<Address>;
   addDeviceForm: FormGroup;
+  searchDeviceForm:FormGroup;
 
 
   constructor(private formBuilder:FormBuilder, private modalService:NgbModal, private deviceService:DeviceService) { }
@@ -48,7 +49,16 @@ export class DevicesComponent implements OnInit {
       this.allAddresses = data;
     });
    
-   
+    this.searchDeviceForm = this.formBuilder.group({
+      ID:['', []],
+      Name:['', []],
+      Address:['',[]],
+      Tip:['', []],
+      Lon:['', []],
+      Lat:['', []]
+
+
+    });
 
     this.addDeviceForm = this.formBuilder.group({
       //id:['', [Validators.required]],
@@ -61,17 +71,77 @@ export class DevicesComponent implements OnInit {
 
     });
   }
-  submitDevice()
+
+  filterDevices(contentFilter:any)
   {
+
+    this.modalService.open(contentFilter, {ariaLabelledBy:'modal-edit'});
+
+    
+  }
+  searchDevice(){
+    this.filteredDevices = this.allDevices;
+    var Dtype:DeviceType;
+    if (this.searchDeviceForm.controls['Tip'].value)
+    {
+      
       var Dtype:DeviceType;
-      if (this.addDeviceForm.controls['Tip'].value === '0'){
+      if (this.searchDeviceForm.controls['Tip'].value === 'Diskonektor'){
         Dtype = DeviceType.Diskonektor;
       }
-      else if (this.addDeviceForm.controls['Tip'].value === '1')
+      else if (this.searchDeviceForm.controls['Tip'].value === 'Osigurac')
       {
         Dtype = DeviceType.Osigurac;
       }
-      else if (this.addDeviceForm.controls['Tip'].value === '2')
+      else if (this.searchDeviceForm.controls['Tip'].value === 'Transformator')
+      {
+        Dtype = DeviceType.Prekidac;
+      }
+      else 
+      {
+        Dtype = DeviceType.Transformator;
+      }
+      this.filteredDevices = this.filteredDevices.filter(s => (s.type === Dtype));
+    }
+    if (this.searchDeviceForm.controls["ID"].value)
+    {
+      this.filteredDevices = this.filteredDevices.filter(s => (s.id === this.searchDeviceForm.controls["ID"].value));
+    }
+    if (this.searchDeviceForm.controls["Address"].value)
+    {
+      this.filteredDevices = this.filteredDevices.filter( s => (s.address === this.searchDeviceForm.controls["Address"].value));
+    }
+
+    if (this.searchDeviceForm.controls["Name"].value)
+    {
+      this.filteredDevices = this.filteredDevices.filter(s => ( s.name === this.searchDeviceForm.controls["Name"].value));
+    }
+
+    if (this.searchDeviceForm.controls["Lon"].value)
+    {
+      this.filteredDevices = this.filteredDevices.filter(s => ( s.longCoord == this.searchDeviceForm.controls["Lon"].value));
+    }
+
+    if (this.searchDeviceForm.controls["Lat"].value)
+    {
+      this.filteredDevices = this.filteredDevices.filter(s => ( s.latCoord == this.searchDeviceForm.controls["Lat"].value));
+    }
+    this.modalService.dismissAll();
+    this.searchDeviceForm.reset();
+  }
+
+
+  submitDevice()
+  {
+      var Dtype:DeviceType;
+      if (this.addDeviceForm.controls['Tip'].value === 'Diskonektor'){
+        Dtype = DeviceType.Diskonektor;
+      }
+      else if (this.addDeviceForm.controls['Tip'].value === 'Osigurac')
+      {
+        Dtype = DeviceType.Osigurac;
+      }
+      else if (this.addDeviceForm.controls['Tip'].value === 'Transformator')
       {
         Dtype = DeviceType.Prekidac;
       }
@@ -105,8 +175,12 @@ export class DevicesComponent implements OnInit {
 
 
 
-    resetFilter(){}
-    FilterDevices(){}
+    resetFilter(){
+
+      this.ngOnInit();
+      
+    }
+    //FilterDevices(){}
 
     get id()
     {

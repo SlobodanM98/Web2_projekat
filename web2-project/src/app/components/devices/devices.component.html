@@ -5,8 +5,8 @@
         </div>
         <div class="col-md-3">
             <div class="text-right">
-                <button type="button" class="btn btn-primary" style="margin-left: 30px;" (click)="FilterDevices()">Filter</button>
-                <button type="button" class="btn btn-secondary" style="margin-left: 15px;" (click)="resetFilter()">Reset</button>
+                <button mat-button type="button" class="btn btn-primary" style="margin-left: 30px;" (click)="filterDevices(searchModal)">Filter</button>
+                <button mat-button type="button" class="btn btn-secondary" style="margin-left: 15px;" (click)="resetFilter()">Reset</button>
             </div>
         </div>
     </div>
@@ -17,12 +17,91 @@
                 <h5 style="text-align: center;">There are no devices with the defined parameters</h5>
             </div>
             <div >
-                <app-devices-filtered [filteredData]="filteredDevices"></app-devices-filtered>
+                <app-devices-filtered [filteredData]="filteredDevices" [allAddresses]="allAddresses"></app-devices-filtered>
             </div>
             
         </div>
     </div>
 </div>
+
+<ng-template #searchModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Find device</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="searchDeviceForm" (ngSubmit)="searchDevice()">
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="ID"><span style="color:red;">*</span>ID</label>
+                        <input formControlName="ID" type="text" name="id" id="ID" class="form-control">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Name"><span style="color:red;">*</span>Name</label>
+                        <input formControlName="Name" type="text" name="Name" id="Name" class="form-control">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <mat-form-field id="type-select" appearance="outline">
+                            <mat-label>Address</mat-label>
+                            <mat-select id="Address" name="Address" matInput formControlName="Address">
+                                <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Tip"><span style="color:red;"></span>Tip</label>
+                        <select formControlName="Tip" type="text" name="Tip" id="Tip" class="form-control">
+                            <option value="Prekidac">Prekidac</option>
+                            <option value="Osigurac">Osigurac</option>
+                            <option value="Transformator">Transformator</option>
+                            <option value="Diskonektor">Diskonektor</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Lon"><span style="color: red;"></span>Longitude</label>
+                        <input formControlName="Lon" type="number" name="Lon" id="Lon" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Lat"><span style="color: red;"></span>Latitude</label>
+                        <input formControlName="Lat" type="number" name="Lat" id="Lat" class="form-control">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="searchDevice()">Search</button>
+    </div>
+
+
+</ng-template>
 
 <ng-template #content let-modal>
     <div class="modal-header">
