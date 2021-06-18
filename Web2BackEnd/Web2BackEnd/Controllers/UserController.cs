@@ -191,6 +191,12 @@ namespace Web2BackEnd.Controllers
             return await _service.GetUsersEmailCofirm();
         }
 
+        [HttpGet, Route("GetUsersTeamMembers")]
+        public async Task<IEnumerable<UserForRegistrationDto>> GetUsersTeamMembers()
+        {
+            return await _service.GetUsersTeamMembers();
+        }
+
         [HttpPut, Route("UpdateStatus")]
         public async Task<IActionResult> UpdateStatus(UserForRegistrationDto user)
         {

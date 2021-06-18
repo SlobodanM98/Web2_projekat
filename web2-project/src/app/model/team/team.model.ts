@@ -1,5 +1,12 @@
 import { User } from "../user";
 
 export class Team {
-    constructor(public id: string, public name: string, public members:Array<User>){} 
+    public teamID: number;
+    public name: string;
+    public teamUsers:Array<string>;
+
+    constructor(name: string, members:Array<string>) {
+        this.name = name;
+        this.teamUsers = members;
+    } 
 }

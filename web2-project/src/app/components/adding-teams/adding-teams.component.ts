@@ -5,32 +5,50 @@ import {MatTableDataSource} from '@angular/material/table';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Team } from '../../model/team/team.model'
 import { User } from '../../model/user'
+import { TeamService } from 'src/app/services/team/team.service';
+
+export interface TableElement
+{
+  id:number;
+  name:string;
+  //status:string;
+}
 
 @Component({
   selector: 'app-adding-teams',
   templateUrl: './adding-teams.component.html',
   styleUrls: ['./adding-teams.component.css']
 })
-export class AddingTeamsComponent implements OnInit {
+export class AddingTeamsComponent implements OnInit, AfterViewInit {
 
-  teams: Team[];
+  teams: Array<TableElement>;
   displayedColumns: string[] = ['id', 'name', 'action'];
   dataSource: any;
   deleteTeam:Team;
 
   closeResult = '';
-  id: string;
+  id: number;
   name: string;
   view = 'View';
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private modalService: NgbModal, private teamService: TeamService) { }
 
   ngOnInit(): void {
-    this.teams = new Array<Team>();
-    this.teams.push(new Team("T1", "Dream Team", new Array<User>()));
-    this.teams.push(new Team("T2", "Konsultacije", new Array<User>()));
+    this.teams = new Array<TableElement>();
+    this.teamService.getTeams().subscribe(data => {
+      var copy = data;
+      copy.forEach(element => {
+        console.log(element);
+        var data2: TableElement = {id: element.teamID, name: element.name}
+        console.log(data2);
+        this.teams.push(data2);
+      })
+      console.log(this.teams);
+    })
+    /*this.teams.push(team);
+    this.teams.push(new Team("T2", "Konsultacije"));
     this.teams.push(new Team("T3", "Web2", new Array<User>()));
-    this.teams.push(new Team("T4", "SBES", new Array<User>()));
+    this.teams.push(new Team("T4", "SBES", new Array<User>()));*/
     
     this.dataSource = new MatTableDataSource(this.teams);
     this.dataSource.sort = this.sort;
@@ -47,7 +65,7 @@ export class AddingTeamsComponent implements OnInit {
 
   viewEditTeam(content:any, t: Team, view: string) {
     this.view = view;
-    this.id = t.id;
+    this.id = t.teamID;
     this.name = t.name;
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result : any) => {
       this.closeResult = `Closed with: ${result}`;
@@ -73,9 +91,9 @@ export class AddingTeamsComponent implements OnInit {
 
   deleteTeamConfirm() {
     this.modalService.dismissAll();
-    var newList = new Array<Team>();
+    var newList = new Array<TableElement>();
     this.teams.forEach(element => {
-      if(element.id != this.deleteTeam.id) {
+      if(element.id != this.deleteTeam.teamID) {
         newList.push(element);
       }
     });

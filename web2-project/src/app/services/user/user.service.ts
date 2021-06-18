@@ -21,6 +21,11 @@ export class UserService {
     return this.http.get<User[]>(this.url + "/api/User/GetUsersEmailConfirm");
   }
 
+  
+  getUsersTeamMembers(): Observable<User[]>{
+    return this.http.get<User[]>(this.url + "/api/User/GetUsersTeamMembers");
+  }
+
   getAddresses(): Observable<Address[]>{
     return this.http.get<Address[]>(this.url + "/api/Address");
   }
