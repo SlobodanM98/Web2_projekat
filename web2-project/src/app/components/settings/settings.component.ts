@@ -93,12 +93,63 @@ export class SettingsComponent implements OnInit {
     this.settingsService.putSettings(this.settings).subscribe();
   }
 
+  setCallIconValue(checked: boolean, name: string){
+    switch(name){
+      case "blue":
+        this.settings.callIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png";
+        break;
+      case "yellow":
+        this.settings.callIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png";
+        break;
+      case "red":
+        this.settings.callIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png";
+        break;
+    }
+
+    this.settingsService.putSettings(this.settings).subscribe();
+  }
+
+  setIncidentIconValue(checked: boolean, name: string){
+    switch(name){
+      case "blue":
+        this.settings.incidentIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png";
+        break;
+      case "yellow":
+        this.settings.incidentIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png";
+        break;
+      case "red":
+        this.settings.incidentIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png";
+        break;
+    }
+
+    this.settingsService.putSettings(this.settings).subscribe();
+  }
+
+  setTeamIconValue(checked: boolean, name: string){
+    switch(name){
+      case "blue":
+        this.settings.teamIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png";
+        break;
+      case "yellow":
+        this.settings.teamIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png";
+        break;
+      case "red":
+        this.settings.teamIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png";
+        break;
+    }
+
+    this.settingsService.putSettings(this.settings).subscribe();
+  }
+
   reset(){
     this.settings.successEnabled = true;
     this.settings.errorEnabled = true;
     this.settings.infoEnabled = true;
     this.settings.warningEnabled = true;
     this.settings.showFields = true;
+    this.settings.callIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png";
+    this.settings.incidentIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png";
+    this.settings.teamIcon = "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png";
 
     this.settingsService.putSettings(this.settings).subscribe();
   }

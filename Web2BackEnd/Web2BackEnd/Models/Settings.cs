@@ -21,5 +21,11 @@ namespace Web2BackEnd.Models
 		public bool warningEnabled { get; set; }
 		[Required]
 		public bool showFields { get; set; }
+		[Required]
+		public string teamIcon { get; set; }
+		[Required]
+		public string incidentIcon { get; set; }
+		[Required]
+		public string callIcon { get; set; }
 	}
 }

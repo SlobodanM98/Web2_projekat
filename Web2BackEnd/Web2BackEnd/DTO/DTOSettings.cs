@@ -13,5 +13,8 @@ namespace Web2BackEnd.DTO
 		public bool infoEnabled { get; set; }
 		public bool warningEnabled { get; set; }
 		public bool showFields { get; set; }
+		public string teamIcon { get; set; }
+		public string incidentIcon { get; set; }
+		public string callIcon { get; set; }
 	}
 }

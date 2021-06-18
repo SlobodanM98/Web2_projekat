@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group text-right">
                         <button type="button" class="btn btn-success" (click)="submitPassword()" [disabled]="!passwordForm.valid">Change password</button>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group text-right">
                         <button type="button" class="btn btn-success" (click)="submitPriority()" [disabled]="!priorityForm.valid">Change priority</button>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-label>Select notifications to show</mat-label>
                     <section>
@@ -120,7 +120,7 @@
                     </section>
             </div>
         </div>
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-label>Show unnecessary fields</mat-label>
                     <section>
@@ -136,8 +136,96 @@
                     </section>
             </div>
         </div>
-        <div class="col-md-2 col-sm-12">
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4 mt-3">
+                <h3>Change icons</h3>
+                <hr class="solid">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
             <div class="form-group">
+                <mat-label>Call icon</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="blueCall" (change)="setCallIconValue($event.checked,'blue')" [checked]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" [disabled]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" color="primary">
+                                        Blue
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="yellowCall" (change)="setCallIconValue($event.checked,'yellow')" [checked]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" [disabled]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" color="primary">
+                                        Yellow
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="redCall" (change)="setCallIconValue($event.checked,'red')" [checked]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" [disabled]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" color="primary">
+                                        Red
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+                <mat-label>Incident icon</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="blueIncident" (change)="setIncidentIconValue($event.checked,'blue')" [checked]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" [disabled]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" color="primary">
+                                        Blue
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="yellowIncident" (change)="setIncidentIconValue($event.checked,'yellow')" [checked]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" [disabled]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" color="primary">
+                                        Yellow
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="redIncident" (change)="setIncidentIconValue($event.checked,'red')" [checked]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" [disabled]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" color="primary">
+                                        Red
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+                <mat-label>Team icon</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="blueTeam" (change)="setTeamIconValue($event.checked,'blue')" [checked]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" [disabled]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" color="primary">
+                                        Blue
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="yellowTeam" (change)="setTeamIconValue($event.checked,'yellow')" [checked]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" [disabled]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" color="primary">
+                                        Yellow
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="redTeam" (change)="setTeamIconValue($event.checked,'red')" [checked]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" [disabled]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" color="primary">
+                                        Red
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group text-right">
                 <button type="button" class="btn btn-success" (click)="reset()">Reset all</button>
             </div>
         </div>

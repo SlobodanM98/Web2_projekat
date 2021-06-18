@@ -126,7 +126,7 @@ import { MultimediaAttachmentsComponent } from './components/incidents/incidents
     NgbModule,
     DragDropModule,
     ToastrModule.forRoot({
-      timeOut: 2000,
+      timeOut: 3000,
       maxOpened: 7,
       disableTimeOut: false,
       preventDuplicates: false,
