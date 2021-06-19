@@ -18,5 +18,10 @@ namespace Web2BackEnd.Data
 		public DbSet<Incident> Incidents { get; set; }
 		public DbSet<SafetyDocument> Documents { get; set; }
 		public DbSet<Device> Devices { get; set; }
+		public DbSet<WorkPlan> WorkPlans { get; set; }
+		public DbSet<WorkPlanImage> WorkPlanImages { get; set; }
+		public DbSet<WorkInstruction> WorkPlanInstructions { get; set; }
+		public DbSet<WorkPlanStatusHistory> WorkPlanStatusHistories { get; set; }
+		public DbSet<WorkPlanDevice> WorkPlanDevice { get; set; }
 	}
 }

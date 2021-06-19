@@ -11,6 +11,28 @@
     <Compile Remove="Migrations\20210618085546_updateNotification3.Designer.cs" />
     <Compile Remove="Migrations\20210618090606_updateNotification4.cs" />
     <Compile Remove="Migrations\20210618090606_updateNotification4.Designer.cs" />
+    <Compile Remove="Migrations\20210619164033_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619164033_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619164216_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619164216_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619164639_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619164639_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619164743_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619164743_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619164833_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619164833_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619165123_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619165123_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619165345_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619165345_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619165515_initialWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619165515_initialWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619170248_updateWorkPlan.cs" />
+    <Compile Remove="Migrations\20210619170248_updateWorkPlan.Designer.cs" />
+    <Compile Remove="Migrations\20210619204728_updateWorkPlan2.cs" />
+    <Compile Remove="Migrations\20210619204728_updateWorkPlan2.Designer.cs" />
+    <Compile Remove="Migrations\20210619205610_updateWorkPlan3.cs" />
+    <Compile Remove="Migrations\20210619205610_updateWorkPlan3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

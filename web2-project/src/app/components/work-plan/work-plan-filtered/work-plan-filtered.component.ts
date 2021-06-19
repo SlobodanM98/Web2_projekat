@@ -6,8 +6,10 @@ import { Status, WorkPlan } from 'src/app/model/work-plan';
 
 export interface TableElement{
   id: number;
+  phone: number;
   startDate: Date;
   status: string;
+  address: string;
 }
 
 @Component({
@@ -20,7 +22,7 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
   @Input() filteredData : Array<WorkPlan>;
   @Output() workPlanClickEvent = new EventEmitter<WorkPlan>(); 
 
-  displayedColumns: string[] = ['id', 'startDate', 'status'];
+  displayedColumns: string[] = ['id', 'startDate','phone', 'status', 'address'];
   dataSource: any;
 
   constructor() { }
@@ -39,7 +41,7 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes : SimpleChange){
     var tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data : TableElement = {id: element.workPlanID, startDate: element.startDate, status: Status[element.status].toString()};
+      var data : TableElement = {id: element.workPlanID, startDate: element.startDate,phone: element.phone, status: Status[element.status].toString(), address: element.address.postalNumber + ', ' + element.address.city + ', ' + element.address.street + ' ' + element.address.number};
       tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(tableElements);

@@ -27,7 +27,7 @@ export class WorkPlan {// treba da se doda nalog za rad
     public incident?: Incident;
     public address: Address;
     public team: Team;
-    public createdBy: User;
+    public createdBy: string;
     public startDate: Date;
     public endDate: Date;
     public purpose: string;
@@ -36,16 +36,17 @@ export class WorkPlan {// treba da se doda nalog za rad
     public phone: number;
     public creationDate: Date;
     public statusHistory: Array<WorkPlanStatusHistory>;
-    public equipment : Device
+    public images: Array<string>;
+    public equipment : number;
     public instructions: Array<WorkInstruction>;
 
-    constructor(type: Type, address: Address, team: Team, createdBy: User, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, equipment : Device, incident?: Incident, workAccount?: WorkAccount){
+    constructor(type: Type, address: Address, createdBy: string, startDate: Date, endDate: Date, purpose: string, notes: string, company: string, phone: number, creationDate: Date, incident?: Incident, workAccount?: WorkAccount){
         this.type = type;
         this.workAccount = workAccount;
         this.status = Status.Draft;
         this.incident = incident;
         this.address = address;
-        this.team = team;
+        //this.team = team;
         this.createdBy = createdBy;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -56,17 +57,17 @@ export class WorkPlan {// treba da se doda nalog za rad
         this.creationDate = creationDate;
         this.statusHistory = new Array<WorkPlanStatusHistory>();
         this.statusHistory.push(new WorkPlanStatusHistory(this.creationDate, this.createdBy, this.status));
-        this.equipment = equipment;
         this.instructions = new Array<WorkInstruction>();
     }
 }
 
 export class WorkPlanStatusHistory{
+    public workPlanStatusHistoryID: number;
     public date: Date;
-    public changedBy: User;
+    public changedBy: string;
     public status: Status;
 
-    constructor(date: Date, user: User, status: Status){
+    constructor(date: Date, user: string, status: Status){
         this.date = date;
         this.changedBy = user;
         this.status = status;

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web2BackEnd.Data;
 
 namespace Web2BackEnd.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210619185524_updateWorkPlan1")]
+    partial class updateWorkPlan1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -331,9 +333,6 @@ namespace Web2BackEnd.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("WorkPlanID")
-                        .HasColumnType("int");
-
                     b.HasKey("InstructionID");
 
                     b.HasIndex("DeviceID");
@@ -392,26 +391,6 @@ namespace Web2BackEnd.Migrations
                     b.HasIndex("AddressID");
 
                     b.ToTable("WorkPlans");
-                });
-
-            modelBuilder.Entity("Web2BackEnd.Models.WorkPlanDevice", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("DeviceID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkPlanID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DeviceID");
-
-                    b.ToTable("WorkPlanDevice");
                 });
 
             modelBuilder.Entity("Web2BackEnd.Models.WorkPlanImage", b =>
@@ -502,15 +481,6 @@ namespace Web2BackEnd.Migrations
                     b.HasOne("Web2BackEnd.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Web2BackEnd.Models.WorkPlanDevice", b =>
-                {
-                    b.HasOne("Web2BackEnd.Models.Device", "Device")
-                        .WithMany()
-                        .HasForeignKey("DeviceID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

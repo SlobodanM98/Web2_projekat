@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col">
             <div class="form-group text-center">
-                <img [src]="imageSrc" class="img-fluid img-thumbnail">
+                <img [src]="imageSrc" class="img-fluid img-thumbnail w-75">
             </div>
         </div>
     </div>
@@ -16,6 +16,11 @@
     <div class="row">
         <div class="col text-right">
             <button type="button" class="btn btn-success" (click)="submitImage()" [disabled]="!submitImageForm.valid">Submit image</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngFor="let path of allImages">
+            <img src="http://localhost:61791/{{path}}" class="img-fluid img-thumbnail w-75">
         </div>
     </div>
 </form>
