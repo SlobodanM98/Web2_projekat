@@ -27,9 +27,15 @@ export class SettingsComponent implements OnInit {
   
   notification: Notification;
 
+  role: string;
+
   constructor(private settingsService: SettingsService, private userService: UserService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
     this.passwordForm = new FormGroup(
       {
         password: new FormControl('',[Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")]),

@@ -29,9 +29,16 @@ export class ConsumersComponent implements OnInit {
 
   notification: Notification;
 
+  role: string;
+
   constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService: ConsumerService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.allConsumers = new Array<Consumer>();
     this.filteredConsumers = new Array<Consumer>();
     this.allAddresses = new Array<Address>();

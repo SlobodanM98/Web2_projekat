@@ -6,33 +6,6 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { CallService } from 'src/app/services/call.service';
 import { Address } from 'src/app/model/address';
 
-const iconRetinaUrl = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png';
-const iconUrl = 'assets/marker-icon.png';
-const shadowUrl = 'assets/marker-shadow.png';
-const iconBlue = L.icon({
-  iconRetinaUrl,
-  iconUrl,
-  shadowUrl,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  tooltipAnchor: [16, -28],
-  shadowSize: [41, 41]
-});
-L.Marker.prototype.options.icon = iconBlue;
-
-
-const iconRed = L.icon({
-  iconRetinaUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
-  iconUrl: 'assets/marker-icon.png',
-  shadowUrl: 'assets/marker-shadow.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  tooltipAnchor: [16, -28],
-  shadowSize: [41, 41]
-});
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -95,9 +68,28 @@ export class MapComponent implements OnInit {
         this.allAddresses.forEach(element => {
           if(numberOfIconsPerAddress[element.addressID] > 0){
             if(numberOfIconsPerAddress[element.addressID] > 5){
-              icon.options.iconSize = [40, 60];
+              console.log("vise od 5");
+              icon = L.icon({
+                iconRetinaUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+                iconUrl: 'assets/marker-icon.png',
+                shadowUrl: 'assets/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                tooltipAnchor: [16, -28],
+                shadowSize: [41, 41]
+              });
             }else{
-              icon.options.iconSize = [25, 41];
+              icon = L.icon({
+                iconRetinaUrl: settings.callIcon,
+                iconUrl: 'assets/marker-icon.png',
+                shadowUrl: 'assets/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                tooltipAnchor: [16, -28],
+                shadowSize: [41, 41]
+              });
             }
 
             this.addressLookup(element, icon);

@@ -1,7 +1,7 @@
 <div class="container mt-2">
     <div class="row">
         <div class="col-md-9 text-left">
-            <button class="btn btn-success" (click)="openAddConsumerModal(content)">New</button>
+            <button class="btn btn-success" (click)="openAddConsumerModal(content)" [disabled]="role !== 'Admin'">New</button>
         </div>
         <div class="col-md-3">
             <div class="text-right">

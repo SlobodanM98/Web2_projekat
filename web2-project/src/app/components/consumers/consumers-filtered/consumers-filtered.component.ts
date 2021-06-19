@@ -45,10 +45,16 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
   consumerForEdit: Consumer;
 
   notification: Notification;
+  role: string;
 
   constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService : ConsumerService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.editConsumerForm = this.formBuilder.group({
       id: ['', [
       ]],
