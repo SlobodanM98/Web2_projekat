@@ -15,7 +15,8 @@
                         <mat-form-field id="password-form-field" class="form-field" appearance="outline">
                             <mat-label>New password</mat-label>
                             <input id="password" matInput type="password"  formControlName ="password">
-                            <mat-error id="password-error" *ngIf="passwordForm.get('password')?.invalid">Password is required!</mat-error>
+                            <mat-error id="password-error" *ngIf="passwordForm.controls['password'].errors?.required !== undefined">Password is required!</mat-error>
+                            <mat-error id="pattern-error" *ngIf="passwordForm.controls['password'].errors?.pattern !== undefined">Passwords must contain eight characters, one uppercase letter, lowercase letter, number and special character!</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -24,7 +25,7 @@
                         <mat-form-field id="confirm-password-form-field" class="form-field" appearance="outline">
                             <mat-label>Confirm password</mat-label>
                             <input id="confirmPassword" matInput type="password"  formControlName ="confirmPassword" [errorStateMatcher]="confirmPasswordMatcher">
-                            <mat-error id="confirm-password-error" *ngIf="passwordForm.get('confirmPassword')?.invalid">Password is required!</mat-error>
+                            <mat-error id="confirm-password-error" *ngIf="passwordForm.controls['confirmPassword'].errors?.required !== undefined">Password is required!</mat-error>
                             <mat-error id="passwords-error" *ngIf="passwordForm.hasError('passwordsDontMatch')">Passwords don't match!</mat-error>
                         </mat-form-field>
                     </div>

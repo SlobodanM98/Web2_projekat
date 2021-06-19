@@ -201,6 +201,26 @@ namespace Web2BackEnd.Controllers
             }
         }
 
+        [HttpPut, Route("Password")]
+        public async Task<IActionResult> UpdateUserPassword([FromForm] UserForRegistrationDto user)
+		{
+			try
+			{
+                if(await _service.UpdateUserPassword(user))
+				{
+                    return Ok();
+				}
+				else
+				{
+                    return NotFound();
+				}
+			}
+			catch
+			{
+                return NotFound();
+			}
+		}
+
         [HttpDelete, Route("DeleteUser")]
         public async Task<IActionResult> DeleteUser(string id)
         {

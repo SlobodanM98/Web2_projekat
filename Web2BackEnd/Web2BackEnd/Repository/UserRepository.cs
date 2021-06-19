@@ -81,5 +81,19 @@ namespace Web2BackEnd.Repository
                 return false;
 			}
         }
+
+        public async Task<bool> UpdatePassword(User user, string password)
+		{
+			try
+			{
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await _userManager.ResetPasswordAsync(user, token, password);
+                return true;
+			}
+			catch
+			{
+                return false;
+			}
+        }
     }
 }

@@ -77,6 +77,14 @@ export class UserService {
     return this.http.put(this.url + "/api/User", formData, httpOptions);
   }
 
+  putUserPassword(user: User){
+    const formData = new FormData();
+    formData.append('id', user.id);
+    formData.append('password',user.password);
+    const httpOptions = { headers: new HttpHeaders({  observe: 'response'})};
+    return this.http.put(this.url + "/api/User/Password", formData, httpOptions);
+  }
+
   deleteUser(id: number){
     return this.http.delete(this.url + "/api/User/" + id);
   }

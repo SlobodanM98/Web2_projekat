@@ -142,5 +142,11 @@ namespace Web2BackEnd.Services
 
             return await _userRepository.Update(mapUser);
         }
+
+		public async Task<bool> UpdateUserPassword(UserForRegistrationDto user)
+		{
+			User mapUser = await _userRepository.Get(user.Id);
+            return await _userRepository.UpdatePassword(mapUser, user.Password);
+        }
 	}
 }

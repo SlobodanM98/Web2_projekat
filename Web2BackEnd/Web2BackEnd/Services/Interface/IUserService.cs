@@ -25,5 +25,7 @@ namespace Web2BackEnd.Services.Interface
         Task<bool> UpdateStatus(UserForRegistrationDto model);
 
         Task<bool> UpdateUser(UserForRegistrationDto user);
+
+        Task<bool> UpdateUserPassword(UserForRegistrationDto user);
     }
 }

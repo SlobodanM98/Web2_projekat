@@ -40,7 +40,8 @@
                         <mat-form-field id="password-form-field" class="form-field">
                             <mat-label>New password</mat-label>
                             <input id="password" matInput type="password"  formControlName ="password">
-                            <mat-error id="password-error" *ngIf="registerForm.get('password')?.invalid">Password is required!</mat-error>
+                            <mat-error id="password-error" *ngIf="registerForm.controls['password'].errors?.required !== undefined">Password is required!</mat-error>
+                            <mat-error id="pattern-error" *ngIf="registerForm.controls['password'].errors?.pattern !== undefined">Passwords must contain eight characters, one uppercase letter, lowercase letter, number and special character!</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
