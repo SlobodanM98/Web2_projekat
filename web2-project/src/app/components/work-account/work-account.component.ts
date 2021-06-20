@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkAccount, Status } from '../../model/work-account/work-account.model'
+import { WorkAccount, Status } from '../../model/work-account';
+import { AddToProceedService } from 'src/app/services/add-to-proceed.service';
+import { WorkAccountService } from 'src/app/services/work-account/work-account.service';
 
 @Component({
   selector: 'app-work-account',
@@ -20,19 +22,27 @@ export class WorkAccountComponent implements OnInit {
   beforeDate: Date;
   afterDate: Date;
 
-  constructor() { }
+  constructor(private addToProceed: AddToProceedService, private workAccountService: WorkAccountService) { }
 
   ngOnInit(): void {
-    this.allWorkAccounts = new Array<WorkAccount>();
-    this.allWorkAccounts.push(new WorkAccount("WT1",Status.Draft, new Date(2021,3,21,12,16)));
-    this.allWorkAccounts.push(new WorkAccount("WT2",Status.Draft, new Date(2021,3,25,12,0)));
-    this.allWorkAccounts.push(new WorkAccount("WT3",Status.Submitted, new Date(2021,3,11,11,0)));
-    this.allWorkAccounts.push(new WorkAccount("WT4",Status.Submitted, new Date(2021,3,22,12,45)));
-    
+    this.addToProceed.canReturn = true;
+
+    this.allWorkAccounts = new Array<WorkAccount>();   
     this.filteredWorkAccounts = new Array<WorkAccount>();
 
     this.allWorkAccounts.forEach(element => {
       this.filteredWorkAccounts.push(element);
+    });
+
+    this.workAccountService.getWorkAccount().subscribe(data=>{
+      console.log(data);
+      this.allWorkAccounts = new Array<WorkAccount>();
+      this.allWorkAccounts = data;
+      this.filteredWorkAccounts = new Array<WorkAccount>();
+
+      this.allWorkAccounts.forEach(element => {
+        this.filteredWorkAccounts.push(element);
+      });
     });
 
     this.statusFilter = false;
@@ -52,8 +62,15 @@ export class WorkAccountComponent implements OnInit {
       this.statusFilter = true;
       if(this.getFilterFieldValue("workAccountsStatusFilter") === "Draft"){
         this.status = Status.Draft;
-      }else{
-        this.status = Status.Submitted;
+      }
+      else if(this.getFilterFieldValue("workAccountsStatusFilter") === "Approved"){
+        this.status = Status.Approved;
+      }
+      else if(this.getFilterFieldValue("workAccountsStatusFilter") === "Canceled"){
+        this.status = Status.Canceled;
+      }
+      else {
+        this.status = Status.Denied;
       }
     }
     console.log(this.getFilterFieldValue("workAccountsStatusFilter"));

@@ -2,12 +2,13 @@ import { Component, OnInit,  Input, ViewChild, AfterViewInit, SimpleChange } fro
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { WorkAccount, Status } from '../../../model/work-account/work-account.model'
+import { WorkAccount, Status } from '../../../model/work-account'
 
 export interface TableElement{
   id: string;
   startDate: Date;
   status: string;
+  address: string;
 }
 
 @Component({
@@ -19,7 +20,7 @@ export class WorkAccountFilteredComponent implements OnInit {
 
   @Input() filteredData : Array<WorkAccount>;
 
-  displayedColumns: string[] = ['id', 'startDate', 'status'];
+  displayedColumns: string[] = ['id', 'startDate', 'address', 'status'];
   dataSource: any;
 
   constructor() { }
@@ -38,7 +39,7 @@ export class WorkAccountFilteredComponent implements OnInit {
   ngOnChanges(changes : SimpleChange){
     var tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data : TableElement = {id: element.id, startDate: element.startDate, status: Status[element.status].toString()};
+      var data : TableElement = {id: element.workAccountID.toString(), startDate: element.startDate, address: element.address.street + ' ' + element.address.number, status: Status[element.status].toString()};
       tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(tableElements);

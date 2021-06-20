@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WorkAccount, Type } from '../../model/work-account'
+import { WorkAccount, Type } from '../../model/work-account';
+import { Address } from '../../model/address';
 import { Subject } from 'rxjs';
 import { Status } from '../../model/work-account'
 import { WorkAccountMultimediaComponent } from 'src/app/components/work-account/work-account-new/work-account-multimedia/work-account-multimedia.component';
@@ -26,7 +27,8 @@ export class WorkAccountService {
 
   public currentState = "";
 
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = 'http://localhost:61791';
+  private url: string = "http://localhost:61791";
 
   constructor(private http: HttpClient) { }
 
@@ -45,6 +47,18 @@ export class WorkAccountService {
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/files`);
+  }
+
+  getWorkAccount(): Observable<WorkAccount[]>{
+    return this.http.get<WorkAccount[]>(this.url + "/api/WorkAccount");
+  }
+
+  getAddresses(): Observable<Address[]>{
+    return this.http.get<Address[]>(this.url + "/api/Address");
+  }
+
+  postWorkAccount(workAccount:WorkAccount){
+    return this.http.post(this.url + "/api/WorkAccount", workAccount);
   }
   
 }

@@ -108,7 +108,7 @@ export class WorkPlanBasicInfoViewComponent implements OnInit {
       workPlan.endDate = this.workPlanForm.controls['endDate'].value;
     }
     if(this.workPlanForm.controls['team'].value != ""){
-      workPlan.team.id = this.workPlanForm.controls['team'].value;
+      workPlan.team.teamID = this.workPlanForm.controls['team'].value;
     }
     if(this.workPlanForm.controls['purpose'].value != ""){
       workPlan.purpose = this.workPlanForm.controls['purpose'].value;

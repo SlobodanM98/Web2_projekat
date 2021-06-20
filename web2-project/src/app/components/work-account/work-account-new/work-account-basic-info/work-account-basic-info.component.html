@@ -31,15 +31,18 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label>Incident</label>
-                <select class="form-control">
-                    <option>Default select</option>
+                <select formControlName="incident" type="text" name="incident" id="incident" class="form-control">
+                    <option *ngFor="let incident of allIncidents" [value]="incident.id">{{ incident.id }}</option>
                 </select>
+                <div class="alert alert-danger" *ngIf="incident!.invalid && incident!.touched">
+                    <div *ngIf="incident!.errors!.required">Address is required.</div>
+                </div>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="form-check checkbox-margin">
-                <input formControlName="emergencyWork" class="form-check-input big-checkbox" type="checkbox" value="" name="emergencyWork" id="emergencyWork" (change)="emergencyWorkChanged($event)">
-                <label class="form-check-label" style="font-size: 16px;" for="emergencyWork">
+                <input formControlName="urgentWork" class="form-check-input big-checkbox" type="checkbox" value="" name="urgentWork" id="urgentWork" (change)="emergencyWorkChanged($event)">
+                <label class="form-check-label" style="font-size: 16px;" for="urgentWork">
                     Emergency work
                 </label>
             </div>
@@ -48,10 +51,12 @@
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="row">
-                <div class="col-8">
+                <div class="col-12">
                     <div class="form-group">
                         <label for="address">Address</label>
-                        <input formControlName="address" type="text" name="address" id="address" (change)="addressChanged($event)" class="form-control"/>
+                        <select formControlName="address" (change)="addressChanged($event)" type="text" name="address" id="address" class="form-control">
+                            <option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.street}} {{address.number}}</option>
+                        </select>
                         <div class="alert alert-danger" *ngIf="address!.invalid && address!.touched">
                             <div *ngIf="address!.errors!.required">Address is required.</div>
                         </div>
@@ -92,7 +97,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label>Creator</label>
-                <p class="form-control" style="font-weight: 600;">Pera Perić</p>
+                <p class="form-control" style="font-weight: 600;">{{ fullName }}</p>
             </div>
         </div>
     </div>
@@ -109,9 +114,9 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="phoneNomber">Phone number</label>
-                <input formControlName="phoneNomber" type="number" name="phoneNomber" id="phoneNomber" (change)="phoneNomberChanged($event)" class="form-control"/>
-                <div class="alert alert-danger" *ngIf="phoneNomber!.invalid && phoneNomber!.touched">
-                    <div *ngIf="phoneNomber!.errors!.required">Phone number is required.</div>
+                <input formControlName="phoneNumber" type="text" name="phoneNumber" id="phoneNumber" class="form-control"/>
+                <div class="alert alert-danger" *ngIf="phoneNumber!.invalid && phoneNumber!.touched">
+                    <div *ngIf="phoneNumber!.errors!.required">Phone number is required.</div>
                 </div>
             </div>
         </div>
