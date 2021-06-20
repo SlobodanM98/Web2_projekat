@@ -44,47 +44,53 @@ import { IncidentsCallsComponent } from './components/incidents/incidents-new/in
 import { NewCallComponent } from './components/incidents/incidents-new/incidents-calls/new-call/new-call.component';
 import { MultimediaAttachmentsComponent } from './components/incidents/incidents-new/multimedia-attachments/multimedia-attachments.component';
 import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
+import { AuthGuard } from './guards/auth.guard';
+import { RoleGuard } from './guards/role.guard';
+import { WorkPlanViewComponent } from './components/work-plan/work-plan-view/work-plan-view.component';
+import { WorkPlanBasicInfoViewComponent } from './components/work-plan/work-plan-view/work-plan-basic-info-view/work-plan-basic-info-view.component';
+import { WorkPlanMultimediaViewComponent } from './components/work-plan/work-plan-view/work-plan-multimedia-view/work-plan-multimedia-view.component';
+import { WorkPlanDeviceViewComponent } from './components/work-plan/work-plan-view/work-plan-device-view/work-plan-device-view.component';
+import { WorkPlanInstructionViewComponent } from './components/work-plan/work-plan-view/work-plan-instruction-view/work-plan-instruction-view.component';
+import { WorkPlanHistoryViewComponent } from './components/work-plan/work-plan-view/work-plan-history-view/work-plan-history-view.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
   { path: 'Register', component: RegisterComponent },
   
-  { path: 'Navbar', component: NavbarComponent, 
+  { path: 'Navbar', component: NavbarComponent, canActivate:[AuthGuard],
     children: [
       { path: '', component: DashboardComponent, pathMatch: 'full' },
-      { path: 'Incidents', component:IncidentsComponent,
+      { path: 'Incidents', component:IncidentsComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
       children:
       [
-        
         {path:'IncidentsFilteded', component:IncidentsFilteredComponent}
       ]},
-      { path :'Documents', component:DocumentsComponent,
+      { path :'Documents', component:DocumentsComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
       children:[
         { path:'DocumentsFiltered', component:DocumentsFilteredComponent}
       ]},
       { path: 'Dashboard', component: DashboardComponent },
-      { path: 'Profile', component: ProfileComponent },
-      { path: 'ViewAllProfiles', component: ViewAllProfilesComponent },
-      { path: 'Notifications', component: NotificationsComponent},
-      { path: 'Devices', component:DevicesComponent,
+      { path: 'Profile', component: ProfileComponent , canActivate:[RoleGuard], data: { role: 'Consumer'}},
+      { path: 'ViewAllProfiles', component: ViewAllProfilesComponent , canActivate:[RoleGuard], data: { role: 'Consumer'}},
+      { path: 'Notifications', component: NotificationsComponent, canActivate:[RoleGuard], data: { role: 'Consumer'}},
+      { path: 'Devices', component:DevicesComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
       children:
       [
         {path:'DevicesFiltered', component:DevicesFilteredComponent}
       ]},
-      { path: 'WorkPlan', component: WorkPlanComponent,
+      { path: 'WorkPlan', component: WorkPlanComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
        children: [
          { path: 'WorkPlanFiltered', component: WorkPlanFilteredComponent}
        ]},
-
       {
-        path:'DocumentNew', component:DocumentsNewComponent,
+        path:'DocumentNew', component:DocumentsNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
         children: [
           { path:'DocumentBasicInfo', component:DocumentsBasicInfoComponent},
           { path:'DocumentChecklist', component:DocumentsChecklistComponent},
         ],
       },
       
-      { path:'NewIncident', component:IncidentsNewComponent,
+      { path:'NewIncident', component:IncidentsNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
        children: [
          { path:'IncidentBasicInfo', component:IncidentsBasicInfoComponent},
          { path: 'IncidentDevices', component:IncidentDevicesComponent},
@@ -94,36 +100,44 @@ const routes: Routes = [
               children:[
                 {path:'IncidentCallsNew', component:NewCallComponent}
               ]
-        
         },
        ]},
-      { path: 'WorkPlanNew', component: WorkPlanNewComponent,
+      { path: 'WorkPlanNew', component: WorkPlanNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
        children: [
          { path: 'WorkPlanBasicInfo', component: WorkPlanBasicInfoComponent, canActivate:[NoReturnGuard]},
          { path: 'WorkPlanMultimedia', component: WorkPlanMultimediaComponent, canActivate:[AddToProceedGuard]},
          { path: 'WorkPlanDevices', component: WorkPlanDevicesComponent, canActivate:[AddToProceedGuard]},
          { path: 'WorkPlanInstruction', component: WorkPlanInstructionsComponent, canActivate:[AddToProceedGuard]}
        ]},
-      { path: 'Consumers', component: ConsumersComponent,
+      { path: 'WorkPlanView', component: WorkPlanViewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
+       children: [
+        { path: 'WorkPlanBasicInfoView', component: WorkPlanBasicInfoViewComponent},
+        { path: 'WorkPlanMultimediaView', component: WorkPlanMultimediaViewComponent},
+        { path: 'WorkPlanDevicesView', component: WorkPlanDeviceViewComponent},
+        { path: 'WorkPlanInstructionView', component: WorkPlanInstructionViewComponent},
+        { path: 'WorkPlanHistoryView', component: WorkPlanHistoryViewComponent}
+       ]
+      },
+      { path: 'Consumers', component: ConsumersComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
        children: [
          { path: 'ConsumersFiltered', component: ConsumersFilteredComponent}
        ]
       },
-      { path: 'WorkAccount', component: WorkAccountComponent,
+      { path: 'WorkAccount', component: WorkAccountComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
        children: [
          { path: 'WorkAccountFiltered', component: WorkAccountFilteredComponent}
        ]
       },
-      { path: 'WorkAccountNew', component: WorkAccountNewComponent,
+      { path: 'WorkAccountNew', component: WorkAccountNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
       children: [
         { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent},
         { path: 'WorkAccountHistoryStateChanges', component: WorkAccountHistoryStateChangesComponent},
         { path: 'WorkAccountMultimedia', component: WorkAccountMultimediaComponent}
       ]},
-      { path: 'AddingTeamsNew', component: AddingTeamsNewComponent },
-      { path: 'AddingTeams', component: AddingTeamsComponent },
+      { path: 'AddingTeamsNew', component: AddingTeamsNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'}},
+      { path: 'AddingTeams', component: AddingTeamsComponent, canActivate:[RoleGuard], data: { role: 'Consumer'} },
       { path: 'Map', component: MapComponent},
-      { path: 'Settings', component: SettingsComponent}
+      { path: 'Settings', component: SettingsComponent, canActivate:[RoleGuard], data: { role: 'Consumer'}}
     ]},
   { path: '', component: LoginComponent, pathMatch: 'full' },
   

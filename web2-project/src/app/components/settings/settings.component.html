@@ -15,7 +15,8 @@
                         <mat-form-field id="password-form-field" class="form-field" appearance="outline">
                             <mat-label>New password</mat-label>
                             <input id="password" matInput type="password"  formControlName ="password">
-                            <mat-error id="password-error" *ngIf="passwordForm.get('password')?.invalid">Password is required!</mat-error>
+                            <mat-error id="password-error" *ngIf="passwordForm.controls['password'].errors?.required !== undefined">Password is required!</mat-error>
+                            <mat-error id="pattern-error" *ngIf="passwordForm.controls['password'].errors?.pattern !== undefined">Passwords must contain eight characters, one uppercase letter, lowercase letter, number and special character!</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -24,13 +25,13 @@
                         <mat-form-field id="confirm-password-form-field" class="form-field" appearance="outline">
                             <mat-label>Confirm password</mat-label>
                             <input id="confirmPassword" matInput type="password"  formControlName ="confirmPassword" [errorStateMatcher]="confirmPasswordMatcher">
-                            <mat-error id="confirm-password-error" *ngIf="passwordForm.get('confirmPassword')?.invalid">Password is required!</mat-error>
+                            <mat-error id="confirm-password-error" *ngIf="passwordForm.controls['confirmPassword'].errors?.required !== undefined">Password is required!</mat-error>
                             <mat-error id="passwords-error" *ngIf="passwordForm.hasError('passwordsDontMatch')">Passwords don't match!</mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group text-right">
                         <button type="button" class="btn btn-success" (click)="submitPassword()" [disabled]="!passwordForm.valid">Change password</button>
                     </div>
                 </div>
@@ -52,7 +53,7 @@
                     <div class="form-group">
                         <mat-form-field id="address-select" appearance="outline">
                             <mat-label>Select address</mat-label>
-                            <mat-select id="address" name="address" matInput formControlName="address">
+                            <mat-select id="address" name="address" matInput formControlName="address" [disabled]="role !== 'Admin'">
                                 <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
                             </mat-select>
                             <mat-error id="address-error" *ngIf="priorityForm.get('address')?.invalid">Address is required!</mat-error>
@@ -63,7 +64,7 @@
                     <div class="form-group">
                         <mat-form-field id="priority-select" appearance="outline">
                             <mat-label>Select priority</mat-label>
-                            <mat-select id="priority" name="priority" matInput formControlName="priority">
+                            <mat-select id="priority" name="priority" matInput formControlName="priority" [disabled]="role !== 'Admin'">
                                 <mat-option value="1">1</mat-option>
                                 <mat-option value="2">2</mat-option>
                                 <mat-option value="3">3</mat-option>
@@ -73,7 +74,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-12">
-                    <div class="form-group">
+                    <div class="form-group text-right">
                         <button type="button" class="btn btn-success" (click)="submitPriority()" [disabled]="!priorityForm.valid">Change priority</button>
                     </div>
                 </div>
@@ -89,29 +90,29 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-label>Select notifications to show</mat-label>
                     <section>
                         <span>
                             <ul style="list-style: none;">
                                 <li>
-                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')" [checked]="settings.errorEnabled" color="primary">
+                                    <mat-checkbox id="error" (change)="setValue($event.checked,'error')" [checked]="settings.errorEnabled" color="primary" [disabled]="role !== 'Admin'">
                                         Error
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')" [checked]="settings.infoEnabled" color="primary">
+                                    <mat-checkbox id="info" (change)="setValue($event.checked,'info')" [checked]="settings.infoEnabled" color="primary" [disabled]="role !== 'Admin'">
                                         Info
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')" [checked]="settings.successEnabled" color="primary">
+                                    <mat-checkbox id="success" (change)="setValue($event.checked,'success')" [checked]="settings.successEnabled" color="primary" [disabled]="role !== 'Admin'">
                                         Success
                                     </mat-checkbox>
                                 </li>
                                 <li>
-                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')" [checked]="settings.warningEnabled" color="primary">
+                                    <mat-checkbox id="warning" (change)="setValue($event.checked,'warning')" [checked]="settings.warningEnabled" color="primary" [disabled]="role !== 'Admin'">
                                         Warning
                                     </mat-checkbox>
                                 </li>
@@ -120,14 +121,14 @@
                     </section>
             </div>
         </div>
-        <div class="col-md-5 col-sm-12">
+        <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-label>Show unnecessary fields</mat-label>
                     <section>
                         <span>
                             <ul style="list-style: none;">
                                 <li>
-                                    <mat-checkbox id="showFields" (change)="setValue($event.checked,'showFields')" [checked]="settings.showFields" color="primary">
+                                    <mat-checkbox id="showFields" (change)="setValue($event.checked,'showFields')" [checked]="settings.showFields" color="primary" [disabled]="role !== 'Admin'">
                                         Show
                                     </mat-checkbox>
                                 </li>
@@ -136,9 +137,97 @@
                     </section>
             </div>
         </div>
-        <div class="col-md-2 col-sm-12">
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4 mt-3">
+                <h3>Change icons</h3>
+                <hr class="solid">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
             <div class="form-group">
-                <button type="button" class="btn btn-success" (click)="reset()">Reset all</button>
+                <mat-label>Call icon</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="blueCall" (change)="setCallIconValue($event.checked,'blue')" [checked]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" [disabled]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png' || role !== 'Admin'" color="primary">
+                                        Blue
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="yellowCall" (change)="setCallIconValue($event.checked,'yellow')" [checked]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" [disabled]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png' || role !== 'Admin'" color="primary">
+                                        Yellow
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="redCall" (change)="setCallIconValue($event.checked,'red')" [checked]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" [disabled]="settings.callIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png' || role !== 'Admin'" color="primary">
+                                        Red
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+                <mat-label>Incident icon</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="blueIncident" (change)="setIncidentIconValue($event.checked,'blue')" [checked]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" [disabled]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png' || role !== 'Admin'" color="primary">
+                                        Blue
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="yellowIncident" (change)="setIncidentIconValue($event.checked,'yellow')" [checked]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" [disabled]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png' || role !== 'Admin'" color="primary">
+                                        Yellow
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="redIncident" (change)="setIncidentIconValue($event.checked,'red')" [checked]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" [disabled]="settings.incidentIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png' || role !== 'Admin'" color="primary">
+                                        Red
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group">
+                <mat-label>Team icon</mat-label>
+                    <section>
+                        <span>
+                            <ul style="list-style: none;">
+                                <li>
+                                    <mat-checkbox id="blueTeam" (change)="setTeamIconValue($event.checked,'blue')" [checked]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png'" [disabled]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png' || role !== 'Admin'" color="primary">
+                                        Blue
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="yellowTeam" (change)="setTeamIconValue($event.checked,'yellow')" [checked]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'" [disabled]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png' || role !== 'Admin'" color="primary">
+                                        Yellow
+                                    </mat-checkbox>
+                                </li>
+                                <li>
+                                    <mat-checkbox id="redTeam" (change)="setTeamIconValue($event.checked,'red')" [checked]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png'" [disabled]="settings.teamIcon === 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png' || role !== 'Admin'" color="primary">
+                                        Red
+                                    </mat-checkbox>
+                                </li>
+                            </ul>
+                        </span>
+                    </section>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <div class="form-group text-right">
+                <button type="button" class="btn btn-success" (click)="reset()" [disabled]="role !== 'Admin'">Reset all</button>
             </div>
         </div>
     </div>

@@ -79,7 +79,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-form-field id="creator-form-field" class="form-field" appearance="outline">
-                    <input matInput type="text" disabled placeholder="Pera Perić">
+                    <input matInput type="text" disabled [placeholder]="user.firstName + ' ' + user.lastName">
                 </mat-form-field>
             </div>
         </div>

@@ -7,6 +7,7 @@ import { Team } from 'src/app/model/team/team.model';
 import { Role, User } from 'src/app/model/user';
 import { Status, WorkPlan } from 'src/app/model/work-plan';
 import { AddToProceedService } from 'src/app/services/add-to-proceed.service';
+import { WorkPlanService } from 'src/app/services/work-plan.service';
 
 @Component({
   selector: 'app-work-plan',
@@ -27,22 +28,26 @@ export class WorkPlanComponent implements OnInit {
   beforeDate: Date;
   afterDate: Date;
 
-  constructor(private addToProceed: AddToProceedService) { }
+  constructor(private addToProceed: AddToProceedService, private workPlanService: WorkPlanService) { }
 
   ngOnInit(): void {
     this.addToProceed.canReturn = true;
 
     this.allWorkPlans = new Array<WorkPlan>();
     this.filteredWorkPlans = new Array<WorkPlan>();
-    /*
-    this.allWorkPlans.push(new WorkPlan("WT1", new Incident("INC1", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address(1,"", 1,"",1, 1), new Team("","", new Array<User>()), new User(1,"","","","",new Date(), new Address(1,"", 1,"",1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
-    this.allWorkPlans.push(new WorkPlan("WT2", new Incident("INC2", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address(1,"", 1,"",1, 1), new Team("","", new Array<User>()), new User(1,"","","","",new Date(), new Address(1,"", 1,"",1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
-    this.allWorkPlans.push(new WorkPlan("WT3", new Incident("INC3", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address(1,"", 1,"",1, 1), new Team("","", new Array<User>()), new User(1,"","","","",new Date(), new Address(1,"", 1,"",1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
-    this.allWorkPlans.push(new WorkPlan("WT4", new Incident("INC4", IncidentType.Neplaniran, 1, "status", "eta", "ata", "time", "etr", 100, "prv", new Array<Device>(), new Array<Call>(), new Team("","", new Array<User>()), "","","",""), new Address(1,"", 1,"",1, 1), new Team("","", new Array<User>()), new User(1,"","","","",new Date(), new Address(1,"", 1,"",1, 1),"",Role.Consumer),new Date(),new Date(),"","","",1,new Date(),new Device()));
-    this.filteredWorkPlans = new Array<WorkPlan>();
-    */
+
     this.allWorkPlans.forEach(element => {
       this.filteredWorkPlans.push(element);
+    });
+
+    this.workPlanService.getWorkPlan().subscribe(data=>{
+      this.allWorkPlans = new Array<WorkPlan>();
+      this.allWorkPlans = data;
+      this.filteredWorkPlans = new Array<WorkPlan>();
+
+      this.allWorkPlans.forEach(element => {
+        this.filteredWorkPlans.push(element);
+      });
     });
 
     this.statusFilter = false;

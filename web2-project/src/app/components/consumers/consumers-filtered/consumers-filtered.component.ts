@@ -3,11 +3,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/model/address';
 import { Consumer, Type } from 'src/app/model/consumer';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 
 import { ConsumerService } from 'src/app/services/consumer.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 export interface TableElement{
   id: number;
@@ -40,9 +44,17 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
   deleteConsumerID: number;
   consumerForEdit: Consumer;
 
-  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService : ConsumerService) { }
+  notification: Notification;
+  role: string;
+
+  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private consumerService : ConsumerService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.editConsumerForm = this.formBuilder.group({
       id: ['', [
       ]],
@@ -153,12 +165,37 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
       }
     }
 
-    this.consumerService.putConsumer(this.consumerForEdit).subscribe();
+    this.consumerService.putConsumer(this.consumerForEdit).subscribe(data =>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Consumer changed successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Consumer changed unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
 
     this.dataSource = new MatTableDataSource(this.tableElements);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.editConsumerForm.reset();
+  }
+
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
   }
 
   hasInput(){
@@ -174,7 +211,23 @@ export class ConsumersFilteredComponent implements OnInit, AfterViewInit {
   confirmDelete(){
     this.modalService.dismissAll();
 
-    this.consumerService.deleteConsumer(this.deleteConsumerID).subscribe();
+    this.consumerService.deleteConsumer(this.deleteConsumerID).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Consumer deleted successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Consumer deleted unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
 
     for(var i = 0; i < this.tableElements.length; i++){
       if(this.tableElements[i].id === this.deleteConsumerID){

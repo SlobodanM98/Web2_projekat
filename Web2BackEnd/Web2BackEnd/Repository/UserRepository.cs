@@ -29,7 +29,7 @@ namespace Web2BackEnd.Repository
 
         public async Task<User> Get(string id)
         {
-            return await _userManager.FindByIdAsync(id);
+            return await _userManager.Users.Include("ProductImage").FirstOrDefaultAsync(user => user.Id == id);
         }
 
         public async Task<User> GetByUsername(string username)
@@ -67,11 +67,33 @@ namespace Web2BackEnd.Repository
         }
 
 
-        public async void Update(User user)
+        public async Task<bool> Update(User user)
         {
-            //User copy = await Get(user.Id);
-            //copy.Status = user.Status;
-            await _userManager.UpdateAsync(user);
+			//User copy = await Get(user.Id);
+			//copy.Status = user.Status;
+			try
+			{
+                await _userManager.UpdateAsync(user);
+                return true;
+			}
+			catch
+			{
+                return false;
+			}
+        }
+
+        public async Task<bool> UpdatePassword(User user, string password)
+		{
+			try
+			{
+                var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                var result = await _userManager.ResetPasswordAsync(user, token, password);
+                return true;
+			}
+			catch
+			{
+                return false;
+			}
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Web2BackEnd.DTO
 	public class DTONotification
 	{
 		public int NotificationID { get; set; }
+		public string UserID { get; set; }
 		public string Description { get; set; }
 		public NotificationType Type { get; set; }
 		public bool IsRead { get; set; }

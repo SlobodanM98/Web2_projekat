@@ -10,6 +10,7 @@ export enum NotificationType{
 
 export class Notification {
   public notificationID : number;
+  public userID: string;
   public description : string;
   public type: NotificationType;
   public isRead: boolean;
@@ -17,7 +18,8 @@ export class Notification {
   public link?: string;
   public date: Date;
 
-  constructor(description: string, type: NotificationType, isRead: boolean, hasLink: boolean, date: Date, link?: string){
+  constructor(userID: string, description: string, type: NotificationType, isRead: boolean, hasLink: boolean, date: Date, link?: string){
+    this.userID = userID;
     this.description = description;
     this.type = type;
     this.isRead = isRead;

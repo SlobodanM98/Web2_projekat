@@ -2,12 +2,15 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, SimpleChange, Outpu
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Status, WorkPlan } from 'src/app/model/work-plan';
 
 export interface TableElement{
   id: number;
+  phone: number;
   startDate: Date;
   status: string;
+  address: string;
 }
 
 @Component({
@@ -20,10 +23,10 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
   @Input() filteredData : Array<WorkPlan>;
   @Output() workPlanClickEvent = new EventEmitter<WorkPlan>(); 
 
-  displayedColumns: string[] = ['id', 'startDate', 'status'];
+  displayedColumns: string[] = ['id', 'startDate','phone', 'status', 'address'];
   dataSource: any;
 
-  constructor() { }
+  constructor(public router : Router) { }
 
   ngOnInit(): void {
   }
@@ -39,7 +42,7 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
   ngOnChanges(changes : SimpleChange){
     var tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
-      var data : TableElement = {id: element.workPlanID, startDate: element.startDate, status: Status[element.status].toString()};
+      var data : TableElement = {id: element.workPlanID, startDate: element.startDate,phone: element.phone, status: Status[element.status].toString(), address: element.address.postalNumber + ', ' + element.address.city + ', ' + element.address.street + ' ' + element.address.number};
       tableElements.push(data);
     });
     this.dataSource = new MatTableDataSource(tableElements);
@@ -47,8 +50,9 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  workPlanClick(row: WorkPlan){
+  workPlanClick(row: TableElement){
     console.log(row);
-    this.workPlanClickEvent.emit(row);
+    localStorage.setItem("workPlan", row.id.toString());
+    this.router.navigate(["../Navbar/WorkPlanView"]);
   }
 }

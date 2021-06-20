@@ -5,6 +5,9 @@ export class Settings {
     public infoEnabled: boolean;
     public warningEnabled: boolean;
     public showFields: boolean;
+    public teamIcon: string;
+    public incidentIcon: string;
+    public callIcon: string;
 
     constructor(){
 

@@ -1,0 +1,140 @@
+<form [formGroup]="workPlanForm" (ngSubmit)="submitWorkPlan()" class="container">
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="type-select" appearance="outline">
+                    <mat-label>Type</mat-label>
+                    <mat-select id="type" name="type" matInput formControlName="type" [(value)]="workPlan.type">
+                        <mat-option value="Planned">Planned work</mat-option>
+                        <mat-option value="Unpplaned">Unpplaned work</mat-option>
+                    </mat-select>
+                    <mat-error id="type-error" *ngIf="workPlanForm.get('type')?.invalid">Type is required!</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="status-form-field" class="form-field" appearance="outline">
+                    <mat-select id="type" name="type" matInput formControlName="status" [(value)]="workPlan.status">
+                        <mat-option value="Approved">Approved</mat-option>
+                        <mat-option value="Denied">Denied</mat-option> 
+                        <mat-option value="Canceled">Canceled</mat-option>
+                        <mat-option value="Draft" hidden>Draft</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="incident-form-field" class="form-field" appearance="outline">
+                    <mat-label>Incident</mat-label>
+                    <mat-select id="incident" name="incident" matInput formControlName="incident" [(value)]="workPlan.incident">
+                        <mat-option *ngFor="let incidnetID of allIncidents" [value]="incidnetID.id">{{incidnetID.id}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="address-form-field" class="form-field" appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <mat-select id="address" name="address" matInput formControlName="address" [(value)]="workPlan.address">
+                        <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.postalNumber + ', ' + address.city + ', ' + address.street + ' ' + address.number}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="startDate-form-field" class="form-field" appearance="outline">
+                    <mat-label>Start date</mat-label>
+                    <input id="startDate" matInput type="date"  formControlName ="startDate" [placeholder]="workPlan.startDate.toString()">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="endDate-form-field" class="form-field" appearance="outline">
+                    <mat-label>End date</mat-label>
+                    <input id="endDate" matInput type="date"  formControlName ="endDate" [placeholder]="workPlan.endDate.toString()">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="team-form-field" class="form-field" appearance="outline">
+                    <mat-label>Team</mat-label>
+                    <mat-select id="team" name="team" matInput formControlName="team" [(value)]="workPlan.team">
+                        <mat-option *ngFor="let teamID of allTeams" [value]="teamID.id">{{teamID.id}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="creator-form-field" class="form-field" appearance="outline">
+                    <input matInput type="text" disabled [placeholder]="user.firstName + ' ' + user.lastName">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="company-form-field" class="form-field" appearance="outline">
+                    <mat-label>Company</mat-label>
+                    <input id="company" matInput type="text"  formControlName ="company" [placeholder]="workPlan.company">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+                <mat-form-field id="phoneNomber-form-field" class="form-field" appearance="outline">
+                    <mat-label>Phone number</mat-label>
+                    <input id="phoneNombe" matInput type="number"  formControlName ="phoneNomber" [placeholder]="workPlan.phone.toString()">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <mat-form-field id="purpose-form-field" class="form-field" appearance="outline">
+                    <mat-label>Purpose</mat-label>
+                    <input id="purpose" matInput type="text"  formControlName ="purpose" [placeholder]="workPlan.purpose">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <mat-form-field id="notes-form-field" class="form-field" appearance="outline">
+                    <mat-label>Notes</mat-label>
+                    <input id="notes" matInput type="text"  formControlName ="notes" [placeholder]="workPlan.notes.toString()">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label>Creation date</label>
+                <div style="font-weight: 600;">
+                    {{workPlan.creationDate.toLocaleString().split(',')[0]}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button type="button" class="btn btn-success" (click)="submitWorkPlan()" [disabled]="!hasInput()">Change report</button>
+        </div>
+    </div>
+</form>

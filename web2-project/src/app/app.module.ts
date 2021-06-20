@@ -67,6 +67,12 @@ import { IncidentsCallsComponent } from './components/incidents/incidents-new/in
 import { NewCallComponent } from './components/incidents/incidents-new/incidents-calls/new-call/new-call.component';
 import { IncidentsCrewComponent } from './components/incidents/incidents-new/incidents-crew/incidents-crew.component';
 import { MultimediaAttachmentsComponent } from './components/incidents/incidents-new/multimedia-attachments/multimedia-attachments.component';
+import { WorkPlanViewComponent } from './components/work-plan/work-plan-view/work-plan-view.component';
+import { WorkPlanBasicInfoViewComponent } from './components/work-plan/work-plan-view/work-plan-basic-info-view/work-plan-basic-info-view.component';
+import { WorkPlanDeviceViewComponent } from './components/work-plan/work-plan-view/work-plan-device-view/work-plan-device-view.component';
+import { WorkPlanInstructionViewComponent } from './components/work-plan/work-plan-view/work-plan-instruction-view/work-plan-instruction-view.component';
+import { WorkPlanMultimediaViewComponent } from './components/work-plan/work-plan-view/work-plan-multimedia-view/work-plan-multimedia-view.component';
+import { WorkPlanHistoryViewComponent } from './components/work-plan/work-plan-view/work-plan-history-view/work-plan-history-view.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +119,12 @@ import { MultimediaAttachmentsComponent } from './components/incidents/incidents
     NewCallComponent,
     IncidentsCrewComponent,
     MultimediaAttachmentsComponent,
+    WorkPlanViewComponent,
+    WorkPlanBasicInfoViewComponent,
+    WorkPlanDeviceViewComponent,
+    WorkPlanInstructionViewComponent,
+    WorkPlanMultimediaViewComponent,
+    WorkPlanHistoryViewComponent,
     
    
   ],
@@ -126,8 +138,10 @@ import { MultimediaAttachmentsComponent } from './components/incidents/incidents
     NgbModule,
     DragDropModule,
     ToastrModule.forRoot({
-      disableTimeOut: true,
-      preventDuplicates: true,
+      timeOut: 3000,
+      maxOpened: 7,
+      disableTimeOut: false,
+      preventDuplicates: false,
       positionClass: 'toast-bottom-right'
     }),
     MatTableModule,
