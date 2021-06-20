@@ -20,6 +20,8 @@ namespace Web2BackEnd.Data
 		public DbSet<Device> Devices { get; set; }
 		public DbSet<Team> Teams { get; set; }
 		public DbSet<TeamUser> TeamUsers { get; set; }
+		public DbSet<IncidentDevice> IncidentDevices { get; set; }
+		public DbSet<IncidentCall> IncidentCalls { get; set; }
 
 	}
 }

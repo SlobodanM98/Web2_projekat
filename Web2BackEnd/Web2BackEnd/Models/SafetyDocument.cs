@@ -13,12 +13,16 @@ namespace Web2BackEnd.Models
         public int ID { get; set; }
         //[Required]
         public TipDokumenta tipDokumenta { get; set; }
+       // [Required]
+
+        
+        //public string Status { get; set; }
         //[Required]
-        public string PlanRada { get; set; }
+        public int PlanRada { get; set; }
         //[Required]
         public string Author { get; set; }
         //[Required]
-        public string Team { get; set; }
+        public int Team { get; set; }
         //[Required]
         public string Details { get; set; }
         //[Required]

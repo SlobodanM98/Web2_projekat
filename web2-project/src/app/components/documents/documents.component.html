@@ -23,11 +23,8 @@
     </div>
     <div class="row mt-3">
         <div class="col">
-            <div [hidden]="filteredDocuments.length !== 0">
-                <hr/>
-                <h5 style="text-align: center;">There are no safety documents with the defined parameters.</h5>
-            </div>
-            <div [hidden]="filteredDocuments.length === 0">
+            
+            <div >
                 <app-documents-filtered [filteredData]="filteredDocuments"></app-documents-filtered>
             </div>
         </div>

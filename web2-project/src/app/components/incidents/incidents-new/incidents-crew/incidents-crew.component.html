@@ -1,3 +1,29 @@
 <div class="container-fluid  table-container p-3 m-auto">
+    <form [formGroup]="teamForm" (ngSubmit)="submitTeam()">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-header mb-4 mt-3">
+                    <h3>Choose a team</h3>
+                    <hr class="solid">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-left">
+                <div class="form-group">
+                    <mat-form-field id="type-select" appearance="outline">
+                        <mat-label>Team</mat-label>
+                        <mat-select id="team" name="team" matInput formControlName="team">
+                            <mat-option *ngFor="let team of allTeams" [value]="team.teamID">{{team.name}}</mat-option>
+                        </mat-select>
+                       
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col text-right">
+                <button type="button" class="btn btn-success" >Submit device</button>
+            </div>
+        </div>
+    </form>
     
 </div>

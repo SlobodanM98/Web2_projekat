@@ -52,5 +52,31 @@ namespace Web2BackEnd.Services
             IEnumerable<Incident> incidents = await _incidentRepository.GetAll();
             return _mapper.Map<IEnumerable<DTOIncident>>(incidents);
         }
+
+        public async Task<bool> UpdateIncident(DTOIncident incident)
+        {
+            Incident mapIncident = _mapper.Map<Incident>(incident);
+            _incidentRepository.Update(mapIncident);
+
+            bool success = true;
+
+            try
+            {
+                await _incidentRepository.SaveChanges();
+            }
+            catch
+            {
+                if (!_incidentRepository.IncidentExists(incident.ID))
+                {
+                    success = false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return success;
+        }
     }
 }

@@ -11,10 +11,22 @@ import { IncidentService } from 'src/app/services/incident.service';
 export class IncidentsBasicInfoComponent implements OnInit {
 
   incidentBasicForm:FormGroup;
-  incidentObj:Incident;
+  incidentObj:Incident = new Incident();
   tip:IncidentType;
 
+
+  docTypes = [ 
+    {display:'Planned work', value:"Planiran"},
+    {display:'Unplanned work', value:"Neplaniran"}
+  ]
+
+  possibleStatus = [
+    {display:"Unresolved", value:"Resen"},
+    {display:"Resolved", value:"Neresen"}
+  ]
   
+ 
+
 
 
   constructor(private fb: FormBuilder, private incidentService:IncidentService) { }
@@ -54,6 +66,7 @@ export class IncidentsBasicInfoComponent implements OnInit {
     //var id = this.incidentBasicForm.controls["incidentID"].value;
     //var pri = this.incidentBasicForm.controls["priority"].value;
     var stat = this.incidentBasicForm.controls["status"].value;
+    var potvrdjen = this.incidentBasicForm.controls["confirmed"].value;
     var eta = this.incidentBasicForm.controls["eta"].value;
     var ata = this.incidentBasicForm.controls["ata"].value;
     var sch = this.incidentBasicForm.controls["scheduled"].value;
@@ -61,7 +74,17 @@ export class IncidentsBasicInfoComponent implements OnInit {
     var vol = this.incidentBasicForm.controls["voltage"].value;
     var pvr = this.incidentBasicForm.controls["pvr"].value;
 
-    this.incidentObj = new Incident(this.tip,stat,eta, ata,sch,etr,vol,pvr);
+    //this.incidentObj = new Incident(this.tip,stat,eta, ata,sch,etr,vol,pvr);
+    this.incidentObj.tip = this.tip;
+    this.incidentObj.status = stat;
+    this.incidentObj.potvrdjen = potvrdjen;
+    this.incidentObj.eta = eta;
+    this.incidentObj.ata  = ata;
+    this.incidentObj.vremeIncidenta = sch;
+    this.incidentObj.etr = etr;
+    this.incidentObj.nivoNapona = vol;
+    this.incidentObj.pvr = pvr;
+    //this.incidentObj.userID = 1;
     console.log(this.incidentObj);
     this.incidentService.postIncident(this.incidentObj).subscribe(data => {
         console.log(data);

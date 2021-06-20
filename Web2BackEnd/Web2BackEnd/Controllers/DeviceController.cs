@@ -16,10 +16,12 @@ namespace Web2BackEnd.Controllers
     public class DeviceController : ControllerBase
     {
         private readonly DeviceService _service;
+        private readonly IncidentDeviceService _incidentDeviceService;
 
         public DeviceController(DataContext context, IMapper mapper)
         {
             _service = new DeviceService(context, mapper);
+            _incidentDeviceService = new IncidentDeviceService(context, mapper);
         }
         [HttpGet]
         public async Task<IEnumerable<DTODevice>> GetDevice()
@@ -84,6 +86,30 @@ namespace Web2BackEnd.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet("IncidentDevice/{id}")]
+        public async Task<IEnumerable<DTODevice>> GetIncidentDevices(int id)
+        {
+            IEnumerable<DTODevice> allDevices = await _service.GetDevice();
+            IEnumerable <DTOIncidentDevice> allIncidentDevices = await _incidentDeviceService.GetIncidentDevice();
+
+            List<DTODevice> retVal = new List<DTODevice>();
+
+            foreach(DTOIncidentDevice incDev in allIncidentDevices)
+            {
+               if (incDev.IncidentID == id)
+                {
+                    retVal.Add(allDevices.FirstOrDefault(x => x.ID == incDev.DeviceID));
+                }
+            }
+
+            return retVal.AsEnumerable();
+
+
+
+        }
+
+
 
 
 

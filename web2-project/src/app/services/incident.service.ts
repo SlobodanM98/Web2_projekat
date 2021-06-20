@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {Incident} from "src/app/model/incident";
+import { Device } from '../model/device';
+import { Team } from '../model/team/team.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +26,11 @@ export class IncidentService {
     //formData.append("Prioritet", incident.Prioritet.toString());
     //formData.append("Potvrdjen", incident.Potvrdjen.valueOf.toString());
     formData.append("Status", incident.status);
-    formData.append("ETA", incident.eta);
-    formData.append("ATA", incident.ata);
-    formData.append("ETR", incident.etr);
-    formData.append("PVR", incident.pvr);
-    formData.append("VremeIncidenta",incident.vremeIncidenta);
+    formData.append("ETA", incident.eta.toString());
+    formData.append("ATA", incident.ata.toString());
+    formData.append("ETR", incident.etr.toString());
+    formData.append("PVR", incident.pvr.toString());
+    formData.append("VremeIncidenta",incident.vremeIncidenta.toString());
     formData.append("NivoNapona",incident.nivoNapona.toString());
     formData.append("Uzrok", "/");
     formData.append("Poduzrok", "/");
@@ -36,8 +38,41 @@ export class IncidentService {
     formData.append("Materijal", "/");
     const httpOptions = { headers: new HttpHeaders({  observe: 'response'})};
     return this.http.post(this.url + "/api/Incident", formData, httpOptions);
-
     
   }
+
+  postIncidentDevice(incidentID:number, deviceID:number)
+  {
+    const formData = new FormData();
+    formData.append('IncidentID', incidentID.toString());
+    formData.append("DeviceID", deviceID.toString());
+    const httpOptions = { headers: new HttpHeaders({  observe: 'response'})};
+    return this.http.post(this.url + "/api/IncidentDevice", formData, httpOptions);
+
+  }
+
+  getIncidentDevices(id:number):Observable<Device[]>
+  {
+    return this.http.get<Device[]>(this.url + '/api/Device/IncidentDevice/'+id); 
+  }
+
+  getDevices():Observable<Device[]>
+  {
+    return this.http.get<Device[]>(this.url + '/api/Device')
+  }
+
+  putIncident(incident:Incident)
+  {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.put(this.url + "/api/Incident", incident, httpOptions);
+  }
+  getTeams():Observable<Team[]>
+  {
+    return this.http.get<Team[]>(this.url + '/api/Team');
+  }
+
+
 
 }

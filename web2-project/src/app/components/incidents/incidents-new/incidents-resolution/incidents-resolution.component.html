@@ -1,10 +1,10 @@
-<form [formGroup]="resolutionForm" (ngSubmit)="submitResolution" class="container">
+<form [formGroup]="resolutionForm" (ngSubmit)="submitResolution()" class="container">
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-form-field id="cause-select">
                     <mat-label>Uzrok</mat-label>
-                    <mat-select id="cause" name="cause" matInput formControlName="cause">
+                    <mat-select id="cause" name="cause" (selectionChange)="uzrokPromena($event)" matInput formControlName="cause">
                         <mat-option value="Vreme">Vreme</mat-option>
                         <mat-option value="LjudskiFaktor">Ljudski Faktor</mat-option>
                         <mat-option value="Otkaz">Otkaz</mat-option>
@@ -19,7 +19,7 @@
                 <mat-form-field id="subcause-select">
                     <mat-label>Podzrok</mat-label>
                     <mat-select id="subcause" name="subcause" matInput formControlName="subcause">
-                        <mat-option value=""></mat-option>
+                        <mat-option *ngFor="let value of poduzrok" value="{{value}}">{{value}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -31,9 +31,9 @@
             <div class="form-group">
                 <mat-form-field id="construction-type">
                     <mat-label>Konstrukcija</mat-label>
-                    <mat-select if="construction" name="construction" matInput formControlName="construction">
-                        <mat-option class="Podzemni">Podzemni</mat-option>
-                        <mat-option class="Nadzemni">Nadzemni</mat-option>
+                    <mat-select id="construction" name="construction" matInput formControlName="construction">
+                        <mat-option value="Podzemni">Podzemni</mat-option>
+                        <mat-option value="Nadzemni">Nadzemni</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -54,6 +54,7 @@
             </div>
         </div>
     </div>
+    <button type="submit">Save</button>
 
    
 </form> 

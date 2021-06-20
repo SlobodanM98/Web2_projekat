@@ -42,7 +42,7 @@ namespace Web2BackEnd.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSafetyDocument([FromForm]DTOSafetyDocument document)
+        public async Task<IActionResult> AddSafetyDocument(DTOSafetyDocument document)
         {
             bool success = await _service.AddDocument(document);
 

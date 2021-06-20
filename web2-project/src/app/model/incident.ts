@@ -18,12 +18,12 @@ export class Incident {
     public prioritet:number = 0;
     public potvrdjen:boolean;
     public status:string;
-    public eta:string;
-    public ata:string;
-    public vremeIncidenta:string;
-    public etr:string;
+    public eta:Date;
+    public ata:Date;
+    public vremeIncidenta:Date;
+    public etr:Date;
     public nivoNapona:number;
-    public pvr:string; //planirano vreme rada
+    public pvr:Date; //planirano vreme rada
     public Devices:Array<Device>;
     public Calls:Array<Call>;
     public Team:Team;
@@ -32,6 +32,8 @@ export class Incident {
     public konstrukcija:string;
     public materijal:string;
 
+
+    /*
     constructor(tip:IncidentType,status:string,eta:string,ata:string,vremeincidenta:string,etr:string,nivonapona:number,pvr:string)
     {
        
@@ -53,7 +55,7 @@ export class Incident {
         //this.Materijal = "";
         
         
-    }
+    }*/
 }
 
 

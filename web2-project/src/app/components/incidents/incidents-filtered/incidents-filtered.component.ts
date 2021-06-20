@@ -10,7 +10,7 @@ import {IncidentType, Incident} from 'src/app/model/incident'
 export interface TableElement
 {
   id:number;
-  startDate:string;
+  startDate:Date;
   status:string;
 }
 
