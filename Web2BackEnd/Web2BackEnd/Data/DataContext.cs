@@ -28,5 +28,9 @@ namespace Web2BackEnd.Data
 		public DbSet<IncidentDevice> IncidentDevices { get; set; }
 		public DbSet<IncidentCall> IncidentCalls { get; set; }
 
+		public DbSet<WorkAccount> WorkAccounts { get; set; }
+		public DbSet<WorkAccountStatusHistory> WorkAccountStatusHistorys { get; set; }
+		public DbSet<WorkAccountImage> WorkAccountsImages { get; set; }
+
 	}
 }

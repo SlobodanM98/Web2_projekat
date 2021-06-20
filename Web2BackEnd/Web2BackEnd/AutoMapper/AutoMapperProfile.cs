@@ -52,6 +52,13 @@ namespace Web2BackEnd.AutoMapper
 			CreateMap<DTOIncidentCall, IncidentCall>();
 			CreateMap<IncidentDevice, DTOIncidentDevice>();
 			CreateMap<DTOIncidentDevice, IncidentDevice>();
+
+			CreateMap<WorkAccount, DTOWorkAccount>();
+			CreateMap<DTOWorkAccount, WorkAccount>();
+			CreateMap<WorkAccountStatusHistory, DTOWorkAccountStatusHistory>();
+			CreateMap<DTOWorkAccountStatusHistory, WorkAccountStatusHistory>();
+			CreateMap<WorkAccountImage, DTOWorkAccountImage>();
+			CreateMap<DTOWorkAccountImage, WorkAccountImage>();
 		}
 	}
 }

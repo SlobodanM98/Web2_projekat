@@ -130,9 +130,9 @@ const routes: Routes = [
       },
       { path: 'WorkAccountNew', component: WorkAccountNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
       children: [
-        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent},
-        { path: 'WorkAccountHistoryStateChanges', component: WorkAccountHistoryStateChangesComponent},
-        { path: 'WorkAccountMultimedia', component: WorkAccountMultimediaComponent}
+        { path: 'WorkAccountBasicInfo', component: WorkAccountBasicInfoComponent, canActivate:[NoReturnGuard]},
+        { path: 'WorkAccountHistoryStateChanges', component: WorkAccountHistoryStateChangesComponent, canActivate:[AddToProceedGuard]},
+        { path: 'WorkAccountMultimedia', component: WorkAccountMultimediaComponent, canActivate:[AddToProceedGuard]}
       ]},
       { path: 'AddingTeamsNew', component: AddingTeamsNewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'}},
       { path: 'AddingTeams', component: AddingTeamsComponent, canActivate:[RoleGuard], data: { role: 'Consumer'} },

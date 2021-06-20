@@ -91,7 +91,7 @@
                         <mat-form-field id="address-form-field" class="form-field">
                             <mat-label>Address</mat-label>
                             <mat-select id="address" name="address" matInput formControlName="address">
-                                <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.street}}</mat-option>
+                                <mat-option *ngFor="let address of allAddresses" [value]="address.addressID">{{address.street}} {{address.number}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
