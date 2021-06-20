@@ -56,6 +56,27 @@ namespace Web2BackEnd.Controllers
             }
         }
 
+        
+        
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateIncident(DTOIncident incident)
+        {
+            bool success = await _service.UpdateIncident(incident);
+
+            if (success)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+
+
+        
+        
 
     }
 }

@@ -12,12 +12,13 @@ namespace Web2BackEnd.DTO
         public int ID { get; set; }
         
         public TipDokumenta tipDokumenta { get; set; }
+        //public string Status { get; set; }
         
-        public string PlanRada { get; set; }
+        public int PlanRada { get; set; }
         
         public string Author { get; set; }
         
-        public string Team { get; set; }
+        public int Team { get; set; }
         
         public string Details { get; set; }
         

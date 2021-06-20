@@ -37,6 +37,11 @@ namespace Web2BackEnd.AutoMapper
 			CreateMap<DTOTeam, Team>();
 			CreateMap<TeamUser, DTOTeamUser>();
 			CreateMap<DTOTeamUser, TeamUser>();
+
+			CreateMap<IncidentCall, DTOIncident>();
+			CreateMap<DTOIncidentCall, IncidentCall>();
+			CreateMap<IncidentDevice, DTOIncidentDevice>();
+			CreateMap<DTOIncidentDevice, IncidentDevice>();
 		}
 	}
 }

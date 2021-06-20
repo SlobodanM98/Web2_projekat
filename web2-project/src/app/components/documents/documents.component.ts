@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SafetyDocument, TipDokumenta} from 'src/app/model/safety-document';
+import { DocumentService } from 'src/app/services/document.service';
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
@@ -16,9 +17,22 @@ export class DocumentsComponent implements OnInit {
 
 
   addDocumentForm: FormGroup;
-  constructor(private formBuilder : FormBuilder, private modalService: NgbModal) { }
+  constructor(private formBuilder : FormBuilder, private modalService: NgbModal, private documentService:DocumentService) { }
 
   ngOnInit(): void {
+
+    this.documentService.getDocuments().subscribe(data => {
+
+      this.allDocuments = new Array<SafetyDocument>();
+      this.allDocuments = data;
+      this.allDocuments.forEach(element => {
+        this.filteredDocuments.push(element);
+      });
+      console.log(this.filterDocuments);
+    });
+ 
+
+
     this.addDocumentForm = this.formBuilder.group({
       TipDokumenta: ['', [Validators.required]],
       PlanRada: ['', [Validators.required]],
@@ -33,9 +47,7 @@ export class DocumentsComponent implements OnInit {
     this.allDocuments.push(new SafetyDocument(TipDokumenta.PlaniraniRad,"91","Zika", "Details 2", "Notes 2", "3815528288"));
     this.allDocuments.push(new SafetyDocument(TipDokumenta.NeplaniraniRad,"1201","Mika", "Details 3", "Notes 3", "3814161997"));
     */
-    this.allDocuments.forEach(element => {
-      this.filteredDocuments.push(element);
-    });
+    
     
   }
   submitDocument()

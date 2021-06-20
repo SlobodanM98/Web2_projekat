@@ -26,7 +26,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="outagetime">Outage time:</label>
-                <input formControlName="outagetime" type="datetime-local" name="outagetime" class="form-control" id="outagetime">
+                <input formControlName="outagetime" type="date" name="outagetime" class="form-control" id="outagetime">
             </div>
         </div>
     </div>
@@ -49,7 +49,9 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="confirmed">Confirmed:</label>
-                <input type="checkbox" formControlName="confirmed" name="confirmed" class="form-control" id="confirmed">
+                <mat-slide-toggle color="primary" formControlName="confirmed"></mat-slide-toggle>
+                <!-- 
+                <input type="checkbox" formControlName="confirmed" name="confirmed" class="form-control" id="confirmed">-->
 
             </div>
         </div>
@@ -63,8 +65,13 @@
     <div class="row">
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
+                
                 <label for="status">Status</label>
-                <input type="text" name="status" formControlName="status" class="form-control">
+                <select formControlName="status">
+                    <option *ngFor="let possibleStatus of possibleStatus" value="{{possibleStatus.value}}">{{possibleStatus.display}}</option>
+
+                </select>
+               <!-- <input type="text" name="status" formControlName="status" class="form-control"> -->
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
@@ -84,7 +91,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="scheduled">Scheduled Time:</label>
-                <input type="datetime-local" class="form-control" formControlName="scheduled" name="scheduled">
+                <input type="date" class="form-control" formControlName="scheduled" name="scheduled">
             </div>
         </div>
     </div>
@@ -92,7 +99,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="eta">ETA:</label>
-                <input type="time" class="form-control" formControlName="eta" name="eta">
+                <input type="date" class="form-control" formControlName="eta" name="eta">
             </div>
         </div>
     </div>
@@ -106,7 +113,7 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <label for="pvr">Planirano vreme rada:</label>
-                <input type="time" class="form-control" formControlName="pvr" name="pvr">
+                <input type="date" class="form-control" formControlName="pvr" name="pvr">
             </div>
         </div>
     </div>
