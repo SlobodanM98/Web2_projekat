@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web2BackEnd.Data;
 
 namespace Web2BackEnd.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210620122605_CreateWorkAccountImageHistory")]
+    partial class CreateWorkAccountImageHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -401,9 +403,8 @@ namespace Web2BackEnd.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("Purpose")
                         .IsRequired()
@@ -433,24 +434,6 @@ namespace Web2BackEnd.Migrations
                     b.ToTable("WorkAccounts");
                 });
 
-            modelBuilder.Entity("Web2BackEnd.Models.WorkAccountImage", b =>
-                {
-                    b.Property<int>("WorkAccountImageID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ImageID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkAccountID")
-                        .HasColumnType("int");
-
-                    b.HasKey("WorkAccountImageID");
-
-                    b.ToTable("WorkAccountsImages");
-                });
-
             modelBuilder.Entity("Web2BackEnd.Models.WorkAccountStatusHistory", b =>
                 {
                     b.Property<int>("WorkAccountStatusHistoryID")
@@ -462,15 +445,15 @@ namespace Web2BackEnd.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("date")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("WorkAccountStatusHistoryID");
 
-                    b.ToTable("WorkAccountStatusHistorys");
+                    b.ToTable("WorkAccountStatusHistory");
                 });
 
             modelBuilder.Entity("Web2BackEnd.Models.Call", b =>

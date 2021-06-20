@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web2BackEnd.Data;
 
 namespace Web2BackEnd.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210620120104_CreateWorkAccount")]
+    partial class CreateWorkAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,105 +376,6 @@ namespace Web2BackEnd.Migrations
                     b.ToTable("TeamUsers");
                 });
 
-            modelBuilder.Entity("Web2BackEnd.Models.WorkAccount", b =>
-                {
-                    b.Property<int>("WorkAccountID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AddressID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IncidentID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Purpose")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("UrgentWork")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("WorkAccountStatusHistoryID")
-                        .HasColumnType("int");
-
-                    b.HasKey("WorkAccountID");
-
-                    b.HasIndex("AddressID");
-
-                    b.HasIndex("WorkAccountStatusHistoryID");
-
-                    b.ToTable("WorkAccounts");
-                });
-
-            modelBuilder.Entity("Web2BackEnd.Models.WorkAccountImage", b =>
-                {
-                    b.Property<int>("WorkAccountImageID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ImageID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkAccountID")
-                        .HasColumnType("int");
-
-                    b.HasKey("WorkAccountImageID");
-
-                    b.ToTable("WorkAccountsImages");
-                });
-
-            modelBuilder.Entity("Web2BackEnd.Models.WorkAccountStatusHistory", b =>
-                {
-                    b.Property<int>("WorkAccountStatusHistoryID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ChangedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("WorkAccountStatusHistoryID");
-
-                    b.ToTable("WorkAccountStatusHistorys");
-                });
-
             modelBuilder.Entity("Web2BackEnd.Models.Call", b =>
                 {
                     b.HasOne("Web2BackEnd.Models.Address", "Address")
@@ -505,19 +408,6 @@ namespace Web2BackEnd.Migrations
                     b.HasOne("Web2BackEnd.Models.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamID");
-                });
-
-            modelBuilder.Entity("Web2BackEnd.Models.WorkAccount", b =>
-                {
-                    b.HasOne("Web2BackEnd.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web2BackEnd.Models.WorkAccountStatusHistory", "WorkAccountStatusHistory")
-                        .WithMany()
-                        .HasForeignKey("WorkAccountStatusHistoryID");
                 });
 #pragma warning restore 612, 618
         }

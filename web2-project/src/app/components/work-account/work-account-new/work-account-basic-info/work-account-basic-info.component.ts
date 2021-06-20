@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WorkAccountService } from '../../../../services/work-account/work-account.service'
+import { WorkAccountService } from '../../../../services/work-account/work-account.service';
+import { AddToProceedService } from 'src/app/services/add-to-proceed.service';
 
 @Component({
   selector: 'app-work-account-basic-info',
@@ -13,9 +14,10 @@ export class WorkAccountBasicInfoComponent implements OnInit {
   currentDate = new Date();
   currentState: string = "Draft";
 
-  constructor(private fb: FormBuilder, private workAccountService: WorkAccountService) { }
+  constructor(private fb: FormBuilder, private workAccountService: WorkAccountService, private addToProceed: AddToProceedService) { }
 
   ngOnInit(): void {
+    this.addToProceed.canMove = false;
     if(this.workAccountService.currentState2 !== "") {
       this.currentState = this.workAccountService.currentState2;
     }
@@ -31,9 +33,6 @@ export class WorkAccountBasicInfoComponent implements OnInit {
         
       ]],
       address: [this.workAccountService.currentAddress, [
-        Validators.required
-      ]],
-      addressNumber: [this.workAccountService.currentAddressNumber, [
         Validators.required
       ]],
       startDate: [this.workAccountService.currentStartDate, [
@@ -58,7 +57,8 @@ export class WorkAccountBasicInfoComponent implements OnInit {
   }
 
   submitWorkAccount(){
-
+    this.addToProceed.canMove = true;
+    this.addToProceed.canReturn = false;
   }
 
   typeChanged(e:any) {
@@ -76,10 +76,6 @@ export class WorkAccountBasicInfoComponent implements OnInit {
 
   addressChanged(e:any) {
     this.workAccountService.currentAddress = e.target.value;
-  }
-
-  addressNumberChanged(e:any) {
-    this.workAccountService.currentAddressNumber = e.target.value;
   }
 
   startDateChanged(e:any) {
@@ -120,10 +116,6 @@ export class WorkAccountBasicInfoComponent implements OnInit {
 
   get address(){
     return this.workAccountForm.get('address');
-  }
-
-  get addressNumber(){
-    return this.workAccountForm.get('addressNumber');
   }
 
   get startDate(){
