@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col text-right">
-            <button type="button" class="btn btn-success" (click)="submitImage()" [disabled]="!submitImageForm.valid">Submit image</button>
+            <button type="button" class="btn btn-success" (click)="submitImage()" [disabled]="!submitImageForm.valid || (role !== 'Admin' && role !== 'Dispatcher')">Submit image</button>
         </div>
     </div>
     <div class="row">

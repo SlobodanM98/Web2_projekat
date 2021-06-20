@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { Address } from 'src/app/model/address';
 import {Device,DeviceType } from 'src/app/model/device';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 import { DeviceService } from 'src/app/services/device.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-devices',
@@ -18,10 +22,16 @@ export class DevicesComponent implements OnInit {
   addDeviceForm: FormGroup;
   searchDeviceForm:FormGroup;
 
+  notification: Notification;
+  role: string;
 
-  constructor(private formBuilder:FormBuilder, private modalService:NgbModal, private deviceService:DeviceService) { }
+  constructor(private formBuilder:FormBuilder, private modalService:NgbModal, private deviceService:DeviceService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
 
     this.allDevices = new Array<Device>();
     this.filteredDevices = new Array<Device>();
@@ -161,19 +171,36 @@ export class DevicesComponent implements OnInit {
       a = 'aaa';
       var dev = new Device(Dtype, this.addDeviceForm.controls['Name'].value, address,Number(this.addDeviceForm.controls['Lon'].value),Number(this.addDeviceForm.controls['Lat'].value));
       console.log(dev);
-      this.deviceService.postDevice(dev).subscribe(data => {
-       
-        console.log(data);
-
-
+      this.deviceService.postDevice(dev).subscribe(data=>{
+        const helper = new JwtHelperService();
+        var token : any = localStorage.getItem('token');
+        const DecodedToken = helper.decodeToken(token);
+        
+        this.notification = new Notification(DecodedToken.id, "Device created successfully!", NotificationType.Success, false, false, new Date());
+        this.notificationService.postNotification(this.notification).subscribe();
+        this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+      }, error => {
+        const helper = new JwtHelperService();
+        var token : any = localStorage.getItem('token');
+        const DecodedToken = helper.decodeToken(token);
+        
+        this.notification = new Notification(DecodedToken.id, "Device created unsuccessfully!", NotificationType.Error, false, false, new Date());
+        this.notificationService.postNotification(this.notification).subscribe();
+        this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
       });
       this.modalService.dismissAll();
       this.addDeviceForm.reset();
     
   }
   
-
-
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
+  }
 
     resetFilter(){
 

@@ -3,10 +3,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 import { element } from 'protractor';
 import { Address } from 'src/app/model/address';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 import { DeviceService } from 'src/app/services/device.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import {Device,DeviceType} from  '../../../model/device';
 
 
@@ -41,9 +45,17 @@ export class DevicesFilteredComponent implements OnInit, AfterViewInit {
   deleteDeviceID:number;
   deviceForEdit:Device;
 
-  constructor(private formBuilder:FormBuilder, private modalService: NgbModal, private deviceService:DeviceService) { }
+  notification: Notification;
+  role: string;
+
+  constructor(private formBuilder:FormBuilder, private modalService: NgbModal, private deviceService:DeviceService, private notificationService: NotificationService, private toastr : ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.editDeviceForm = this.formBuilder.group({
       id:['',[]],
       name:['',[]],
@@ -174,7 +186,23 @@ export class DevicesFilteredComponent implements OnInit, AfterViewInit {
           
         }
       }
-    this.deviceService.putDevice(this.deviceForEdit).subscribe();
+    this.deviceService.putDevice(this.deviceForEdit).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Device updated successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Device updated unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
 
     this.dataSource = new MatTableDataSource(this.tableElements);
     this.dataSource.sort = this.sort;
@@ -183,11 +211,36 @@ export class DevicesFilteredComponent implements OnInit, AfterViewInit {
 
   }
 
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
+  }
+
   confirmDelete()
   {
     this.modalService.dismissAll();
 
-    this.deviceService.deleteDevice(this.deleteDeviceID).subscribe();
+    this.deviceService.deleteDevice(this.deleteDeviceID).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Device deleted successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Device deleted unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
     for(var i = 0; i < this.tableElements.length; i++){
       if(this.tableElements[i].ID === this.deleteDeviceID){
         this.tableElements.splice(i, 1);

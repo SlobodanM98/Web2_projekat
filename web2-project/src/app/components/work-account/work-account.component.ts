@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { WorkAccount, Status } from '../../model/work-account/work-account.model'
 
 @Component({
@@ -20,9 +21,16 @@ export class WorkAccountComponent implements OnInit {
   beforeDate: Date;
   afterDate: Date;
 
+  role: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.allWorkAccounts = new Array<WorkAccount>();
     this.allWorkAccounts.push(new WorkAccount("WT1",Status.Draft, new Date(2021,3,21,12,16)));
     this.allWorkAccounts.push(new WorkAccount("WT2",Status.Draft, new Date(2021,3,25,12,0)));

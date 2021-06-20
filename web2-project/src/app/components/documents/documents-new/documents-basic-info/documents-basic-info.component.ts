@@ -5,6 +5,9 @@ import { Team } from 'src/app/model/team/team.model';
 import { DocumentService } from 'src/app/services/document.service';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-documents-basic-info',
   templateUrl: './documents-basic-info.component.html',
@@ -22,8 +25,9 @@ export class DocumentsBasicInfoComponent implements OnInit {
   token:any;
   allTeams:Array<Team>;
 
+  notification: Notification;
 
-  constructor(private fb: FormBuilder, private docService:DocumentService) { }
+  constructor(private fb: FormBuilder, private docService:DocumentService, private notificationService: NotificationService, private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -80,9 +84,31 @@ export class DocumentsBasicInfoComponent implements OnInit {
 
     //this.doc = new SafetyDocument(this.td,"/",this.DocumentBasicInfo.controls["author"].value,this.t,this.DocumentBasicInfo.controls["details"].value,this.DocumentBasicInfo.controls["notes"].value,this.DocumentBasicInfo.controls["phoneNum"].value, this.DocumentBasicInfo.controls["dateCreated"].value);
     console.log(this.doc);
-    this.docService.postDocument2(this.doc).subscribe();
-
-
+    this.docService.postDocument2(this.doc).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Document created successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Document created unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
   }
 
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
+  }
 }

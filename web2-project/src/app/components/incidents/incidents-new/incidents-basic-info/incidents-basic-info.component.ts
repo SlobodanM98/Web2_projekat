@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 import { Incident, IncidentType } from 'src/app/model/incident';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 import { IncidentService } from 'src/app/services/incident.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-incidents-basic-info',
@@ -25,11 +29,11 @@ export class IncidentsBasicInfoComponent implements OnInit {
     {display:"Resolved", value:"Neresen"}
   ]
   
- 
+  notification: Notification;
 
 
 
-  constructor(private fb: FormBuilder, private incidentService:IncidentService) { }
+  constructor(private fb: FormBuilder, private incidentService:IncidentService, private notificationService: NotificationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     
@@ -86,12 +90,31 @@ export class IncidentsBasicInfoComponent implements OnInit {
     this.incidentObj.pvr = pvr;
     //this.incidentObj.userID = 1;
     console.log(this.incidentObj);
-    this.incidentService.postIncident(this.incidentObj).subscribe(data => {
-        console.log(data);
-
-
+    this.incidentService.postIncident(this.incidentObj).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Incident created successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Incident created unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
     });
-
   }
 
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
+  }
 }

@@ -15,7 +15,8 @@
         <div class="col-md-6 col-sm-12">
             <div class="form-group">
                 <mat-form-field id="status-form-field" class="form-field" appearance="outline">
-                    <mat-select id="type" name="type" matInput formControlName="status" [(value)]="workPlan.status">
+                    <mat-label>Status</mat-label>
+                    <mat-select id="type" name="type" matInput formControlName="status" [(value)]="workPlan.status" [disabled]="role !== 'Admin' && role !== 'Dispatcher'">
                         <mat-option value="Approved">Approved</mat-option>
                         <mat-option value="Denied">Denied</mat-option> 
                         <mat-option value="Canceled">Canceled</mat-option>
@@ -71,7 +72,7 @@
                 <mat-form-field id="team-form-field" class="form-field" appearance="outline">
                     <mat-label>Team</mat-label>
                     <mat-select id="team" name="team" matInput formControlName="team" [(value)]="workPlan.team">
-                        <mat-option *ngFor="let teamID of allTeams" [value]="teamID.id">{{teamID.id}}</mat-option>
+                        <mat-option *ngFor="let teamID of allTeams" [value]="teamID.teamID">{{teamID.teamID}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -134,7 +135,7 @@
     </div>
     <div class="row">
         <div class="col text-right">
-            <button type="button" class="btn btn-success" (click)="submitWorkPlan()" [disabled]="!hasInput()">Change report</button>
+            <button type="button" class="btn btn-success" (click)="submitWorkPlan()" [disabled]="!hasInput() || (role !== 'Admin' && role !== 'Dispatcher')">Change report</button>
         </div>
     </div>
 </form>

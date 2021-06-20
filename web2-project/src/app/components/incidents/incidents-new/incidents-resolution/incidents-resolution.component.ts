@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 import { Incident } from 'src/app/model/incident';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 import { IncidentService } from 'src/app/services/incident.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-incidents-resolution',
@@ -20,7 +24,9 @@ export class IncidentsResolutionComponent implements OnInit {
   poduzrokHumanError:string[] = ["PogresnaOprema", "LosNapon", "LosaInstalacija"];
   poduzrok:string[];
 
-  constructor(private fb: FormBuilder, private incService:IncidentService) { }
+  notification: Notification;
+
+  constructor(private fb: FormBuilder, private incService:IncidentService, private notificationService: NotificationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
 
@@ -54,9 +60,34 @@ export class IncidentsResolutionComponent implements OnInit {
     this.workingIncident.poduzrok = this.resolutionForm.controls["subcause"].value;
     this.workingIncident.konstrukcija = this.resolutionForm.controls["construction"].value;
     this.workingIncident.materijal = this.resolutionForm.controls["material"].value;
-    this.incService.putIncident(this.workingIncident).subscribe();
+    this.incService.putIncident(this.workingIncident).subscribe(data=>{
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Resolution added successfully!", NotificationType.Success, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    }, error => {
+      const helper = new JwtHelperService();
+      var token : any = localStorage.getItem('token');
+      const DecodedToken = helper.decodeToken(token);
+      
+      this.notification = new Notification(DecodedToken.id, "Resolution added unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    });
     console.log(this.workingIncident);
 
+  }
+
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
   }
 
   uzrokPromena(event:any)

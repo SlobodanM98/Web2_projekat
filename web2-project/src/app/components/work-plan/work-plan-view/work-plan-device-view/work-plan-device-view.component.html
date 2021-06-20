@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="col text-right">
-                    <button type="button" class="btn btn-success" (click)="submitDevice()" [disabled]="!submitDeviceForm.valid">Submit device</button>
+                    <button type="button" class="btn btn-success" (click)="submitDevice()" [disabled]="!submitDeviceForm.valid || (role !== 'Admin' && role !== 'Dispatcher')">Submit device</button>
                 </div>
             </div>
         </form>

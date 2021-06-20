@@ -31,6 +31,7 @@ export class WorkPlanBasicInfoViewComponent implements OnInit {
   user: User;
 
   workPlan: WorkPlan;
+  role:string;
 
   constructor(private fb: FormBuilder, private addToProceed: AddToProceedService, private userService: UserService, private workPlanService: WorkPlanService, private notificationService: NotificationService, private toastr: ToastrService) { }
 
@@ -50,6 +51,7 @@ export class WorkPlanBasicInfoViewComponent implements OnInit {
     const helper = new JwtHelperService();
     var token : any = localStorage.getItem('token');
     const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
 
     this.userService.getUser(DecodedToken.id).subscribe(data=>{
       this.user = data;
@@ -108,7 +110,7 @@ export class WorkPlanBasicInfoViewComponent implements OnInit {
       workPlan.endDate = this.workPlanForm.controls['endDate'].value;
     }
     if(this.workPlanForm.controls['team'].value != ""){
-      workPlan.team.id = this.workPlanForm.controls['team'].value;
+      workPlan.team.teamID = this.workPlanForm.controls['team'].value;
     }
     if(this.workPlanForm.controls['purpose'].value != ""){
       workPlan.purpose = this.workPlanForm.controls['purpose'].value;

@@ -8,6 +8,10 @@ import { Incident } from 'src/app/model/incident';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IncidentService } from 'src/app/services/incident.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ToastrService } from 'ngx-toastr';
 
 interface TableElement{
   ID: number;
@@ -42,7 +46,9 @@ export class IncidentDevicesComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private fb: FormBuilder, private incidentService:IncidentService, private modalService:NgbModal) { }
+  notification: Notification;
+
+  constructor(private fb: FormBuilder, private incidentService:IncidentService, private modalService:NgbModal, private notificationService: NotificationService, private toastr: ToastrService) { }
 
   ngOnInit():void {
     this.allDevices = new Array<Device>();
@@ -111,7 +117,23 @@ export class IncidentDevicesComponent implements OnInit {
 
     if (!this.incidentDevices.includes(this.submitDeviceForm.controls["device"].value))
     {
-      this.incidentService.postIncidentDevice(this.workingIncident.id, this.submitDeviceForm.controls["device"].value).subscribe();
+      this.incidentService.postIncidentDevice(this.workingIncident.id, this.submitDeviceForm.controls["device"].value).subscribe(data=>{
+        const helper = new JwtHelperService();
+        var token : any = localStorage.getItem('token');
+        const DecodedToken = helper.decodeToken(token);
+        
+        this.notification = new Notification(DecodedToken.id, "Device added successfully!", NotificationType.Success, false, false, new Date());
+        this.notificationService.postNotification(this.notification).subscribe();
+        this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+      }, error => {
+        const helper = new JwtHelperService();
+        var token : any = localStorage.getItem('token');
+        const DecodedToken = helper.decodeToken(token);
+        
+        this.notification = new Notification(DecodedToken.id, "Device added unsuccessfully!", NotificationType.Error, false, false, new Date());
+        this.notificationService.postNotification(this.notification).subscribe();
+        this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+      });
       this.submitDeviceForm.reset();
     }
     else {
@@ -120,6 +142,15 @@ export class IncidentDevicesComponent implements OnInit {
    
 
     //this.submitDeviceForm.controls['device'].reset;
+  }
+
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
   }
 
   addDevice(contentModal:any){
