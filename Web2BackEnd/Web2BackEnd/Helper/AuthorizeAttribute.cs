@@ -9,7 +9,7 @@ using Web2BackEnd.Models;
 
 namespace Web2BackEnd.Helper
 {
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    /*[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
 
@@ -22,5 +22,5 @@ namespace Web2BackEnd.Helper
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }
-    }
+    }*/
 }

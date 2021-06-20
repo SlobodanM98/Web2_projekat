@@ -1,16 +1,20 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
@@ -32,12 +36,14 @@ namespace Web2BackEnd.Controllers
         private readonly UserService _service;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
+        private AppSettings _appSettings;
 
-        public UserController(UserManager<User> userManager, IMapper mapper, DataContext context)
+        public UserController(UserManager<User> userManager, IMapper mapper, DataContext context, IOptions<AppSettings> appSettings)
         {
             _service = new UserService(userManager, mapper, context);
             _userManager = userManager;
             _mapper = mapper;
+            _appSettings = appSettings.Value;
         }
 
         [HttpPost]
@@ -134,7 +140,7 @@ namespace Web2BackEnd.Controllers
             // generate token that is valid for 7 days
             var tokenHandler = new JwtSecurityTokenHandler();
             
-            var key = Encoding.UTF8.GetBytes("9182019287192163");
+            var key = Encoding.UTF8.GetBytes(_appSettings.JWT_Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()), new Claim("fullName", user.FirstName + " " + user.LastName), new Claim("username", user.UserName), new Claim("role", user.Role.ToString()) }),
@@ -186,8 +192,10 @@ namespace Web2BackEnd.Controllers
         }
 
         [HttpGet, Route("GetUsersEmailConfirm")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IEnumerable<UserForRegistrationDto>> GetUsersEmailConfirm()
         {
+            string role = User.Claims.First(c => c.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value;
             return await _service.GetUsersEmailCofirm();
         }
 
@@ -217,7 +225,33 @@ namespace Web2BackEnd.Controllers
         [HttpPost, Route("SocialLogin")]
         public async Task<IActionResult> SocialLogin([FromBody]LoginModel loginModel)
         {
+            //if(VerifyToken(loginModel.Id))
             return Ok();
+        }
+
+        public bool VerifyToken(string providerToken)
+        {
+            var httpClient = new HttpClient();
+            var reqUri = new Uri(string.Format("https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={0}", providerToken));
+            HttpResponseMessage httpResponseMessage;
+            try
+            {
+                httpResponseMessage = httpClient.GetAsync(reqUri).Result;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+
+            if(httpResponseMessage.StatusCode == HttpStatusCode.OK)
+            {
+                return false;
+            }
+
+            var response = httpResponseMessage.Content.ReadAsStringAsync().Result;
+            //var googleApiTokenInfo = JsonConvert.DeserializeObject<GoogleApiTokenInfo>
+
+            return true;
         }
     }
 }

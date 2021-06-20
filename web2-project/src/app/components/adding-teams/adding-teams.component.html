@@ -18,11 +18,106 @@
                         <div class="row">
                             <div class="col-6">
                                 <label>Id</label>
-                                <input type="text" class="form-control" value="{{ id }}" [readonly]=" view =='View'">
+                                <input type="text" name="idinput" class="form-control" value="{{ id }}" [readonly]="true">
                             </div>
                             <div class="col-6">
-                                <label>Name</label>
-                                <input type="text" class="form-control" value="{{ name }}" [readonly]=" view =='View'">   
+                                <form [formGroup]="creatingTeamForm">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input  value="{{ name }}" [readonly]=" view =='View'" formControlName="name" type="text" name="name" id="name" class="form-control"/>
+                                    </div>
+                                </form>
+                                <!--label>Name</label>
+                                <input type="text" class="form-control" value="{{ name }}" [readonly]=" view =='View'"-->   
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="view =='View'">
+                            <div class="col-12">
+                                <h5>Team members</h5>            
+                                <div class="example-list overflow-auto" style="max-height: 400px;">
+                                    <div class="container-fluid" *ngFor="let item of teamMembers" cdkDrag>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card" style="height: 110px;">
+                                                    <div class="card-horizontal">
+                                                        <div class="img-square-wrapper">
+                                                            <div *ngIf="item.productImage !== undefined">
+                                                                <img src="http://localhost:61791/{{item!.productImage!.imagePath}}" width="110px" height="110px" class="" alt="Card image cap">
+                                                            </div>
+                                                            <div *ngIf="item.productImage === undefined">
+                                                                <img src="../../../assets/profil.png" width="110px" height="110px" class="" alt="Card image cap">
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-text">{{item.userName}}</h5>
+                                                            <p class="card-text">{{item.firstName}} {{item.lastName}}<br>{{item.email}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="view !='View'">
+                            <div class="col-6">
+                                <h5>Team members</h5>
+                                
+                                <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="teamMembers" [cdkDropListConnectedTo]="[doneList]" class="example-list overflow-auto" style="max-height: 400px;" (cdkDropListDropped)="drop($event)">
+                                    <div class="container-fluid" *ngFor="let item of teamMembers" cdkDrag>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card" style="height: 110px;">
+                                                    <div class="card-horizontal">
+                                                        <div class="img-square-wrapper">
+                                                            <!--img class="" src="../../../../assets/profil.png" width="110px" height="110px" alt="Card image cap"-->
+                                                            <div *ngIf="item.productImage !== undefined">
+                                                                <img src="http://localhost:61791/{{item!.productImage!.imagePath}}" width="110px" height="110px" class="" alt="Card image cap">
+                                                            </div>
+                                                            <div *ngIf="item.productImage === undefined">
+                                                                <img src="../../../assets/profil.png" width="110px" height="110px" class="" alt="Card image cap">
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-text">{{item.userName}}</h5>
+                                                            <p class="card-text">{{item.firstName}} {{item.lastName}}<br>{{item.email}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h5>All members</h5>
+                    
+                                <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="allMembers" [cdkDropListConnectedTo]="[todoList]" class="example-list overflow-auto" style="max-height: 485px;" (cdkDropListDropped)="drop($event)">
+                                    <div class="container-fluid" *ngFor="let item of allMembers" cdkDrag>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="card" style="height: 110px;">
+                                                    <div class="card-horizontal">
+                                                        <div class="img-square-wrapper">
+                                                            <!--img class="" src="../../../../assets/profil.png" width="110px" height="110px" alt="Card image cap"-->
+                                                            <div *ngIf="item.productImage !== undefined">
+                                                                <img src="http://localhost:61791/{{item!.productImage!.imagePath}}" width="110px" height="110px" class="" alt="Card image cap">
+                                                            </div>
+                                                            <div *ngIf="item.productImage === undefined">
+                                                                <img src="../../../assets/profil.png" width="110px" height="110px" class="" alt="Card image cap">
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-text">{{item.userName}}</h5>
+                                                            <p class="card-text">{{item.firstName}} {{item.lastName}}<br>{{item.email}}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -38,7 +133,7 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                        Are you sure you want to delte the team with the ID: {{deleteTeam.teamID}} ?
+                        Are you sure you want to delte the team with the ID: {{deleteTeam.id}} ?
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" (click)="deleteTeamConfirm()">Delete</button>
@@ -52,6 +147,10 @@
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
                         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="members">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Members </th>
+                        <td mat-cell *matCellDef="let element"> {{element.members}} </td>
                     </ng-container>
                     <ng-container matColumnDef="action">
                         <tr><th mat-header-cell *matHeaderCellDef> Action </th></tr>

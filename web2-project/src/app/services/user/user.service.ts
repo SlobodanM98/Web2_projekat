@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { LoginData } from 'src/app/model/login-data';
 import { Address } from '../../model/address';
 import { User } from '../../model/user';
+//import { helpers } from 'chart.js';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,12 @@ export class UserService {
   }
 
   getUsersEmailConfirme(): Observable<User[]>{
-    return this.http.get<User[]>(this.url + "/api/User/GetUsersEmailConfirm");
+    var headers_object = new HttpHeaders().set("Authorization", "Bearer " + localStorage.getItem('token'));
+    console.log(localStorage.getItem('token'));
+    const httpOptions = {
+      headers: headers_object
+    };
+    return this.http.get<User[]>(this.url + "/api/User/GetUsersEmailConfirm", httpOptions);
   }
 
   

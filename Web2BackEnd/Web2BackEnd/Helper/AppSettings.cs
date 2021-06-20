@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Web2BackEnd.Helper
 {
-    public static class AppSettings
+    public class AppSettings
     {
-        public static string Secret { get; set; }
+        public string JWT_Secret { get; set; }
+        public string Client_URL { get; set; }
     }
 }

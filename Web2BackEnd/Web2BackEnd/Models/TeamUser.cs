@@ -16,6 +16,6 @@ namespace Web2BackEnd.Models
         public int TeamID { get; set; }
 
         [Required]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
     }
 }

@@ -83,6 +83,9 @@ export class LoginComponent implements OnInit {
       this.userService.socialLogin(socialusers).subscribe(
         (res:any) => {
           console.log("USPELI SMO!!!");
+        },
+        err => {
+          console.log("NISMO USPELI!!!");
         }
       )
     });

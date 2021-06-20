@@ -11,6 +11,6 @@ namespace Web2BackEnd.DTO
 
         public int TeamID { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
     }
 }

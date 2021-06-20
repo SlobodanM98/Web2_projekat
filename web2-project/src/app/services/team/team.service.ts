@@ -16,7 +16,20 @@ export class TeamService {
   }
 
   postTeam(team: Team){
-    return this.http.post(this.url + "/api/Team", team);
+    //var header = new HttpHeaders({ 'content-type': 'application/json' });
+    console.log(team);
+    return this.http.post(this.url + "/api/Team", team)// { headers: header });
+  }
+
+  putTeam(team: Team){
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.put(this.url + "/api/Team", team, httpOptions);
+  }
+
+  deleteTeam(id: number){
+    return this.http.delete(this.url + "/api/Team/" + id);
   }
   
 }

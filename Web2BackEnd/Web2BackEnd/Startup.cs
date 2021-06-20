@@ -22,6 +22,7 @@ using System.IO;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Web2BackEnd.Helper;
 
 namespace Web2BackEnd
 {
@@ -69,7 +70,33 @@ namespace Web2BackEnd
 
 
 			//JWT auth
-			
+			services.Configure<IdentityOptions>(options => {
+				options.Password.RequiredLength = 8;
+			});
+
+			var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"]);
+
+			services.AddAuthentication(x =>
+			{
+				//x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+				//x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+			}).AddJwtBearer(x =>
+			{
+				x.RequireHttpsMetadata = false;
+				x.SaveToken = false;
+				x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateAudience = false,
+					ValidateIssuer = false
+				};
+			});
+
+			//Inject appSettings
+			services.Configure<AppSettings>(Configuration.GetSection("ApplicationSettings"));
+
 
 		}
 
@@ -84,6 +111,12 @@ namespace Web2BackEnd
 			app.UseCors();
 
 			app.UseHttpsRedirection();
+
+			app.UseCors(builder =>
+			  builder.WithOrigins(Configuration["ApplicationSettings:Client_URL"].ToString())
+			  .AllowAnyHeader()
+			  .AllowAnyMethod()
+			  );
 
 			app.UseRouting();
 
