@@ -46,6 +46,12 @@ import { MultimediaAttachmentsComponent } from './components/incidents/incidents
 import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
+import { WorkPlanViewComponent } from './components/work-plan/work-plan-view/work-plan-view.component';
+import { WorkPlanBasicInfoViewComponent } from './components/work-plan/work-plan-view/work-plan-basic-info-view/work-plan-basic-info-view.component';
+import { WorkPlanMultimediaViewComponent } from './components/work-plan/work-plan-view/work-plan-multimedia-view/work-plan-multimedia-view.component';
+import { WorkPlanDeviceViewComponent } from './components/work-plan/work-plan-view/work-plan-device-view/work-plan-device-view.component';
+import { WorkPlanInstructionViewComponent } from './components/work-plan/work-plan-view/work-plan-instruction-view/work-plan-instruction-view.component';
+import { WorkPlanHistoryViewComponent } from './components/work-plan/work-plan-view/work-plan-history-view/work-plan-history-view.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -103,6 +109,15 @@ const routes: Routes = [
          { path: 'WorkPlanDevices', component: WorkPlanDevicesComponent, canActivate:[AddToProceedGuard]},
          { path: 'WorkPlanInstruction', component: WorkPlanInstructionsComponent, canActivate:[AddToProceedGuard]}
        ]},
+      { path: 'WorkPlanView', component: WorkPlanViewComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
+       children: [
+        { path: 'WorkPlanBasicInfoView', component: WorkPlanBasicInfoViewComponent},
+        { path: 'WorkPlanMultimediaView', component: WorkPlanMultimediaViewComponent},
+        { path: 'WorkPlanDevicesView', component: WorkPlanDeviceViewComponent},
+        { path: 'WorkPlanInstructionView', component: WorkPlanInstructionViewComponent},
+        { path: 'WorkPlanHistoryView', component: WorkPlanHistoryViewComponent}
+       ]
+      },
       { path: 'Consumers', component: ConsumersComponent, canActivate:[RoleGuard], data: { role: 'Consumer'},
        children: [
          { path: 'ConsumersFiltered', component: ConsumersFilteredComponent}

@@ -9,7 +9,7 @@ import { Incident, IncidentType } from 'src/app/model/incident';
 import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
 import { Team } from 'src/app/model/team/team.model';
 import { User } from 'src/app/model/user';
-import { Type, WorkPlan } from 'src/app/model/work-plan';
+import { Status, Type, WorkPlan, WorkPlanStatusHistory } from 'src/app/model/work-plan';
 import { AddToProceedService } from 'src/app/services/add-to-proceed.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -113,6 +113,9 @@ export class WorkPlanBasicInfoComponent implements OnInit {
           this.notification = new Notification(DecodedToken.id, "Work plan created successfully!", NotificationType.Success, false, false, new Date());
           this.notificationService.postNotification(this.notification).subscribe();
           this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+
+          var history : WorkPlanStatusHistory = new WorkPlanStatusHistory(new Date(), DecodedToken.id, Status.Draft, workPlan.workPlanID);
+          this.workPlanService.postWorkPlanHistory(history).subscribe()
 
           this.workPlanService.getWorkPlan().subscribe(workPlans=>{
             localStorage.setItem("workPlan", workPlans[workPlans.length - 1].workPlanID.toString());

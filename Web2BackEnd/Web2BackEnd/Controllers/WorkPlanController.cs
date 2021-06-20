@@ -177,29 +177,75 @@ namespace Web2BackEnd.Controllers
 			}
 		}
 
-		//GET: api/WorkPlan/Device
-		[HttpGet, Route("Device")]
-		public async Task<IEnumerable<int>> GetWorkPlanDevice()
+		//POST: api/WorkPlan/History
+		[HttpPost, Route("History")]
+		public async Task<IActionResult> AddWorkPlanHistory(DTOWorkPlanStatusHistory workPlanStatusHistory)
 		{
-			IEnumerable<DTOWorkPlanDevice> devices = await _service.GetWorkPlanDevice();
-			List<int> output = new List<int>();
-			foreach(DTOWorkPlanDevice device in devices)
+			bool success = await _service.AddWorkPlanStatusHistory(workPlanStatusHistory);
+
+			if (success)
 			{
-				output.Add(device.ID);
+				return Ok();
+			}
+			else
+			{
+				return BadRequest();
+			}
+		}
+
+		//GET: api/WorkPlan/History/3
+		[Route("History/{id}"), HttpGet]
+		public async Task<IEnumerable<int>> GetWorkPlanHistory(int id)
+		{
+			IEnumerable<DTOWorkPlanStatusHistory> histories = await _service.GetWorkStatusHistory();
+			List<int> output = new List<int>();
+			foreach (DTOWorkPlanStatusHistory history in histories)
+			{
+				if (history.WorkPlanID == id)
+				{
+					output.Add(history.WorkPlanStatusHistoryID);
+				}
 			}
 
 			return output;
 		}
 
-		//GET: api/WorkPlan/Image
-		[HttpGet, Route("Image")]
-		public async Task<IEnumerable<string>> GetWorkPlanImage()
+		//GET: api/WorkPlan/History
+		[HttpGet, Route("History")]
+		public async Task<IEnumerable<DTOWorkPlanStatusHistory>> GetWorkPlanHistory()
+		{
+			return await _service.GetWorkStatusHistory();
+		}
+
+		//GET: api/WorkPlan/Device/3
+		[Route("Device/{id}"), HttpGet]
+		public async Task<IEnumerable<int>> GetWorkPlanDevice(int id)
+		{
+			IEnumerable<DTOWorkPlanDevice> devices = await _service.GetWorkPlanDevice();
+			List<int> output = new List<int>();
+			foreach(DTOWorkPlanDevice device in devices)
+			{
+				if(device.WorkPlanID == id)
+				{
+					output.Add(device.ID);
+				}
+			}
+
+			return output;
+		}
+
+		//GET: api/WorkPlan/Image/3
+		[Route("Image/{id}"), HttpGet]
+		public async Task<IEnumerable<string>> GetWorkPlanImage(int id)
 		{
 			IEnumerable<DTOWorkPlanImage> images = await _service.GetWorkPlanImage();
 			List<string> output = new List<string>();
 			foreach(DTOWorkPlanImage image in images)
 			{
-				output.Add(image.ImagePath);
+				if(image.WorkPlan.WorkPlanID == id)
+				{
+					output.Add(image.ImagePath);
+				}
 			}
 
 			return output;
@@ -210,6 +256,23 @@ namespace Web2BackEnd.Controllers
 		public async Task<IEnumerable<DTOWorkInstruction>> GetWorkPlanInstruction()
 		{
 			return await _service.GetWorkInstruction();
+		}
+
+		//GET: api/WorkPlan/Instruction/3
+		[Route("Instruction/{id}"), HttpGet]
+		public async Task<IEnumerable<int>> GetWorkPlanInstructionID(int id)
+		{
+			IEnumerable<DTOWorkInstruction> instructions = await _service.GetWorkInstruction();
+			List<int> output = new List<int>();
+			foreach (DTOWorkInstruction instruction in instructions)
+			{
+				if(instruction.WorkPlanID == id)
+				{
+					output.Add(instruction.InstructionID);
+				}
+			}
+
+			return output;
 		}
 	}
 }

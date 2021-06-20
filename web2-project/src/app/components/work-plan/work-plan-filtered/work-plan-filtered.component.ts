@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ViewChild, AfterViewInit, SimpleChange, Outpu
 import { MatPaginator } from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Status, WorkPlan } from 'src/app/model/work-plan';
 
 export interface TableElement{
@@ -25,7 +26,7 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'startDate','phone', 'status', 'address'];
   dataSource: any;
 
-  constructor() { }
+  constructor(public router : Router) { }
 
   ngOnInit(): void {
   }
@@ -49,8 +50,9 @@ export class WorkPlanFilteredComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  workPlanClick(row: WorkPlan){
+  workPlanClick(row: TableElement){
     console.log(row);
-    this.workPlanClickEvent.emit(row);
+    localStorage.setItem("workPlan", row.id.toString());
+    this.router.navigate(["../Navbar/WorkPlanView"]);
   }
 }

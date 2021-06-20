@@ -1,0 +1,16 @@
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-3">
+            <div class="list-group">
+                <a routerLink="WorkPlanBasicInfoView" class="list-group-item list-group-item-action">Basic information</a>
+                <a routerLink="WorkPlanMultimediaView" class="list-group-item list-group-item-action">Multimedia attachments</a>
+                <a routerLink="WorkPlanDevicesView" class="list-group-item list-group-item-action">Devices</a>
+                <a routerLink="WorkPlanInstructionView" class="list-group-item list-group-item-action">Instructions</a>
+                <a routerLink="WorkPlanHistoryView" class="list-group-item list-group-item-action">History</a>
+            </div>
+        </div>
+        <div class="col-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

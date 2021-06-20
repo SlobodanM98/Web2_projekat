@@ -12,5 +12,6 @@ namespace Web2BackEnd.DTO
 		public DateTime Date { get; set; }
 		public string ChangedBy { get; set; }
 		public WorkPlanStatus Status { get; set; }
+		public int WorkPlanID { get; set; }
 	}
 }

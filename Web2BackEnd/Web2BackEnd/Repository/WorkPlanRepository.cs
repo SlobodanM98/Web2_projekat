@@ -72,5 +72,15 @@ namespace Web2BackEnd.Repository
 		{
 			return await _context.WorkPlanInstructions.Include("Device").ToListAsync();
 		}
+
+		public void AddStatusHistory(WorkPlanStatusHistory workPlanStatusHistory)
+		{
+			_context.WorkPlanStatusHistories.Add(workPlanStatusHistory);
+		}
+
+		public async Task<IEnumerable<WorkPlanStatusHistory>> GetAllStatusHistory()
+		{
+			return await _context.WorkPlanStatusHistories.ToListAsync();
+		}
 	}
 }

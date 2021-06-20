@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Address } from '../model/address';
 import { Device } from '../model/device';
 import { InstructionStatus, WorkInstruction } from '../model/work-instruction';
-import { WorkPlan } from '../model/work-plan';
+import { WorkPlan, WorkPlanStatusHistory } from '../model/work-plan';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,20 @@ export class WorkPlanService {
     return this.http.get<WorkPlan[]>(this.url + "/api/WorkPlan");
   }
 
+  getWorkPlanID(id: number): Observable<WorkPlan>{
+    return this.http.get<WorkPlan>(this.url + "/api/WorkPlan/" + id);
+  }
+
   getAddress(): Observable<Address[]>{
     return this.http.get<Address[]>(this.url + "/api/Address");
   }
 
   postWorkPlan(workPlan: WorkPlan){
     return this.http.post(this.url + "/api/WorkPlan", workPlan);
+  }
+
+  postWorkPlanHistory(workPlanHistory: WorkPlanStatusHistory){
+    return this.http.post(this.url + "/api/WorkPlan/History", workPlanHistory);
   }
 
   putWorkPlan(workPlan: WorkPlan){
@@ -57,16 +65,28 @@ export class WorkPlanService {
     return this.http.post(this.url + "/api/WorkPlan/Device", formData);
   }
 
-  getWorkPlanDevice(): Observable<number[]>{
-    return this.http.get<number[]>(this.url + "/api/WorkPlan/Device");
+  getWorkPlanDevice(workPlanID: number): Observable<number[]>{
+    return this.http.get<number[]>(this.url + "/api/WorkPlan/Device/" + workPlanID);
   }
 
   getWorkPlanInstruction(): Observable<WorkInstruction[]>{
     return this.http.get<WorkInstruction[]>(this.url + "/api/WorkPlan/Instruction");
   }
 
-  getWorkPlanImage(): Observable<string[]>{
-    return this.http.get<string[]>(this.url + "/api/WorkPlan/Image");
+  getWorkPlanInstructionID(workPlanID: number): Observable<number[]>{
+    return this.http.get<number[]>(this.url + "/api/WorkPlan/Instruction/" + workPlanID);
+  }
+
+  getWorkPlanImage(workPlanID: number): Observable<string[]>{
+    return this.http.get<string[]>(this.url + "/api/WorkPlan/Image/" + workPlanID);
+  }
+
+  getWorkPlanHistoryID(workPlanID: number): Observable<number[]>{
+    return this.http.get<number[]>(this.url + "/api/WorkPlan/History/" + workPlanID);
+  }
+
+  getWorkPlanHistory(): Observable<WorkPlanStatusHistory[]>{
+    return this.http.get<WorkPlanStatusHistory[]>(this.url + "/api/WorkPlan/History");
   }
 
   deleteWorkPlan(id: number){

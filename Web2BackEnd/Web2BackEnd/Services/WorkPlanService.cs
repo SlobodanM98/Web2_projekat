@@ -94,6 +94,24 @@ namespace Web2BackEnd.Services
 			return success;
 		}
 
+		public async Task<bool> AddWorkPlanStatusHistory(DTOWorkPlanStatusHistory workPlanStatusHistory)
+		{
+			WorkPlanStatusHistory mapWorkPlanStatusHistory = _mapper.Map<WorkPlanStatusHistory>(workPlanStatusHistory);
+			_workPlanRepository.AddStatusHistory(mapWorkPlanStatusHistory);
+			bool success = true;
+
+			try
+			{
+				await _workPlanRepository.SaveChanges();
+			}
+			catch
+			{
+				success = false;
+			}
+
+			return success;
+		}
+
 		public async Task<bool> DeleteWorkPlan(int id)
 		{
 			WorkPlan workPlan = await _workPlanRepository.Delete(id);
@@ -137,6 +155,12 @@ namespace Web2BackEnd.Services
 		{
 			IEnumerable<WorkPlanImage> workPlanImages = await _workPlanRepository.GetAllImages();
 			return _mapper.Map<IEnumerable<DTOWorkPlanImage>>(workPlanImages);
+		}
+
+		public async Task<IEnumerable<DTOWorkPlanStatusHistory>> GetWorkStatusHistory()
+		{
+			IEnumerable<WorkPlanStatusHistory> workPlanStatusHistory = await _workPlanRepository.GetAllStatusHistory();
+			return _mapper.Map<IEnumerable<DTOWorkPlanStatusHistory>>(workPlanStatusHistory);
 		}
 
 		public async Task<bool> UpdateWorkPlan(DTOWorkPlan workPlan)

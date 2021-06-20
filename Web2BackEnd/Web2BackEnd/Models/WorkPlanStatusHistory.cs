@@ -17,5 +17,7 @@ namespace Web2BackEnd.Models
 		public string ChangedBy { get; set; }
 		[Required]
 		public WorkPlanStatus Status { get; set; }
+		[Required]
+		public int WorkPlanID { get; set; }
 	}
 }

@@ -12,8 +12,10 @@ namespace Web2BackEnd.Repository.Interface
 		void AddImage(WorkPlanImage workPlanImage);
 		void AddInstruction(WorkInstruction workInstruction);
 		void AddDevice(WorkPlanDevice workPlanDevice);
+		void AddStatusHistory(WorkPlanStatusHistory workPlanStatusHistory);
 		Task<IEnumerable<WorkPlanDevice>> GetAllDevices();
 		Task<IEnumerable<WorkPlanImage>> GetAllImages();
 		Task<IEnumerable<WorkInstruction>> GetAllInstructions();
+		Task<IEnumerable<WorkPlanStatusHistory>> GetAllStatusHistory();
 	}
 }

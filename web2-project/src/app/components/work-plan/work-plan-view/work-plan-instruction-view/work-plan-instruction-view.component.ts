@@ -17,14 +17,13 @@ interface TableElement{
   DeviceName: string;
   Status: string;
 }
-
 @Component({
-  selector: 'app-work-plan-instructions',
-  templateUrl: './work-plan-instructions.component.html',
-  styleUrls: ['./work-plan-instructions.component.css']
+  selector: 'app-work-plan-instruction-view',
+  templateUrl: './work-plan-instruction-view.component.html',
+  styleUrls: ['./work-plan-instruction-view.component.css']
 })
-export class WorkPlanInstructionsComponent implements OnInit {
-  
+export class WorkPlanInstructionViewComponent implements OnInit {
+
   allDevices: Array<Device>;
   workPlanInstructions: Array<WorkInstruction>;
   submitInstructionForm: FormGroup;
@@ -52,7 +51,6 @@ export class WorkPlanInstructionsComponent implements OnInit {
             }
           });
         });
-        this.loadDevices();
       });
     });
 
@@ -68,6 +66,7 @@ export class WorkPlanInstructionsComponent implements OnInit {
             }
           });
         });
+        this.loadDevices();
       });
     });
 
@@ -141,5 +140,4 @@ export class WorkPlanInstructionsComponent implements OnInit {
       });
     }
   }
-
 }

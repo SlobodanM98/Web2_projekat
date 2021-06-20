@@ -18,12 +18,11 @@ interface TableElement{
 }
 
 @Component({
-  selector: 'app-work-plan-devices',
-  templateUrl: './work-plan-devices.component.html',
-  styleUrls: ['./work-plan-devices.component.css']
+  selector: 'app-work-plan-device-view',
+  templateUrl: './work-plan-device-view.component.html',
+  styleUrls: ['./work-plan-device-view.component.css']
 })
-export class WorkPlanDevicesComponent implements OnInit {
-
+export class WorkPlanDeviceViewComponent implements OnInit {
   allDevices: Array<Device>;
   workPlanDevices: Array<Device>;
   submitDeviceForm: FormGroup;
@@ -111,5 +110,4 @@ export class WorkPlanDevicesComponent implements OnInit {
       });
     }
   }
-
 }

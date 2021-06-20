@@ -7,11 +7,11 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { WorkPlanService } from 'src/app/services/work-plan.service';
 
 @Component({
-  selector: 'app-work-plan-multimedia',
-  templateUrl: './work-plan-multimedia.component.html',
-  styleUrls: ['./work-plan-multimedia.component.css']
+  selector: 'app-work-plan-multimedia-view',
+  templateUrl: './work-plan-multimedia-view.component.html',
+  styleUrls: ['./work-plan-multimedia-view.component.css']
 })
-export class WorkPlanMultimediaComponent implements OnInit {
+export class WorkPlanMultimediaViewComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private workPlanService: WorkPlanService, private notificationService: NotificationService, private toastr: ToastrService) { }
 

@@ -56,7 +56,7 @@ export class WorkPlan {// treba da se doda nalog za rad
         this.phone = phone;
         this.creationDate = creationDate;
         this.statusHistory = new Array<WorkPlanStatusHistory>();
-        this.statusHistory.push(new WorkPlanStatusHistory(this.creationDate, this.createdBy, this.status));
+        this.statusHistory.push(new WorkPlanStatusHistory(this.creationDate, this.createdBy, this.status, this.workPlanID));
         this.instructions = new Array<WorkInstruction>();
     }
 }
@@ -66,10 +66,12 @@ export class WorkPlanStatusHistory{
     public date: Date;
     public changedBy: string;
     public status: Status;
+    public workPlanID: number;
 
-    constructor(date: Date, user: string, status: Status){
+    constructor(date: Date, user: string, status: Status, workPlanID: number){
         this.date = date;
         this.changedBy = user;
         this.status = status;
+        this.workPlanID = workPlanID;
     }
 }
