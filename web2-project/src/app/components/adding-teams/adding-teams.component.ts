@@ -9,6 +9,10 @@ import { TeamService } from 'src/app/services/team/team.service';
 import { UserService } from 'src/app/services/user/user.service';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Notification, NotificationType } from 'src/app/model/notification-description/notification.module';
+import { NotificationService } from 'src/app/services/notification.service';
+import { ToastrService } from 'ngx-toastr';
 
 export interface TableElement
 {
@@ -41,9 +45,17 @@ export class AddingTeamsComponent implements OnInit, AfterViewInit {
   name: string;
   view = 'View';
 
-  constructor(private modalService: NgbModal, private teamService: TeamService, private userService: UserService, private fb: FormBuilder) { }
+  role: string;
+  notification: Notification;
+
+  constructor(private modalService: NgbModal, private teamService: TeamService, private userService: UserService, private fb: FormBuilder, private notificationService: NotificationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.teams = new Array<TableElement>();
     this.allTeams = new Array<Team>();
     this.teamService.getTeams().subscribe(data => {
@@ -120,8 +132,23 @@ export class AddingTeamsComponent implements OnInit, AfterViewInit {
                 });
               }
             });
+
+            const helper = new JwtHelperService();
+            var token : any = localStorage.getItem('token');
+            const DecodedToken = helper.decodeToken(token);
+      
+            this.notification = new Notification(DecodedToken.id, "Team updated successfully!", NotificationType.Success, false, false, new Date());
+            this.notificationService.postNotification(this.notification).subscribe();
+            this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
           },
           err => {
+            const helper = new JwtHelperService();
+            var token : any = localStorage.getItem('token');
+            const DecodedToken = helper.decodeToken(token);
+      
+            this.notification = new Notification(DecodedToken.id, "Team updated unsuccessfully!", NotificationType.Error, false, false, new Date());
+            this.notificationService.postNotification(this.notification).subscribe();
+            this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
             console.log("ERROR!!!");
           }
         );
@@ -140,6 +167,15 @@ export class AddingTeamsComponent implements OnInit, AfterViewInit {
       });
       this.teamMembers = new Array<User>();
     });
+  }
+
+  onNotificationClick(){
+    if(!this.notification.isRead){
+      this.notificationService.getNotifications().subscribe(data=>{
+        data[data.length - 1].isRead = true;
+        this.notificationService.putNotification(data[data.length - 1]).subscribe();
+      });
+    }
   }
 
   private getDismissReason(reason: any): string {
@@ -171,8 +207,23 @@ export class AddingTeamsComponent implements OnInit, AfterViewInit {
         this.dataSource = new MatTableDataSource(newList);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+
+            const helper = new JwtHelperService();
+            var token : any = localStorage.getItem('token');
+            const DecodedToken = helper.decodeToken(token);
+      
+            this.notification = new Notification(DecodedToken.id, "Team deleted successfully!", NotificationType.Success, false, false, new Date());
+            this.notificationService.postNotification(this.notification).subscribe();
+            this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
       },
       err => {
+            const helper = new JwtHelperService();
+            var token : any = localStorage.getItem('token');
+            const DecodedToken = helper.decodeToken(token);
+      
+            this.notification = new Notification(DecodedToken.id, "Team deleted unsuccessfully!", NotificationType.Error, false, false, new Date());
+            this.notificationService.postNotification(this.notification).subscribe();
+            this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
         console.log("ERROR!!!");
       }
     );

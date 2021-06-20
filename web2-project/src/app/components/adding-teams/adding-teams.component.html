@@ -1,7 +1,7 @@
 <div class="container mt-2">
     <div class="row">
         <div class="col-md-12 text-left">
-            <button class="btn btn-success" routerLink="../AddingTeamsNew">New</button>
+            <button class="btn btn-success" routerLink="../AddingTeamsNew" [disabled]="role !== 'Admin'">New</button>
         </div>
     </div>
     <div class="row mt-3">
@@ -157,8 +157,8 @@
                         <tr>
                           <td mat-cell *matCellDef="let row" style="width:20%">
                             <button mat-icon-button class="btn-primary" (click)="viewEditTeam(content, row, 'View')" title="View Team"><mat-icon>preview</mat-icon></button>
-                            <button mat-icon-button class="btn-warning" (click)="viewEditTeam(content, row, 'Edit')" title="Edit Team"><mat-icon>edit</mat-icon></button>
-                            <button mat-icon-button class="btn-danger" (click)="delete(row, contentDelete) " title="Delete Team"><mat-icon>delete</mat-icon></button>
+                            <button mat-icon-button class="btn-warning" (click)="viewEditTeam(content, row, 'Edit')" title="Edit Team" [disabled]="role !== 'Admin'"><mat-icon>edit</mat-icon></button>
+                            <button mat-icon-button class="btn-danger" (click)="delete(row, contentDelete) " title="Delete Team" [disabled]="role !== 'Admin'"><mat-icon>delete</mat-icon></button>
                           </td>
                         <tr>
                     </ng-container>

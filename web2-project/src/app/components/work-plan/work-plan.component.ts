@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Address } from 'src/app/model/address';
 import { Call } from 'src/app/model/call';
 import { Device } from 'src/app/model/device';
@@ -28,9 +29,16 @@ export class WorkPlanComponent implements OnInit {
   beforeDate: Date;
   afterDate: Date;
 
+  role: string;
+
   constructor(private addToProceed: AddToProceedService, private workPlanService: WorkPlanService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.addToProceed.canReturn = true;
 
     this.allWorkPlans = new Array<WorkPlan>();

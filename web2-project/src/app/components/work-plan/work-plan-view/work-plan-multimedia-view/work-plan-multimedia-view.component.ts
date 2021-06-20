@@ -23,8 +23,14 @@ export class WorkPlanMultimediaViewComponent implements OnInit {
   imageSrc:string = '../assets/profil.png';
 
   allImages: Array<string>;
+  role: string;
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.allImages = new Array<string>();
 
     this.workPlanService.getWorkPlanImage(Number(localStorage.getItem("workPlan"))).subscribe(data=>{

@@ -271,10 +271,6 @@ namespace Web2BackEnd.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("NotificationID");
 
                     b.ToTable("Notifications");
@@ -323,16 +319,8 @@ namespace Web2BackEnd.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("callIcon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("errorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<string>("incidentIcon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("infoEnabled")
                         .HasColumnType("bit");
@@ -342,10 +330,6 @@ namespace Web2BackEnd.Migrations
 
                     b.Property<bool>("successEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<string>("teamIcon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("warningEnabled")
                         .HasColumnType("bit");
@@ -452,7 +436,7 @@ namespace Web2BackEnd.Migrations
 
                     b.ToTable("WorkAccounts");
                 });
-
+                    b.ToTable("WorkPlanDevice");
             modelBuilder.Entity("Web2BackEnd.Models.WorkAccountImage", b =>
                 {
                     b.Property<int>("WorkAccountImageID")
@@ -494,6 +478,21 @@ namespace Web2BackEnd.Migrations
                 });
 
             modelBuilder.Entity("Web2BackEnd.Models.WorkInstruction", b =>
+            modelBuilder.Entity("Web2BackEnd.Models.Team", b =>
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("WorkPlanID")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkPlanStatusHistoryID");
+
+                    b.ToTable("WorkPlanStatusHistories");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.Team", b =>
                 {
                     b.Property<int>("InstructionID")
                         .ValueGeneratedOnAdd()
@@ -652,20 +651,6 @@ namespace Web2BackEnd.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Web2BackEnd.Models.Consumer", b =>
-                {
-                    b.HasOne("Web2BackEnd.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Web2BackEnd.Models.Device", b =>
-                {
-                    b.HasOne("Web2BackEnd.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -704,10 +689,10 @@ namespace Web2BackEnd.Migrations
                     b.HasOne("Web2BackEnd.Models.Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
+            modelBuilder.Entity("Web2BackEnd.Models.WorkInstruction", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Device", "Device")
+                        .WithMany()
             modelBuilder.Entity("Web2BackEnd.Models.WorkPlanDevice", b =>
                 {
                     b.HasOne("Web2BackEnd.Models.Device", "Device")
@@ -724,6 +709,56 @@ namespace Web2BackEnd.Migrations
                         .HasForeignKey("WorkPlanID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+            modelBuilder.Entity("Web2BackEnd.Models.Incident", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamID");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.WorkAccount", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web2BackEnd.Models.WorkAccountStatusHistory", "WorkAccountStatusHistory")
+                        .WithMany()
+                        .HasForeignKey("WorkAccountStatusHistoryID");
+                        .HasForeignKey("DeviceID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.WorkPlanImage", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.WorkPlan", "WorkPlan")
+                        .WithMany()
+                        .HasForeignKey("WorkPlanID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.Incident", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamID");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.WorkAccount", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web2BackEnd.Models.WorkAccountStatusHistory", "WorkAccountStatusHistory")
+                        .WithMany()
+                        .HasForeignKey("WorkAccountStatusHistoryID");
                 });
 #pragma warning restore 612, 618
         }

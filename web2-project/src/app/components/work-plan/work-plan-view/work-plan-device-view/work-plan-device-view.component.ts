@@ -35,9 +35,16 @@ export class WorkPlanDeviceViewComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  role: string;
+
   constructor(private fb: FormBuilder, private deviceService: DeviceService, private workPlanService: WorkPlanService, private notificationService: NotificationService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+    this.role = DecodedToken.role;
+
     this.allDevices = new Array<Device>();
     this.workPlanDevices = new Array<Device>();
 

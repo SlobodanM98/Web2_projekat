@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WorkAccount, Status } from '../../model/work-account';
 import { AddToProceedService } from 'src/app/services/add-to-proceed.service';
 import { WorkAccountService } from 'src/app/services/work-account/work-account.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-work-account',

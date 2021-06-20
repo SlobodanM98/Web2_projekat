@@ -35,6 +35,16 @@
     <Compile Remove="Migrations\20210619205610_updateWorkPlan3.Designer.cs" />
     <Compile Remove="Migrations\20210619222742_newDoc.cs" />
     <Compile Remove="Migrations\20210619222742_newDoc.Designer.cs" />
+    <Compile Remove="Migrations\20210620193334_updateWorkPlan5.cs" />
+    <Compile Remove="Migrations\20210620193334_updateWorkPlan5.Designer.cs" />
+    <Compile Remove="Migrations\20210620193541_updateWorkPlan5.cs" />
+    <Compile Remove="Migrations\20210620193541_updateWorkPlan5.Designer.cs" />
+    <Compile Remove="Migrations\20210620193844_updateWorkPlan5.cs" />
+    <Compile Remove="Migrations\20210620193844_updateWorkPlan5.Designer.cs" />
+    <Compile Remove="Migrations\20210620194243_updateWorkPlan5.cs" />
+    <Compile Remove="Migrations\20210620194243_updateWorkPlan5.Designer.cs" />
+    <Compile Remove="Migrations\20210620194526_updateWorkPlan5.cs" />
+    <Compile Remove="Migrations\20210620194526_updateWorkPlan5.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
