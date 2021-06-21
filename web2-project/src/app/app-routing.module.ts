@@ -44,6 +44,9 @@ import { IncidentsCallsComponent } from './components/incidents/incidents-new/in
 import { NewCallComponent } from './components/incidents/incidents-new/incidents-calls/new-call/new-call.component';
 import { MultimediaAttachmentsComponent } from './components/incidents/incidents-new/multimedia-attachments/multimedia-attachments.component';
 import { DocumentsChecklistComponent } from './components/documents/documents-new/documents-checklist/documents-checklist.component';
+import { DocumentsDevicesComponent } from './components/documents/documents-new/documents-devices/documents-devices.component';
+import { DocumentsMultimediaComponent } from './components/documents/documents-new/documents-multimedia/documents-multimedia.component';
+import { IncidentsCrewComponent } from './components/incidents/incidents-new/incidents-crew/incidents-crew.component';
 
 const routes: Routes = [
   { path: 'Login', component: LoginComponent, pathMatch:'full' },
@@ -81,6 +84,8 @@ const routes: Routes = [
         children: [
           { path:'DocumentBasicInfo', component:DocumentsBasicInfoComponent},
           { path:'DocumentChecklist', component:DocumentsChecklistComponent},
+          { path:'DocumentEquipment', component:DocumentsDevicesComponent},
+          {path:'DocumentMultimedia', component:DocumentsMultimediaComponent}
         ],
       },
       
@@ -89,6 +94,7 @@ const routes: Routes = [
          { path:'IncidentBasicInfo', component:IncidentsBasicInfoComponent},
          { path: 'IncidentDevices', component:IncidentDevicesComponent},
          { path: 'IncidentResolution', component:IncidentsResolutionComponent},
+         { path: 'IncidentCrew', component:IncidentsCrewComponent},
          { path:'IncidentMultimedia', component:MultimediaAttachmentsComponent},
          { path: 'IncidentCalls', component:IncidentsCallsComponent, 
               children:[

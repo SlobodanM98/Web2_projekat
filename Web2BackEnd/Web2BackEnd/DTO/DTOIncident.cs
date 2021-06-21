@@ -29,7 +29,8 @@ namespace Web2BackEnd.DTO
         public float NivoNapona { get; set; }
        
         public string PVR { get; set; }
-        
+        public string UserID { get; set; }
+
         public string Uzrok { get; set; }
         
         public string Poduzrok { get; set; }

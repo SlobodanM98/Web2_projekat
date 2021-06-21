@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Incident, IncidentType } from 'src/app/model/incident';
 import { IncidentService } from 'src/app/services/incident.service';
 
@@ -13,7 +14,8 @@ export class IncidentsBasicInfoComponent implements OnInit {
   incidentBasicForm:FormGroup;
   incidentObj:Incident = new Incident();
   tip:IncidentType;
-
+  token:any;
+  USERID:string;
 
   docTypes = [ 
     {display:'Planned work', value:"Planiran"},
@@ -32,6 +34,12 @@ export class IncidentsBasicInfoComponent implements OnInit {
   constructor(private fb: FormBuilder, private incidentService:IncidentService) { }
 
   ngOnInit(): void {
+
+    const helper = new JwtHelperService();
+    this.token = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(this.token);
+    //console.log(DecodedToken);
+    this.USERID = DecodedToken.id;
     
     this.incidentBasicForm = new FormGroup({
       incidentID : new FormControl('', []),
@@ -84,6 +92,7 @@ export class IncidentsBasicInfoComponent implements OnInit {
     this.incidentObj.etr = etr;
     this.incidentObj.nivoNapona = vol;
     this.incidentObj.pvr = pvr;
+    this.incidentObj.userID = this.USERID;
     //this.incidentObj.userID = 1;
     console.log(this.incidentObj);
     this.incidentService.postIncident(this.incidentObj).subscribe(data => {

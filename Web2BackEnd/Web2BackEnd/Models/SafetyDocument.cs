@@ -16,7 +16,7 @@ namespace Web2BackEnd.Models
        // [Required]
 
         
-        //public string Status { get; set; }
+        public string Status { get; set; }
         //[Required]
         public int PlanRada { get; set; }
         //[Required]
@@ -31,6 +31,10 @@ namespace Web2BackEnd.Models
         public string PhoneNum { get; set; }
         //[Required]
         public string DateOfCreation { get; set; }
+        public bool SafetyOp { get; set; }
+        public bool tagsRemoved { get; set; }
+        public bool groundingRemoved { get; set; }
+        public bool readyForService { get; set; }
 
 
     }

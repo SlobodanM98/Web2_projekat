@@ -32,6 +32,7 @@ export class IncidentService {
     formData.append("PVR", incident.pvr.toString());
     formData.append("VremeIncidenta",incident.vremeIncidenta.toString());
     formData.append("NivoNapona",incident.nivoNapona.toString());
+    formData.append("UserID", incident.userID);
     formData.append("Uzrok", "/");
     formData.append("Poduzrok", "/");
     formData.append("Konstrukcija", "/");
@@ -72,7 +73,19 @@ export class IncidentService {
   {
     return this.http.get<Team[]>(this.url + '/api/Team');
   }
+  postIncidentImage(image: File, incidentID: number){
+    const formData = new FormData();
+    formData.append('ID', incidentID.toString());
+    formData.append('image',image, image.name);
+    return this.http.post(this.url + "/api/Incident/Image", formData);
+  }
 
+  getIncidentImage(incidentID: number): Observable<string[]>{
+    return this.http.get<string[]>(this.url + "/api/Incident/Image/" + incidentID);
+  }
+  deleteIncident(id: number){
+    return this.http.delete(this.url + "/api/Incident/" + id);
+  }
 
 
 }

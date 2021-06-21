@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Web2BackEnd.Models
 {
-    public class IncidentDevice
+    public class IncidentDevice : GenericModel
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }

@@ -144,6 +144,49 @@ namespace Web2BackEnd.Migrations
                     b.ToTable("Devices");
                 });
 
+            modelBuilder.Entity("Web2BackEnd.Models.DocumentDevice", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("DeviceID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocumentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("DocumentDevices");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.DocumentImage", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SafetyDocumentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SafetyDocumentID");
+
+                    b.ToTable("DocumentImages");
+                });
+
             modelBuilder.Entity("Web2BackEnd.Models.Incident", b =>
                 {
                     b.Property<int>("ID")
@@ -195,6 +238,9 @@ namespace Web2BackEnd.Migrations
                     b.Property<int>("Tip")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Uzrok")
                         .HasColumnType("nvarchar(max)");
 
@@ -243,6 +289,31 @@ namespace Web2BackEnd.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("IncidentDevices");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.IncidentImage", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IncidentID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("IncidentID");
+
+                    b.ToTable("IncidentImages");
                 });
 
             modelBuilder.Entity("Web2BackEnd.Models.Notification", b =>
@@ -298,11 +369,26 @@ namespace Web2BackEnd.Migrations
                     b.Property<string>("PhoneNum")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PlanRada")
+                    b.Property<int>("PlanRada")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("SafetyOp")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Team")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Team")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("groundingRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("readyForService")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("tagsRemoved")
+                        .HasColumnType("bit");
 
                     b.Property<int>("tipDokumenta")
                         .HasColumnType("int");
@@ -401,11 +487,29 @@ namespace Web2BackEnd.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Web2BackEnd.Models.DocumentImage", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.SafetyDocument", "SafetyDocument")
+                        .WithMany()
+                        .HasForeignKey("SafetyDocumentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Web2BackEnd.Models.Incident", b =>
                 {
                     b.HasOne("Web2BackEnd.Models.Team", "Team")
                         .WithMany()
                         .HasForeignKey("TeamID");
+                });
+
+            modelBuilder.Entity("Web2BackEnd.Models.IncidentImage", b =>
+                {
+                    b.HasOne("Web2BackEnd.Models.Incident", "Incident")
+                        .WithMany()
+                        .HasForeignKey("IncidentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

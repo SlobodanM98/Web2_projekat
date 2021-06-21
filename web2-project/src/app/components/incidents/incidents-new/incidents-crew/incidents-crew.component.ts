@@ -31,15 +31,18 @@ export class IncidentsCrewComponent implements OnInit {
     this.incidentService.getIncidents().subscribe(data => {
       this.allIncidents = new Array<Incident>();
       this.allIncidents = data;
+      this.workingIncident = this.allIncidents.pop();
+
+      this.incidentService.getTeams().subscribe(data => {
+        this.allTeams = new Array<Team>();
+        this.allTeams = data;
+  
+      });
     });
 
-    this.incidentService.getTeams().subscribe(data => {
-      this.allTeams = new Array<Team>();
-      this.allTeams = data;
+    
 
-    });
-
-    this.workingIncident = this.allIncidents.pop();
+    
 
 
   }

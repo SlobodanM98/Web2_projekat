@@ -31,6 +31,8 @@ namespace Web2BackEnd.Models
         public float NivoNapona { get; set; }
         [Required]
         public string? PVR { get; set; }
+        //[Required]
+        public string UserID { get; set; }
         
         public string Uzrok { get; set; }
        

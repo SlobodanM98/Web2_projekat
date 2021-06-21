@@ -41,9 +41,21 @@ namespace Web2BackEnd.Services
             return success;
         }
 
-        public Task<bool> DeleteSafetyDocument(int id)
+        public async Task<bool> DeleteSafetyDocument(int id)
         {
-            throw new NotImplementedException();
+            
+                SafetyDocument doc = await _documentRepository.Delete(id);
+
+                if (doc == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    await _documentRepository.SaveChanges();
+                    return true;
+                }
+            
         }
 
         public async Task<DTOSafetyDocument> GetSafetyDocument(int id)
@@ -58,9 +70,55 @@ namespace Web2BackEnd.Services
             return _mapper.Map<IEnumerable<DTOSafetyDocument>>(documents);
         }
 
-        public Task<bool> UpdateSafetyDocument(DTOSafetyDocument call)
+        public async Task<bool> UpdateSafetyDocument(DTOSafetyDocument doc)
         {
-            throw new NotImplementedException();
+            SafetyDocument mapDoc = _mapper.Map<SafetyDocument>(doc);
+            _documentRepository.Update(mapDoc);
+
+            bool success = true;
+
+            try
+            {
+                await _documentRepository.SaveChanges();
+            }
+            catch
+            {
+                if (!_documentRepository.DocumentExists(doc.ID))
+                {
+                    success = false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return success;
+        }
+
+        public async Task<bool> AddDocumentImage(DTODocumentImage documentImage)
+        {
+            DocumentImage mapDocumentImage = _mapper.Map<DocumentImage>(documentImage);
+            _documentRepository.AddImage(mapDocumentImage);
+            bool success = true;
+
+            try
+            {
+                await _documentRepository.SaveChanges();
+            }
+            catch
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        public async Task<IEnumerable<DTODocumentImage>> GetDocumentImage()
+        {
+            IEnumerable<DocumentImage> documentImages = await _documentRepository.GetAllImages();
+            return _mapper.Map<IEnumerable<DTODocumentImage>>(documentImages);
         }
     }
+    
 }

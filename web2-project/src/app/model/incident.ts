@@ -12,7 +12,7 @@ export enum IncidentType
 //nezavrsena klasa
 export class Incident {
     public id:number;
-    public userID:number;
+    public userID:string;
     //public crewID:number;
     public tip:IncidentType;
     public prioritet:number = 0;

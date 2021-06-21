@@ -42,6 +42,15 @@ namespace Web2BackEnd.AutoMapper
 			CreateMap<DTOIncidentCall, IncidentCall>();
 			CreateMap<IncidentDevice, DTOIncidentDevice>();
 			CreateMap<DTOIncidentDevice, IncidentDevice>();
+
+			CreateMap<DTODocumentDevice, DocumentDevice>();
+			CreateMap<DocumentDevice, DTODocumentDevice>();
+
+			CreateMap<IncidentImage, DTOIncidentImage>();
+			CreateMap<DTOIncidentImage, IncidentImage>();
+
+			CreateMap<DocumentImage, DTODocumentImage>();
+			CreateMap<DTODocumentImage, DocumentImage>();
 		}
 	}
 }

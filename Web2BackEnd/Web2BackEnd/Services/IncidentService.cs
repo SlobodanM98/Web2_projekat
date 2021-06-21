@@ -78,5 +78,45 @@ namespace Web2BackEnd.Services
 
             return success;
         }
+
+        public async Task<bool> AddIncidentImage(DTOIncidentImage incidentImage)
+        {
+            IncidentImage mapIncidentImage = _mapper.Map<IncidentImage>(incidentImage);
+            _incidentRepository.AddImage(mapIncidentImage);
+            bool success = true;
+
+            try
+            {
+                await _incidentRepository.SaveChanges();
+            }
+            catch
+            {
+                success = false;
+            }
+
+            return success;
+        }
+
+        public async Task<bool> DeleteIncident(int id)
+        {
+            Incident incident = await _incidentRepository.Delete(id);
+
+            if (incident == null)
+            {
+                return false;
+            }
+            else
+            {
+                await _incidentRepository.SaveChanges();
+                return true;
+            }
+        }
+
+        public async Task<IEnumerable<DTOIncidentImage>> GetIncidentImage()
+        {
+            IEnumerable<IncidentImage> incidentImages = await _incidentRepository.GetAllImages();
+            return _mapper.Map<IEnumerable<DTOIncidentImage>>(incidentImages);
+        }
+
     }
 }

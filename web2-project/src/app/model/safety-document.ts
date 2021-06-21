@@ -9,16 +9,20 @@ export enum TipDokumenta {
 
 
 export class SafetyDocument {
-    public ID:number;
-    public Tip: TipDokumenta;
-    public Status:string;
-    public PlanRada:number;
-    public Author:string;
-    public Team:number;
-    public Details:string;
-    public Notes:string;
-    public PhoneNum:string;
+    public id:number;
+    public tipDokumenta: TipDokumenta;
+    public status:string;
+    public planRada:number;
+    public author:string;
+    public team:number;
+    public details:string;
+    public notes:string;
+    public phoneNum:string;
     public dateOfCreation:Date;
+    public SafetyOp:boolean;
+    public tagsRemoved:boolean;
+    public groundingRemoved:boolean;
+    public readyForService:boolean;
 
 
    

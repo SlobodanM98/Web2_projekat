@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
+import { Incident } from 'src/app/model/incident';
 import { IncidentService } from 'src/app/services/incident.service';
 
 @Component({
@@ -12,59 +15,85 @@ export class MultimediaAttachmentsComponent implements OnInit {
   progressInfos:any[] = [];
   message = '';
   fileInfos: Observable<any>;
+  workingIncident:any;
+  allIncidents:Array<Incident>;
 
+  constructor(private fb:FormBuilder, private incidentService:IncidentService) { }
 
-  constructor(private uploadService:IncidentService) { }
+  submitImageForm: FormGroup;
+  selectedImage: File;
+
+  notification: Notification;
+
+  imageSrc:string = '../assets/profil.png';
+
+  allImages: Array<string>;
 
   ngOnInit(): void {
-    //this.fileInfos = this.uploadService.getFiles();
+    
+    this.allImages = new Array<string>();
+    this.allIncidents=  new Array<Incident>();
+
+    this.incidentService.getIncidents().subscribe(data => {
+      this.allIncidents = data;
+      this.workingIncident = this.allIncidents.pop();
+      this.incidentService.getIncidentImage(Number(this.workingIncident.id)).subscribe(data=>{
+        this.allImages = new Array<string>();
+        this.allImages = data;
+      });
+
+    });
+
+    
+
+    this.submitImageForm = this.fb.group({
+      image: ['', [
+        Validators.required
+      ]]
+    })
   }
-  selectFiles(event:any) {
-    this.progressInfos = [];
-  
-    const files = event.target.files;
-    let isImage = true;
-  
-    for (let i = 0; i < files.length; i++) {
-      if (files.item(i).type.match('image.*')) {
-        continue;
-      } else {
-        isImage = false;
-        alert('invalid format!');
-        break;
-      }
+  onChange(e:any) {
+    const reader = new FileReader();
+    
+    if(e.target.files && e.target.files.length) {
+      const [file] = e.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+      };
+
+      this.selectedImage = <File>e.target.files[0];
     }
-  
-    if (isImage) {
-      this.selectedFiles = event.target.files;
-    } else {
-      this.selectedFiles = undefined;
-      event.srcElement.percentage = null;
-    }
-  }
-  uploadFiles() {
-    /*
-    this.message = '';
-  
-    for (let i = 0; i < this.selectedFiles!.length; i++) {
-      this.upload(i, this.selectedFiles![i]);
-    }*/
   }
 
-  upload(idx:any, file:any) {/*
-    this.progressInfos[idx] = { value: 0, fileName: file.name };
-  
-    this.uploadService.upload(file).subscribe(
-      event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progressInfos[idx].percentage = Math.round(100 * event.loaded / event.total!);
-        } else if (event instanceof HttpResponse) {
-          this.fileInfos = this.uploadService.getFiles();
-        }
-      },
-      err => {
-        this.progressInfos[idx].percentage = 0;
-        this.message = 'Could not upload the file:' + file.name;
-      });*/
+  submitImage(){
+    const helper = new JwtHelperService();
+    var token : any = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(token);
+
+    this.incidentService.postIncidentImage(this.selectedImage, Number(this.workingIncident.id)).subscribe(data=>{   
+      //this.notification = new Notification(DecodedToken.id, "Work plan image added successfully!", NotificationType.Success, false, false, new Date());
+      //this.notificationService.postNotification(this.notification).subscribe();
+      //this.toastr.success(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    
+      this.incidentService.getIncidentImage(Number(this.workingIncident.id)).subscribe(data=>{
+        this.allImages = new Array<string>();
+        this.allImages = data;
+      });
+    }, error => {    
+      /*     
+      this.notification = new Notification(DecodedToken.id, "Work plan image added unsuccessfully!", NotificationType.Error, false, false, new Date());
+      this.notificationService.postNotification(this.notification).subscribe();
+      this.toastr.error(this.notification.description, this.notification.date.toLocaleString()).onTap.pipe().subscribe(() => this.onNotificationClick());
+    */
+    });
+
+    this.imageSrc = '../assets/profil.png';
+    this.submitImageForm.controls['image'].reset;
   }
+
+  
+
+  
 }

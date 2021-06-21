@@ -12,6 +12,9 @@ export interface TableElement
   id:number;
   startDate:Date;
   status:string;
+  ETA:string;
+  ATA:string;
+
 }
 
 @Component({
@@ -26,7 +29,7 @@ export class IncidentsFilteredComponent implements OnInit, AfterViewInit {
   @Input() filteredData : Array<Incident>;
 
   tableElements:Array<TableElement>;
-  displayedColumns:string[] = ['ID','startDate', 'status'];
+  displayedColumns:string[] = ['ID','startDate', 'status', 'ETA', 'ATA'];
   dataSource:any;
 
   constructor() { }
@@ -50,7 +53,7 @@ export class IncidentsFilteredComponent implements OnInit, AfterViewInit {
     this.tableElements = new Array<TableElement>();
     this.filteredData.forEach(element => {
       console.log(element);
-      var data: TableElement = {id: element.id, startDate: element.vremeIncidenta, status: element.status}
+      var data: TableElement = {id: element.id, startDate: element.vremeIncidenta, status: element.status, ETA:element.eta.toString(),ATA:element.ata.toString()}
       console.log(data);
       this.tableElements.push(data);
     })

@@ -1,6 +1,6 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SafetyDocument, TipDokumenta} from 'src/app/model/safety-document';
 import { DocumentService } from 'src/app/services/document.service';
@@ -14,6 +14,8 @@ export class DocumentsComponent implements OnInit {
   allDocuments:Array<SafetyDocument>;
   filteredDocuments:Array<SafetyDocument> = new Array<SafetyDocument>();
   authorFilter:string;
+  token:any;
+  filterForm:FormGroup;
 
 
   addDocumentForm: FormGroup;
@@ -25,29 +27,30 @@ export class DocumentsComponent implements OnInit {
 
       this.allDocuments = new Array<SafetyDocument>();
       this.allDocuments = data;
-      this.allDocuments.forEach(element => {
-        this.filteredDocuments.push(element);
-      });
-      console.log(this.filterDocuments);
+      this.filteredDocuments = this.allDocuments;
+      console.log('SVI DOKUMENTI');
+      console.log(this.filteredDocuments);
+      //console.log(this.filteredDocuments);
     });
- 
+
+    this.filterForm = this.formBuilder.group({
+      DocumentAuthorFilter:['', []]
+    });
 
 
-    this.addDocumentForm = this.formBuilder.group({
-      TipDokumenta: ['', [Validators.required]],
-      PlanRada: ['', [Validators.required]],
-      Author: ['', [Validators.required]],
-      Details:['', [Validators.required]],
-      Notes:['', [Validators.required]],
-      PhoneNum:['', [Validators.required]]
-    });
-    /*
-    this.allDocuments = new Array<SafetyDocument>();
-    this.allDocuments.push(new SafetyDocument(TipDokumenta.NeplaniraniRad, "123", "Pera", "Detalj 1", "Notes1", "381655406188"));
-    this.allDocuments.push(new SafetyDocument(TipDokumenta.PlaniraniRad,"91","Zika", "Details 2", "Notes 2", "3815528288"));
-    this.allDocuments.push(new SafetyDocument(TipDokumenta.NeplaniraniRad,"1201","Mika", "Details 3", "Notes 3", "3814161997"));
-    */
+    const helper = new JwtHelperService();
+    this.token = localStorage.getItem('token');
+    const DecodedToken = helper.decodeToken(this.token);
+    console.log(DecodedToken);
+    this.authorFilter = DecodedToken.username;
+
+
+
     
+
+    
+    
+   
     
   }
   submitDocument()
@@ -71,7 +74,12 @@ export class DocumentsComponent implements OnInit {
   filterDocuments()
   {
    // this.filteredDocuments = this.allDocuments;
-   console.log('filtering...');
+   if (this.filterForm.controls["DocumentAuthorFilter"].value == "showMine"){
+     this.filteredDocuments = this.filteredDocuments.filter(x => x.author == this.authorFilter);
+   }
+   else {
+    this.filteredDocuments = this.allDocuments;
+   }
     
   }
   getFilterFieldValue(filterFieldId: string) {
@@ -79,7 +87,7 @@ export class DocumentsComponent implements OnInit {
   }
   resetFilter()
   {
-    console.log('reseting');
+    this.filteredDocuments = this.allDocuments;
   }
   /*
   openAddDocumentModal(content : any){

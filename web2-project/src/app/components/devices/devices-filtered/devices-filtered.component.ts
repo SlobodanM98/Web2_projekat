@@ -49,8 +49,7 @@ export class DevicesFilteredComponent implements OnInit, AfterViewInit {
       name:['',[]],
       lon:['',[]],
       lat:['',[]],
-      address: ['', [
-      ]],
+      address: ['', []],
       Tip:['',[]]
 
     });

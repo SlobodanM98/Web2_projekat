@@ -17,11 +17,13 @@ namespace Web2BackEnd.Controllers
     {
         private readonly DeviceService _service;
         private readonly IncidentDeviceService _incidentDeviceService;
+        private readonly DocumentDeviceService _documentDeviceService;
 
         public DeviceController(DataContext context, IMapper mapper)
         {
             _service = new DeviceService(context, mapper);
             _incidentDeviceService = new IncidentDeviceService(context, mapper);
+            _documentDeviceService = new DocumentDeviceService(context, mapper);
         }
         [HttpGet]
         public async Task<IEnumerable<DTODevice>> GetDevice()
@@ -98,6 +100,28 @@ namespace Web2BackEnd.Controllers
             foreach(DTOIncidentDevice incDev in allIncidentDevices)
             {
                if (incDev.IncidentID == id)
+                {
+                    retVal.Add(allDevices.FirstOrDefault(x => x.ID == incDev.DeviceID));
+                }
+            }
+
+            return retVal.AsEnumerable();
+
+
+
+        }
+
+        [HttpGet("DocumentDevice/{id}")]
+        public async Task<IEnumerable<DTODevice>> GetDocumentDevices(int id)
+        {
+            IEnumerable<DTODevice> allDevices = await _service.GetDevice();
+            IEnumerable<DTODocumentDevice> allDocumentDevices = await _documentDeviceService.GetDocumentDevice();
+
+            List<DTODevice> retVal = new List<DTODevice>();
+
+            foreach (DTODocumentDevice incDev in allDocumentDevices)
+            {
+                if (incDev.DocumentID == id)
                 {
                     retVal.Add(allDevices.FirstOrDefault(x => x.ID == incDev.DeviceID));
                 }

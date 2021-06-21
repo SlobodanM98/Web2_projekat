@@ -38,6 +38,17 @@ namespace Web2BackEnd.Repository
 		{
 			return await _dbSet.Include("Team").FirstOrDefaultAsync(incident => incident.ID == id);
 		}
+
+		public void AddImage(IncidentImage incidentImage)
+		{
+			_context.IncidentImages.Add(incidentImage);
+			_context.Entry(incidentImage.Incident).State = EntityState.Unchanged;
+		}
+		public async Task<IEnumerable<IncidentImage>> GetAllImages()
+		{
+			return await _context.IncidentImages.Include("Incident").ToListAsync();
+		}
+
 		/*
 		public override void Add(Incident model)
 		{

@@ -66,14 +66,14 @@ export class DocumentsBasicInfoComponent implements OnInit {
 
     console.log(this.td.toString());
     this.doc = new SafetyDocument();
-    this.doc.Tip = this.td;
-    this.doc.PhoneNum = this.DocumentBasicInfo.controls["phoneNum"].value;
-    this.doc.Status = this.DocumentBasicInfo.controls["status"].value;
-    this.doc.Author = this.username;
-    this.doc.PlanRada = this.DocumentBasicInfo.controls["switchPlan"].value;
-    this.doc.Details = this.DocumentBasicInfo.controls["details"].value;
-    this.doc.Notes = this.DocumentBasicInfo.controls["notes"].value;
-    this.doc.Team = this.DocumentBasicInfo.controls["crew"].value;
+    this.doc.tipDokumenta = this.td;
+    this.doc.phoneNum = this.DocumentBasicInfo.controls["phoneNum"].value;
+    this.doc.status = this.DocumentBasicInfo.controls["status"].value;
+    this.doc.author = this.username;
+    this.doc.planRada = this.DocumentBasicInfo.controls["switchPlan"].value;
+    this.doc.details = this.DocumentBasicInfo.controls["details"].value;
+    this.doc.notes = this.DocumentBasicInfo.controls["notes"].value;
+    this.doc.team = this.DocumentBasicInfo.controls["crew"].value;
     this.doc.dateOfCreation = this.DocumentBasicInfo.controls["dateCreated"].value;
     
 

@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-12">
+        <div class="page-header mb-4 mt-3">
+            <h3>Add a image</h3>
+            <hr class="solid">
+        </div>
+    </div>
+</div>
+<form [formGroup]="submitImageForm" (ngSubmit)="submitImage()" class="container">
+    <div class="row">
+        <div class="col">
+            <div class="form-group text-center">
+                <img width="150" height="150" [src]="imageSrc" class="img-fluid img-thumbnail w-75">
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="form-group text-center">
+                <input type="file" formControlName="image" name="image" id="image" (change)="onChange($event)" class="form-control-file btn-info mt-3">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-right">
+            <button type="button" class="btn btn-success" (click)="submitImage()" [disabled]="!submitImageForm.valid">Submit image</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4 mt-3">
+                <h4>Uploaded images</h4>
+                <hr class="solid">
+            </div>
+        </div>
+    </div>
+    <div class="container rounded" style="border:1px solid black">
+        <div class="row">
+            <div class="col-md-4" *ngFor="let path of allImages">
+                <img width="150" height="150" src="http://localhost:61791/{{path}}" class="img-fluid img-thumbnail w-75">
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,4 +1,4 @@
-<form [formGroup]="DocumentsChecklist">
+<form [formGroup]="DocumentsChecklist" (onsubmit)="updateDocument()">
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="form-group">
@@ -27,7 +27,7 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <button type="submit">Save</button>
+            <button mat-button type="submit" (click)="updateDocument()">Save</button>
         </div>
     </div>
 

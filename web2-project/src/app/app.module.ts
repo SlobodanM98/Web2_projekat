@@ -67,6 +67,8 @@ import { IncidentsCallsComponent } from './components/incidents/incidents-new/in
 import { NewCallComponent } from './components/incidents/incidents-new/incidents-calls/new-call/new-call.component';
 import { IncidentsCrewComponent } from './components/incidents/incidents-new/incidents-crew/incidents-crew.component';
 import { MultimediaAttachmentsComponent } from './components/incidents/incidents-new/multimedia-attachments/multimedia-attachments.component';
+import { DocumentsDevicesComponent } from './components/documents/documents-new/documents-devices/documents-devices.component';
+import { DocumentsMultimediaComponent } from './components/documents/documents-new/documents-multimedia/documents-multimedia.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { MultimediaAttachmentsComponent } from './components/incidents/incidents
     NewCallComponent,
     IncidentsCrewComponent,
     MultimediaAttachmentsComponent,
+    DocumentsDevicesComponent,
+    DocumentsMultimediaComponent,
     
    
   ],
